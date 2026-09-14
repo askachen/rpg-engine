@@ -1,0 +1,12 @@
+.godot/
+.tools/
+builds/
+.pytest_cache/
+__pycache__/
+test-results/
+*.tmp
+.env
+.env.*
+!.env.example
+*.pem
+*.key

@@ -1,0 +1,14 @@
+{
+  "a": {
+    "character": "a",
+    "title": "gallery_a",
+    "text": "a3_line",
+    "conditions": [
+      {
+        "kind": "completed",
+        "id": "a3",
+        "value": true
+      }
+    ]
+  }
+}

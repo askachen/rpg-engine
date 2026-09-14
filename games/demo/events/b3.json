@@ -1,0 +1,60 @@
+{
+  "b3": {
+    "character": "b",
+    "title": "b3",
+    "text": "b3_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "id": "b",
+        "value": 2
+      },
+      {
+        "kind": "completed",
+        "id": "b2",
+        "value": true
+      },
+      {
+        "kind": "affection",
+        "id": "b",
+        "value": 20
+      },
+      {
+        "kind": "period",
+        "value": "late"
+      }
+    ],
+    "effects": [
+      {
+        "kind": "affection",
+        "id": "b",
+        "value": 10
+      },
+      {
+        "kind": "stage",
+        "id": "b",
+        "value": 3
+      }
+    ],
+    "priority": 10,
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "opening",
+        "speaker": "b",
+        "text": "b3_line"
+      }
+    ]
+  }
+}

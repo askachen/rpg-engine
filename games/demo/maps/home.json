@@ -1,0 +1,1220 @@
+{
+  "home": {
+    "name": "home",
+    "width": 30,
+    "height": 17,
+    "cell_size": 44,
+    "walls": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        0,
+        7
+      ],
+      [
+        0,
+        9
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        0,
+        11
+      ],
+      [
+        0,
+        12
+      ],
+      [
+        0,
+        13
+      ],
+      [
+        0,
+        14
+      ],
+      [
+        0,
+        15
+      ],
+      [
+        0,
+        16
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        1,
+        16
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        2,
+        16
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        3,
+        16
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        16
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        5,
+        16
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        6,
+        16
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        7,
+        6
+      ],
+      [
+        7,
+        16
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        8,
+        6
+      ],
+      [
+        8,
+        16
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        9,
+        1
+      ],
+      [
+        9,
+        2
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        9,
+        4
+      ],
+      [
+        9,
+        5
+      ],
+      [
+        9,
+        6
+      ],
+      [
+        9,
+        16
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        10,
+        6
+      ],
+      [
+        10,
+        16
+      ],
+      [
+        11,
+        0
+      ],
+      [
+        11,
+        6
+      ],
+      [
+        11,
+        16
+      ],
+      [
+        12,
+        0
+      ],
+      [
+        12,
+        6
+      ],
+      [
+        12,
+        16
+      ],
+      [
+        13,
+        0
+      ],
+      [
+        13,
+        6
+      ],
+      [
+        13,
+        16
+      ],
+      [
+        14,
+        0
+      ],
+      [
+        14,
+        16
+      ],
+      [
+        15,
+        0
+      ],
+      [
+        15,
+        6
+      ],
+      [
+        15,
+        16
+      ],
+      [
+        16,
+        0
+      ],
+      [
+        16,
+        6
+      ],
+      [
+        16,
+        16
+      ],
+      [
+        17,
+        0
+      ],
+      [
+        17,
+        6
+      ],
+      [
+        17,
+        16
+      ],
+      [
+        18,
+        0
+      ],
+      [
+        18,
+        6
+      ],
+      [
+        18,
+        16
+      ],
+      [
+        19,
+        0
+      ],
+      [
+        19,
+        1
+      ],
+      [
+        19,
+        2
+      ],
+      [
+        19,
+        3
+      ],
+      [
+        19,
+        4
+      ],
+      [
+        19,
+        5
+      ],
+      [
+        19,
+        6
+      ],
+      [
+        19,
+        16
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        20,
+        6
+      ],
+      [
+        20,
+        16
+      ],
+      [
+        21,
+        0
+      ],
+      [
+        21,
+        6
+      ],
+      [
+        21,
+        9
+      ],
+      [
+        21,
+        12
+      ],
+      [
+        21,
+        13
+      ],
+      [
+        21,
+        15
+      ],
+      [
+        21,
+        16
+      ],
+      [
+        22,
+        0
+      ],
+      [
+        22,
+        6
+      ],
+      [
+        22,
+        12
+      ],
+      [
+        22,
+        16
+      ],
+      [
+        23,
+        0
+      ],
+      [
+        23,
+        6
+      ],
+      [
+        23,
+        12
+      ],
+      [
+        23,
+        16
+      ],
+      [
+        24,
+        0
+      ],
+      [
+        24,
+        12
+      ],
+      [
+        24,
+        16
+      ],
+      [
+        25,
+        0
+      ],
+      [
+        25,
+        6
+      ],
+      [
+        25,
+        12
+      ],
+      [
+        25,
+        16
+      ],
+      [
+        26,
+        0
+      ],
+      [
+        26,
+        6
+      ],
+      [
+        26,
+        12
+      ],
+      [
+        26,
+        16
+      ],
+      [
+        27,
+        0
+      ],
+      [
+        27,
+        6
+      ],
+      [
+        27,
+        12
+      ],
+      [
+        27,
+        16
+      ],
+      [
+        28,
+        0
+      ],
+      [
+        28,
+        6
+      ],
+      [
+        28,
+        12
+      ],
+      [
+        28,
+        16
+      ],
+      [
+        29,
+        0
+      ],
+      [
+        29,
+        1
+      ],
+      [
+        29,
+        2
+      ],
+      [
+        29,
+        3
+      ],
+      [
+        29,
+        4
+      ],
+      [
+        29,
+        5
+      ],
+      [
+        29,
+        6
+      ],
+      [
+        29,
+        7
+      ],
+      [
+        29,
+        8
+      ],
+      [
+        29,
+        9
+      ],
+      [
+        29,
+        10
+      ],
+      [
+        29,
+        11
+      ],
+      [
+        29,
+        12
+      ],
+      [
+        29,
+        13
+      ],
+      [
+        29,
+        14
+      ],
+      [
+        29,
+        15
+      ],
+      [
+        29,
+        16
+      ],
+      [
+        21,
+        10
+      ]
+    ],
+    "spawns": {
+      "entry": [
+        2,
+        8
+      ]
+    },
+    "objects": [
+      {
+        "id": "money_pickup",
+        "kind": "pickup",
+        "position": [
+          3,
+          8
+        ],
+        "label": "money_pickup",
+        "effects": [
+          {
+            "kind": "money",
+            "value": 100
+          }
+        ]
+      },
+      {
+        "id": "home_exit",
+        "kind": "exit",
+        "position": [
+          0,
+          8
+        ],
+        "label": "home_exit",
+        "destination": "street",
+        "spawn": "entry"
+      }
+    ],
+    "furniture": [
+      {
+        "id": "master_bed",
+        "sprite": 4,
+        "position": [
+          2,
+          1
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "master_wardrobe",
+        "sprite": 7,
+        "position": [
+          6,
+          1
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "master_desk",
+        "sprite": 13,
+        "position": [
+          6,
+          4
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "bedroom_bed",
+        "sprite": 4,
+        "position": [
+          11,
+          1
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "bedroom_wardrobe",
+        "sprite": 7,
+        "position": [
+          16,
+          1
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "bedroom_desk",
+        "sprite": 13,
+        "position": [
+          16,
+          4
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "guest_bed",
+        "sprite": 4,
+        "position": [
+          21,
+          1
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "guest_wardrobe",
+        "sprite": 7,
+        "position": [
+          26,
+          1
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "guest_desk",
+        "sprite": 13,
+        "position": [
+          26,
+          4
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "living_sofa",
+        "sprite": 5,
+        "position": [
+          3,
+          10
+        ],
+        "size": [
+          4,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "living_tv",
+        "sprite": 15,
+        "position": [
+          3,
+          14
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "living_plant",
+        "sprite": 5,
+        "position": [
+          9,
+          14
+        ],
+        "size": [
+          1,
+          1
+        ],
+        "solid": true,
+        "sheet": "decor"
+      },
+      {
+        "id": "dining_table",
+        "sprite": 6,
+        "position": [
+          14,
+          11
+        ],
+        "size": [
+          4,
+          3
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "dining_plant",
+        "sprite": 5,
+        "position": [
+          19,
+          14
+        ],
+        "size": [
+          1,
+          1
+        ],
+        "solid": true,
+        "sheet": "decor"
+      },
+      {
+        "id": "kitchen_stove",
+        "sprite": 8,
+        "position": [
+          22,
+          9
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "kitchen_sink",
+        "sprite": 9,
+        "position": [
+          24,
+          9
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "kitchen_fridge",
+        "sprite": 10,
+        "position": [
+          27,
+          9
+        ],
+        "size": [
+          1,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "bath_tub",
+        "sprite": 12,
+        "position": [
+          26,
+          13
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "bath_toilet",
+        "sprite": 11,
+        "position": [
+          24,
+          13
+        ],
+        "size": [
+          1,
+          2
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "bath_sink",
+        "sprite": 9,
+        "position": [
+          22,
+          13
+        ],
+        "size": [
+          1,
+          1
+        ],
+        "solid": true,
+        "sheet": "interior"
+      },
+      {
+        "id": "hall_plant",
+        "sprite": 5,
+        "position": [
+          27,
+          7
+        ],
+        "size": [
+          1,
+          1
+        ],
+        "solid": true,
+        "sheet": "decor"
+      },
+      {
+        "id": "coffee_table",
+        "sheet": "decor",
+        "sprite": 4,
+        "position": [
+          4,
+          12
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true
+      },
+      {
+        "id": "living_books",
+        "sheet": "decor",
+        "sprite": 7,
+        "position": [
+          9,
+          10
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true
+      }
+    ],
+    "rooms": [
+      {
+        "id": "master_room",
+        "kind": "bedroom",
+        "rect": [
+          1,
+          1,
+          8,
+          5
+        ],
+        "label_position": [
+          3,
+          5
+        ],
+        "floor": 0,
+        "door": [
+          5,
+          6
+        ]
+      },
+      {
+        "id": "second_room",
+        "kind": "bedroom",
+        "rect": [
+          10,
+          1,
+          9,
+          5
+        ],
+        "label_position": [
+          12,
+          5
+        ],
+        "floor": 0,
+        "door": [
+          14,
+          6
+        ]
+      },
+      {
+        "id": "guest_room",
+        "kind": "bedroom",
+        "rect": [
+          20,
+          1,
+          9,
+          5
+        ],
+        "label_position": [
+          22,
+          5
+        ],
+        "floor": 0,
+        "door": [
+          24,
+          6
+        ]
+      },
+      {
+        "id": "living_room",
+        "kind": "living",
+        "rect": [
+          1,
+          9,
+          11,
+          7
+        ],
+        "label_position": [
+          3,
+          15
+        ],
+        "floor": 0,
+        "door": [
+          8,
+          9
+        ]
+      },
+      {
+        "id": "dining_room",
+        "kind": "dining",
+        "rect": [
+          12,
+          9,
+          9,
+          7
+        ],
+        "label_position": [
+          14,
+          15
+        ],
+        "floor": 0,
+        "door": [
+          14,
+          9
+        ]
+      },
+      {
+        "id": "kitchen_room",
+        "kind": "kitchen",
+        "rect": [
+          22,
+          9,
+          7,
+          3
+        ],
+        "label_position": [
+          23,
+          11
+        ],
+        "floor": 1,
+        "door": [
+          21,
+          11
+        ]
+      },
+      {
+        "id": "bath_room",
+        "kind": "bathroom",
+        "rect": [
+          22,
+          13,
+          7,
+          3
+        ],
+        "label_position": [
+          23,
+          15
+        ],
+        "floor": 1,
+        "door": [
+          21,
+          14
+        ]
+      }
+    ],
+    "use_atlas": true,
+    "floor_sheet": "interior",
+    "floor_index": 0,
+    "decorations": [
+      {
+        "id": "living_rug",
+        "sheet": "decor",
+        "sprite": 0,
+        "position": [
+          2,
+          10
+        ],
+        "size": [
+          8,
+          6
+        ],
+        "layer": "floor"
+      },
+      {
+        "id": "dining_rug",
+        "sheet": "decor",
+        "sprite": 1,
+        "position": [
+          13,
+          10
+        ],
+        "size": [
+          7,
+          5
+        ],
+        "layer": "floor"
+      },
+      {
+        "id": "entry_mat",
+        "sheet": "decor",
+        "sprite": 8,
+        "position": [
+          1,
+          7.5
+        ],
+        "size": [
+          3,
+          1.5
+        ],
+        "layer": "floor"
+      },
+      {
+        "id": "bedroom_rug0",
+        "sheet": "decor",
+        "sprite": 0,
+        "position": [
+          2,
+          2.8
+        ],
+        "size": [
+          5,
+          2.8
+        ],
+        "layer": "floor"
+      },
+      {
+        "id": "window0",
+        "sheet": "decor",
+        "sprite": 3,
+        "position": [
+          3,
+          0.05
+        ],
+        "size": [
+          3,
+          1.4
+        ],
+        "layer": "wall"
+      },
+      {
+        "id": "wallart0",
+        "sheet": "decor",
+        "sprite": 6,
+        "position": [
+          6,
+          0.1
+        ],
+        "size": [
+          2,
+          1.2
+        ],
+        "layer": "wall"
+      },
+      {
+        "id": "bedroom_rug1",
+        "sheet": "decor",
+        "sprite": 2,
+        "position": [
+          11,
+          2.8
+        ],
+        "size": [
+          5,
+          2.8
+        ],
+        "layer": "floor"
+      },
+      {
+        "id": "window1",
+        "sheet": "decor",
+        "sprite": 3,
+        "position": [
+          12,
+          0.05
+        ],
+        "size": [
+          3,
+          1.4
+        ],
+        "layer": "wall"
+      },
+      {
+        "id": "wallart1",
+        "sheet": "decor",
+        "sprite": 6,
+        "position": [
+          15,
+          0.1
+        ],
+        "size": [
+          2,
+          1.2
+        ],
+        "layer": "wall"
+      },
+      {
+        "id": "bedroom_rug2",
+        "sheet": "decor",
+        "sprite": 1,
+        "position": [
+          21,
+          2.8
+        ],
+        "size": [
+          5,
+          2.8
+        ],
+        "layer": "floor"
+      },
+      {
+        "id": "window2",
+        "sheet": "decor",
+        "sprite": 3,
+        "position": [
+          22,
+          0.05
+        ],
+        "size": [
+          3,
+          1.4
+        ],
+        "layer": "wall"
+      },
+      {
+        "id": "wallart2",
+        "sheet": "decor",
+        "sprite": 6,
+        "position": [
+          25,
+          0.1
+        ],
+        "size": [
+          2,
+          1.2
+        ],
+        "layer": "wall"
+      }
+    ]
+  }
+}

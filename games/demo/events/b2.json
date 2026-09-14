@@ -1,0 +1,61 @@
+{
+  "b2": {
+    "character": "b",
+    "title": "b2",
+    "text": "b2_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "id": "b",
+        "value": 1
+      },
+      {
+        "kind": "completed",
+        "id": "b1",
+        "value": true
+      },
+      {
+        "kind": "affection",
+        "id": "b",
+        "value": 10
+      },
+      {
+        "kind": "flag",
+        "id": "lamp_on",
+        "value": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "affection",
+        "id": "b",
+        "value": 10
+      },
+      {
+        "kind": "stage",
+        "id": "b",
+        "value": 2
+      }
+    ],
+    "priority": 10,
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "opening",
+        "speaker": "b",
+        "text": "b2_line"
+      }
+    ]
+  }
+}

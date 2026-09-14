@@ -1,0 +1,225 @@
+{
+  "id": "story_garden_demo",
+  "version": 4,
+  "assets": [
+    "res://games/demo/assets/home-interior-atlas-v1.png",
+    "res://games/demo/assets/home-decor-v2.png",
+    "res://games/demo/assets/characters-v1.png",
+    "res://games/demo/assets/town-v2.png",
+    "res://games/demo/assets/coffee-ambience-v1.wav",
+    "res://games/demo/assets/cup-chime-v1.wav"
+  ],
+  "initial": {
+    "map": "home",
+    "position": [
+      2,
+      8
+    ],
+    "day": 1,
+    "period": "day",
+    "money": 0,
+    "inventory": {},
+    "characters": {
+      "a": {
+        "stage": 0,
+        "affection": 0
+      },
+      "b": {
+        "stage": 0,
+        "affection": 0
+      }
+    },
+    "completed": [],
+    "flags": {},
+    "objects": {},
+    "stock": {
+      "general:coffee": 1,
+      "general:letter": 1
+    }
+  },
+  "interior_atlas": "res://games/demo/assets/home-interior-atlas-v1.png",
+  "visuals": {
+    "interior": {
+      "path": "res://games/demo/assets/home-interior-atlas-v1.png",
+      "columns": 4,
+      "rows": 4,
+      "opaque": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "decor": {
+      "path": "res://games/demo/assets/home-decor-v2.png",
+      "columns": 3,
+      "rows": 3,
+      "regions": {
+        "4": [
+          0.18,
+          0.21,
+          0.78,
+          0.65
+        ]
+      }
+    },
+    "characters": {
+      "path": "res://games/demo/assets/characters-v1.png",
+      "columns": 3,
+      "rows": 2
+    },
+    "town": {
+      "path": "res://games/demo/assets/town-v2.png",
+      "columns": 4,
+      "rows": 4,
+      "opaque": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "avatars": {
+    "player": {
+      "portrait": 0,
+      "sprite": 3
+    },
+    "a": {
+      "portrait": 1,
+      "sprite": 4
+    },
+    "b": {
+      "portrait": 2,
+      "sprite": 5
+    }
+  },
+  "protagonist": "player",
+  "default_language": "zh_TW",
+  "presentation": {
+    "title": {
+      "eyebrow": "brand",
+      "title": "title",
+      "subtitle": "subtitle",
+      "chapter": "chapter",
+      "layers": [
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 0
+          },
+          "rect": [
+            825,
+            365,
+            315,
+            540
+          ]
+        },
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 1
+          },
+          "rect": [
+            1090,
+            190,
+            360,
+            715
+          ]
+        },
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 2
+          },
+          "rect": [
+            1430,
+            275,
+            335,
+            630
+          ]
+        },
+        {
+          "image": {
+            "sheet": "decor",
+            "index": 5
+          },
+          "rect": [
+            1650,
+            820,
+            140,
+            150
+          ]
+        }
+      ]
+    },
+    "palette": {},
+    "world": {
+      "wall": {
+        "sheet": "interior",
+        "horizontal": 2,
+        "vertical": 3
+      },
+      "icons": {
+        "pickup": {
+          "sheet": "town",
+          "index": 12
+        },
+        "switch": {
+          "sheet": "town",
+          "index": 5
+        }
+      }
+    }
+  },
+  "locale_names": {
+    "zh_TW": "繁體中文",
+    "en": "English"
+  },
+  "format_version": 1,
+  "sources": {
+    "maps": [
+      "maps/home.json",
+      "maps/street.json",
+      "maps/shop.json",
+      "maps/garden.json"
+    ],
+    "characters": [
+      "characters/a.json",
+      "characters/b.json"
+    ],
+    "events": [
+      "events/a1.json",
+      "events/a2.json",
+      "events/a3.json",
+      "events/b1.json",
+      "events/b2.json",
+      "events/b3.json"
+    ],
+    "items": [
+      "items/coffee.json",
+      "items/letter.json"
+    ],
+    "shops": [
+      "shops/general.json"
+    ],
+    "routes": [
+      "routes/a.json",
+      "routes/b.json"
+    ],
+    "endings": [
+      "endings/all_routes.json"
+    ],
+    "gallery": [
+      "gallery/a.json",
+      "gallery/b.json"
+    ],
+    "locales": [
+      "locales/zh_TW.json",
+      "locales/en.json"
+    ]
+  },
+  "save_migration": {
+    "reposition_before_version": 4
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "a3": {
+    "character": "a",
+    "title": "a3",
+    "text": "a3_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "id": "a",
+        "value": 2
+      },
+      {
+        "kind": "completed",
+        "id": "a2",
+        "value": true
+      },
+      {
+        "kind": "affection",
+        "id": "a",
+        "value": 20
+      },
+      {
+        "kind": "item",
+        "id": "letter",
+        "value": 1
+      },
+      {
+        "kind": "period",
+        "value": "evening"
+      }
+    ],
+    "effects": [
+      {
+        "kind": "affection",
+        "id": "a",
+        "value": 10
+      },
+      {
+        "kind": "stage",
+        "id": "a",
+        "value": 3
+      },
+      {
+        "kind": "item",
+        "id": "letter",
+        "value": -1
+      }
+    ],
+    "priority": 10,
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "opening",
+        "speaker": "a",
+        "text": "a3_line"
+      }
+    ]
+  }
+}

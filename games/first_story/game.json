@@ -1,0 +1,173 @@
+{
+  "visuals": {
+    "interior": {
+      "path": "res://games/first_story/assets/home-interior-atlas-v1.png",
+      "columns": 4,
+      "rows": 4,
+      "opaque": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "characters": {
+      "path": "res://games/first_story/assets/characters-v1.png",
+      "columns": 3,
+      "rows": 2
+    },
+    "town": {
+      "path": "res://games/first_story/assets/town-v2.png",
+      "columns": 4,
+      "rows": 4,
+      "opaque": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "presentation": {
+    "title": {
+      "eyebrow": "brand",
+      "title": "title",
+      "subtitle": "subtitle",
+      "chapter": "chapter",
+      "layers": [
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 0
+          },
+          "rect": [
+            960,
+            260,
+            320,
+            620
+          ]
+        },
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 1
+          },
+          "rect": [
+            1320,
+            220,
+            350,
+            660
+          ]
+        }
+      ]
+    },
+    "palette": {},
+    "world": {
+      "wall": {
+        "sheet": "interior",
+        "horizontal": 2,
+        "vertical": 3
+      },
+      "icons": {
+        "pickup": {
+          "sheet": "town",
+          "index": 12
+        },
+        "switch": {
+          "sheet": "town",
+          "index": 5
+        }
+      }
+    }
+  },
+  "locale_names": {
+    "zh_TW": "繁體中文",
+    "en": "English"
+  },
+  "id": "first_story",
+  "version": 1,
+  "protagonist": "hero",
+  "default_language": "zh_TW",
+  "assets": [
+    "res://games/first_story/assets/home-interior-atlas-v1.png",
+    "res://games/first_story/assets/characters-v1.png",
+    "res://games/first_story/assets/town-v2.png"
+  ],
+  "avatars": {
+    "hero": {
+      "portrait": {
+        "sheet": "characters",
+        "index": 0
+      },
+      "sprite": {
+        "sheet": "characters",
+        "index": 3
+      }
+    },
+    "guide": {
+      "portrait": {
+        "sheet": "characters",
+        "index": 1
+      },
+      "sprite": {
+        "sheet": "characters",
+        "index": 4
+      }
+    }
+  },
+  "initial": {
+    "map": "room",
+    "position": [
+      2,
+      3
+    ],
+    "day": 1,
+    "period": "day",
+    "money": 0,
+    "inventory": {},
+    "characters": {
+      "guide": {
+        "stage": 0,
+        "affection": 0
+      }
+    },
+    "completed": [],
+    "flags": {},
+    "objects": {},
+    "stock": {
+      "kiosk:tea": 1
+    }
+  },
+  "format_version": 1,
+  "sources": {
+    "maps": [
+      "maps/room.json"
+    ],
+    "characters": [
+      "characters/guide.json"
+    ],
+    "events": [
+      "events/welcome.json",
+      "events/tea_time.json"
+    ],
+    "items": [
+      "items/tea.json"
+    ],
+    "shops": [
+      "shops/kiosk.json"
+    ],
+    "routes": [
+      "routes/guide.json"
+    ],
+    "endings": [
+      "endings/friendship.json"
+    ],
+    "gallery": [
+      "gallery/first_memory.json"
+    ],
+    "locales": [
+      "locales/zh_TW.json",
+      "locales/en.json"
+    ]
+  }
+}

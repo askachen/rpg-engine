@@ -1,0 +1,80 @@
+{
+  "steps": [
+    {
+      "op": "interact",
+      "target": "coins"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "kiosk_counter"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "tea"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    }
+  ],
+  "expect": {
+    "completed": [
+      "welcome",
+      "tea_time"
+    ],
+    "money": 10
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "all_routes": {
+    "text": "end",
+    "conditions": [
+      {
+        "kind": "completed",
+        "id": "a3",
+        "value": true
+      },
+      {
+        "kind": "completed",
+        "id": "b3",
+        "value": true
+      }
+    ]
+  }
+}

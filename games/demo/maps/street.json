@@ -1,0 +1,232 @@
+{
+  "street": {
+    "name": "street",
+    "width": 24,
+    "height": 14,
+    "walls": [],
+    "spawns": {
+      "entry": [
+        1,
+        3
+      ]
+    },
+    "objects": [
+      {
+        "id": "street_home",
+        "kind": "exit",
+        "position": [
+          0,
+          3
+        ],
+        "label": "street_home",
+        "destination": "home",
+        "spawn": "entry"
+      },
+      {
+        "id": "street_shop",
+        "kind": "exit",
+        "position": [
+          22,
+          5
+        ],
+        "label": "street_shop",
+        "destination": "shop",
+        "spawn": "entry"
+      },
+      {
+        "id": "b_npc",
+        "kind": "npc",
+        "position": [
+          9,
+          10
+        ],
+        "label": "b_npc",
+        "character": "b"
+      },
+      {
+        "id": "lamp",
+        "kind": "switch",
+        "position": [
+          17,
+          9
+        ],
+        "label": "lamp",
+        "effects": [
+          {
+            "kind": "flag",
+            "id": "lamp_on",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "garden_gate",
+        "kind": "exit",
+        "position": [
+          22,
+          11
+        ],
+        "label": "garden_gate",
+        "destination": "garden",
+        "spawn": "entry",
+        "conditions": [
+          {
+            "kind": "flag",
+            "id": "lamp_on",
+            "value": true
+          }
+        ]
+      }
+    ],
+    "floor_colors": [
+      "344d3c",
+      "37503f"
+    ],
+    "wall_color": "6c8566",
+    "zones": [
+      {
+        "rect": [
+          0,
+          4,
+          24,
+          3
+        ],
+        "color": "635e4e",
+        "floor": 1
+      },
+      {
+        "rect": [
+          7,
+          7,
+          4,
+          6
+        ],
+        "color": "635e4e",
+        "floor": 1
+      },
+      {
+        "rect": [
+          11,
+          9,
+          8,
+          2
+        ],
+        "color": "635e4e",
+        "floor": 1
+      }
+    ],
+    "floor_sheet": "town",
+    "floor_index": 0,
+    "furniture": [
+      {
+        "id": "home_facade",
+        "sheet": "town",
+        "sprite": 9,
+        "position": [
+          2,
+          0
+        ],
+        "size": [
+          6,
+          4
+        ],
+        "solid": true
+      },
+      {
+        "id": "shop_facade",
+        "sheet": "town",
+        "sprite": 8,
+        "position": [
+          17,
+          0
+        ],
+        "size": [
+          6,
+          4
+        ],
+        "solid": true
+      },
+      {
+        "id": "street_bench",
+        "sheet": "town",
+        "sprite": 4,
+        "position": [
+          12,
+          8
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": true
+      },
+      {
+        "id": "street_tree",
+        "sheet": "town",
+        "sprite": 7,
+        "position": [
+          2,
+          10
+        ],
+        "size": [
+          3,
+          3
+        ],
+        "solid": true
+      },
+      {
+        "id": "street_flowers",
+        "sheet": "town",
+        "sprite": 6,
+        "position": [
+          14,
+          11
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": true
+      }
+    ],
+    "decorations": [
+      {
+        "id": "flowers_left",
+        "sheet": "town",
+        "sprite": 15,
+        "position": [
+          0.5,
+          6.5
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "layer": "prop"
+      },
+      {
+        "id": "flowers_right",
+        "sheet": "town",
+        "sprite": 15,
+        "position": [
+          21,
+          8
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "layer": "prop"
+      }
+    ],
+    "materials": {
+      "0": {
+        "repeat": 3,
+        "tint": "b6c8ac"
+      },
+      "1": {
+        "repeat": 2
+      }
+    }
+  }
+}

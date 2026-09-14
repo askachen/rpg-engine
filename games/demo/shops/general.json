@@ -1,0 +1,10 @@
+{
+  "general": {
+    "coffee": {
+      "price": 20
+    },
+    "letter": {
+      "price": 30
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "b1": {
+    "character": "b",
+    "title": "b1",
+    "text": "b1_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "id": "b",
+        "value": 0
+      }
+    ],
+    "effects": [
+      {
+        "kind": "affection",
+        "id": "b",
+        "value": 10
+      },
+      {
+        "kind": "stage",
+        "id": "b",
+        "value": 1
+      }
+    ],
+    "priority": 10,
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "opening",
+        "speaker": "b",
+        "text": "b1_line"
+      }
+    ]
+  }
+}

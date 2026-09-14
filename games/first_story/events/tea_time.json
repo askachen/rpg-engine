@@ -1,0 +1,64 @@
+{
+  "tea_time": {
+    "character": "guide",
+    "title": "tea_line",
+    "text": "tea_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "id": "guide",
+        "value": 1
+      },
+      {
+        "kind": "completed",
+        "id": "welcome",
+        "value": true
+      },
+      {
+        "kind": "item",
+        "id": "tea",
+        "value": 1
+      },
+      {
+        "kind": "period",
+        "value": "evening"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "id": "guide",
+        "value": 2
+      },
+      {
+        "kind": "affection",
+        "id": "guide",
+        "value": 10
+      },
+      {
+        "kind": "item",
+        "id": "tea",
+        "value": -1
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "tea_line",
+        "speaker": "guide",
+        "text": "tea_line"
+      }
+    ]
+  }
+}

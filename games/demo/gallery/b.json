@@ -1,0 +1,14 @@
+{
+  "b": {
+    "character": "b",
+    "title": "gallery_b",
+    "text": "b3_line",
+    "conditions": [
+      {
+        "kind": "completed",
+        "id": "b3",
+        "value": true
+      }
+    ]
+  }
+}
