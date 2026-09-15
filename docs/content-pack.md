@@ -51,7 +51,7 @@ python tools/dev.py check --game demo
 
 `--game` 接受 games/ 下的資料夾名稱或 JSON 檔案路徑；省略時為 demo。play 在啟動前驗證與匯入資源。list／validate 不需要 Godot。未知內容路徑退出 2，內容驗證失敗退出 1，成功退出 0。
 
-check 的範圍是「選定內容靜態驗證＋Godot 載入＋共用引擎／demo 回歸」，不會替任意遊戲自動建立通關路線。new 與固定 walkthrough 的 test 指令已加入；完整 scenario 選擇、JSON 診斷與 build 指令尚待 S2 後續任務。editor 可以接收入口參數，但不會永久改寫 project.godot 預設；要確保測試選定遊戲請使用 play。
+check 的範圍是「選定內容靜態驗證＋Godot 載入＋共用引擎／demo 回歸」，不會替任意遊戲自動建立通關路線。new、test 的 --scenario、統一 --json 診斷與 Godot 原始專案 build 已加入；協定見 [CLI 說明](cli.md)。Windows exe 匯出驗收仍在 S6。editor 可以接收入口參數，但不會永久改寫 project.godot 預設；要確保測試選定遊戲請使用 play。
 
 ## 目前限制
 

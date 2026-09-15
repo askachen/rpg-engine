@@ -36,7 +36,7 @@ python tools/dev.py play --game my_story
 }
 ```
 
-上例只驗證拾取，完整產生路線則一路走到兩個事件完成。修改地圖／劇情後需同步更新路線。任何一步回報失敗、最終值不符或結束時仍有活動事件都使指令非零退出。沒有路線也不能假裝通過。詳細操作／狀態寫入 test-results/game-test-result.json。
+上例只驗證拾取，完整產生路線則一路走到兩個事件完成。修改地圖／劇情後需同步更新路線。任何一步回報失敗、最終值不符或結束時仍有活動事件都使指令非零退出。沒有路線也不能假裝通過。詳細操作／狀態寫入 JSON 報告 artifacts.walkthrough 所指向的 test-results/run-*/result.json。
 
 通關只證明指定路線。真正滑鼠通關另由 starter_mouse_test 回歸已生成範本，不把 core 操作測試宣稱為滑鼠測試。
 

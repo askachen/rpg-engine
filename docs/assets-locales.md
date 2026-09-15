@@ -4,7 +4,7 @@
 
 `python tools/dev.py validate --game demo`：無需 Godot，使用 Pillow 驗證 PNG／JPEG／WebP 檔頭、完整像素讀取及副檔名一致性；使用 wave 驗證 PCM WAV 樣本資料是否完整、非空。檔案檢查以路徑、修改時間及長度快取，避免同一測試程序重複解碼原素材。
 
-`check`／`play`：匯入 Godot 後再執行 asset_probe，確認 PNG／JPEG／WebP／SVG 可由 Image 讀取，WAV／OGG／MP3 為有正時長的 AudioStream，TTF／OTF／Font `.tres` 為 Font 資源。結果存於 test-results/asset-probe.json；失敗不進入遊戲。
+`check`／`play`：匯入 Godot 後再執行 asset_probe，確認 PNG／JPEG／WebP／SVG 可由 Image 讀取，WAV／OGG／MP3 為有正時長的 AudioStream，TTF／OTF／Font `.tres` 為 Font 資源。結果存於 JSON 報告 artifacts.asset_probe 所指向的 test-results/run-*/asset-probe.json；失敗不進入遊戲。
 
 OGG／MP3 原生資源載入与時長檢查並不代表全片逐幀解碼或聽感驗收。字型型別檢查不等於字形覆蓋或授權驗證；這些仍需發行階段檢查。SVG 與字型原生支援由 Godot probe 確認，純 Python validate 不作完整解碼保證。
 

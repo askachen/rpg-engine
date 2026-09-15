@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Public walkthrough",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "steps",
+    "expect"
+  ],
+  "properties": {
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "dx",
+              "dy"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "move"
+              },
+              "dx": {
+                "type": "integer",
+                "minimum": -1,
+                "maximum": 1
+              },
+              "dy": {
+                "type": "integer",
+                "minimum": -1,
+                "maximum": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "wait"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "target"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "interact"
+              },
+              "target": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "choice"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "choose"
+              },
+              "choice": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "shop",
+              "item"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "buy"
+              },
+              "shop": {
+                "type": "string"
+              },
+              "item": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "x",
+              "y"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "path"
+              },
+              "x": {
+                "type": "integer"
+              },
+              "y": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "save"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "load"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "snapshot"
+              },
+              "id": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "event"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "checks"
+              },
+              "event": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "latest_slot"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "slot"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "save_slot"
+              },
+              "slot": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "slot"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "load_slot"
+              },
+              "slot": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "op",
+              "slot"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "op": {
+                "const": "slot_info"
+              },
+              "slot": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 6
+              }
+            }
+          }
+        ]
+      }
+    },
+    "expect": {
+      "type": "object",
+      "minProperties": 1
+    }
+  }
+}
