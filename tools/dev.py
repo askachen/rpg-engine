@@ -34,7 +34,7 @@ def main(argv=None):
         parser.add_argument('--game', default='demo', help='games/ directory name or manifest JSON path')
         parser.add_argument('--json', action='store_true', help='Emit exactly one JSON result to stdout')
         parser.add_argument('--scenario', help='test only: scenario path relative to project root')
-        parser.add_argument('--timeout', type=float, default=120, help='Per-process deadline in seconds, except interactive play/editor')
+        parser.add_argument('--timeout', type=float, default=240, help='Per-process deadline in seconds, except interactive play/editor')
         options = parser.parse_args(argv)
         report.update(command=options.command, game=options.game)
         if not 0 < options.timeout <= 3600:

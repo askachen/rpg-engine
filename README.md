@@ -2,7 +2,7 @@
 
 給 AI Agentic Coding 使用的 **Godot 4.7.2 / GDScript 無戰鬥敘事 RPG 框架**。內容由 JSON 與素材檔案定義；建立地圖、對話、條件、角色路線與商店不需要操作 Godot 編輯器。
 
-**目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈已確認；S3 第二款故事已實作，跨遊戲隔離專項尚待完成；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
+**目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈已確認；S3 第二款故事與跨遊戲隔離專項已驗證，等待本批驗收；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
 
 ## 其他 AI：先用這個流程評估
 
@@ -29,7 +29,7 @@ python tools/dev.py new --game ai_review --json
 python tools/dev.py validate --game ai_review --json
 python tools/dev.py test --game ai_review --json
 python tools/dev.py build --game ai_review --json
-python tools/dev.py check --game ai_review --json
+python tools/dev.py check --game ai_review --timeout 240 --json
 ```
 
 下一步：閱讀 `games/ai_review/README.md`，修改 `events/` 的對話並同步兩份 `locales/`；再新增一個事件、登記 Manifest.sources.events 與 routes，更新 `tests/walkthrough.json`，重跑 validate 與 test。預期不需修改共用引擎。遇到缺少的能力請提出缺口，勿以直接注入金錢、完成旗標或略過失敗步驟讓測試通過。
@@ -51,7 +51,7 @@ python tools/dev.py check --game ai_review --json
 | `editor --game ID` | 開啟編輯器；內容製作不依賴此操作 |
 | `ui-smoke` | demo 專用實際渲染器截圖測試 |
 
-所有命令可加 `--json`，stdout 只輸出一份 JSON。退出碼：`0` 成功、`1` 資料／測試／程序失敗、`2` 用法或入口不存在、`3` 依賴／IO／逾時。`--timeout 120` 是每個非互動子程序的預設期限；play/editor 等待視窗關閉後才輸出結果。
+所有命令可加 `--json`，stdout 只輸出一份 JSON。退出碼：`0` 成功、`1` 資料／測試／程序失敗、`2` 用法或入口不存在、`3` 依賴／IO／逾時。`--timeout 240` 是每個非互動子程序的預設期限；play/editor 等待視窗關閉後才輸出結果。
 
 每次執行使用獨立 `test-results/run-*/`，JSON 的 artifacts 指向日誌、原生素材報告、通關完整狀態／歷史及 check 的 JUnit。測試存檔與手動試玩的 `.tools/userdata/` 隔離。請從 artifacts 讀路徑，不要寫死舊版報告檔名。並行執行同一 checkout 的 Godot 匯入仍可能競爭 `.godot/`；CI 請使用獨立 checkout 或序列執行。
 
@@ -91,8 +91,10 @@ first_story 的滑鼠路線：拾取錢 → 跟 Haru 對話接受 → 到櫃台�
 
 ## 尚缺的交付能力
 
-影片／Live2D、正式 CG 畫廊、完整設定、存檔 Schema 與備份、更多動作與轉場、跨遊戲隔離專項驗證、Windows 匯出與多解析度矩陣、完整 SDK／授權清單及外部團隊試用仍未完成。素材提示詞與來源記錄位於各 assets/；本 repo 尚未提供正式對外授權文件。
+影片／Live2D、正式 CG 畫廊、完整設定、存檔 Schema 與備份、更多動作與轉場、Windows 匯出與多解析度矩陣、完整 SDK／授權清單及外部團隊試用仍未完成。素材提示詞與來源記錄位於各 assets/；本 repo 尚未提供正式對外授權文件。
 
 素材檢查已包含 Python 圖片／WAV 檢查與 Godot 原生載入，但不等於完整音訊播放、所有字形或影片解碼驗證。本機 Godot 可能輸出憑證存放區警告；請分辨環境警告與 SCRIPT ERROR，不要把失敗測試忽略。
 
 每階段完成後會更新驗收文件並 commit/push。自動測試通過與使用者確認驗收是不同狀態。
+
+S3 隔離回歸會讓 demo 與 fog_harbor 共用同一個臨時使用者目錄，透過滑鼠建立不同設定與進度，交替重啟並驗證存檔、畫廊及已讀資料。誤放的外來存檔會被拒絕，槽位停用且不改目前狀態；見 [隔離驗收](docs/acceptance/010-isolation.md)。

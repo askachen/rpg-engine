@@ -29,7 +29,7 @@ diagnostics 每項有 `code` 與 `message`；內容 Schema 診斷的 message 保
 | 2 | 指令用法、指定入口／路線不存在或建立目錄衝突 | usage、not_found、destination、unsupported |
 | 3 | 環境依賴、IO 或逾時 | dependency、environment、timeout |
 
-process_failed 訊息與日誌記錄原始子程序退出碼。缺少 Godot 不會把 test 標為成功或略過。`--timeout` 範圍為大於 0 且最多 3600 秒，預設每個非互動子程序 120 秒；大型 check 可增加期限。逾時會結束直接子程序並保留已有日誌。play/editor 是互動程序，不套期限，關閉後才有最終報告。作業系統強制終止或鍵盤中斷不保證有 JSON 結果。
+process_failed 訊息與日誌記錄原始子程序退出碼。缺少 Godot 不會把 test 標為成功或略過。`--timeout` 範圍為大於 0 且最多 3600 秒，預設每個非互動子程序 240 秒；大型 check 可增加期限。逾時會結束直接子程序並保留已有日誌。play/editor 是互動程序，不套期限，關閉後才有最終報告。作業系統強制終止或鍵盤中斷不保證有 JSON 結果。
 
 ## 通關情境
 
