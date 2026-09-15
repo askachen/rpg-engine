@@ -1,0 +1,50 @@
+{
+  "inspect_signal": {
+    "character": "iris",
+    "title": "inspect_signal",
+    "text": "inspect_signal_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "value": 0,
+        "id": "iris"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "value": 1,
+        "id": "iris"
+      },
+      {
+        "kind": "affection",
+        "value": 10,
+        "id": "iris"
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "inspect_signal_intro",
+        "speaker": "iris",
+        "text": "inspect_signal_line"
+      },
+      {
+        "id": "inspect_signal_reply",
+        "speaker": "noah",
+        "text": "inspect_signal_reply"
+      }
+    ]
+  }
+}

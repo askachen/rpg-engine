@@ -1,0 +1,64 @@
+{
+  "last_dispatch": {
+    "character": "mara",
+    "title": "last_dispatch",
+    "text": "last_dispatch_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "value": 1,
+        "id": "mara"
+      },
+      {
+        "kind": "completed",
+        "value": true,
+        "id": "sort_letters"
+      },
+      {
+        "kind": "period",
+        "value": "late"
+      },
+      {
+        "kind": "affection",
+        "value": 10,
+        "id": "mara"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "value": 2,
+        "id": "mara"
+      },
+      {
+        "kind": "affection",
+        "value": 10,
+        "id": "mara"
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "last_dispatch_intro",
+        "speaker": "mara",
+        "text": "last_dispatch_line"
+      },
+      {
+        "id": "last_dispatch_reply",
+        "speaker": "noah",
+        "text": "last_dispatch_reply"
+      }
+    ]
+  }
+}

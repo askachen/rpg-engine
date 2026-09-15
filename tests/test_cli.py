@@ -25,7 +25,7 @@ def cli(*args, env=None):
 @pytest.mark.parametrize('args,code', [
     (('list',), 0), (('validate', '--game', 'first_story'), 0),
     (('validate', '--game', 'missing_cli_fixture'), 2),
-    (('test', '--game', 'demo'), 2), (('new', '--game', 'first_story'), 2),
+    (('test', '--game', 'theme_preview'), 2), (('new', '--game', 'first_story'), 2),
     (('wat',), 2), (('validate', '--scenario', 'unused'), 2),
     (('validate', '--timeout', 'nan'), 2),
 ])

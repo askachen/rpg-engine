@@ -1,0 +1,10 @@
+{
+  "iris": {
+    "events": [
+      "inspect_signal",
+      "repair_relay",
+      "decode_chart",
+      "light_beacon"
+    ]
+  }
+}

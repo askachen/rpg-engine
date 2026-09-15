@@ -1,0 +1,8 @@
+{
+  "mara": {
+    "events": [
+      "sort_letters",
+      "last_dispatch"
+    ]
+  }
+}

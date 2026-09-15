@@ -1,0 +1,69 @@
+{
+  "repair_relay": {
+    "character": "iris",
+    "title": "repair_relay",
+    "text": "repair_relay_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "value": 1,
+        "id": "iris"
+      },
+      {
+        "kind": "item",
+        "value": 1,
+        "id": "repair_kit"
+      },
+      {
+        "kind": "flag",
+        "value": true,
+        "id": "power"
+      },
+      {
+        "kind": "period",
+        "value": "evening"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "value": 2,
+        "id": "iris"
+      },
+      {
+        "kind": "affection",
+        "value": 10,
+        "id": "iris"
+      },
+      {
+        "kind": "item",
+        "value": -1,
+        "id": "repair_kit"
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "repair_relay_intro",
+        "speaker": "iris",
+        "text": "repair_relay_line"
+      },
+      {
+        "id": "repair_relay_reply",
+        "speaker": "noah",
+        "text": "repair_relay_reply"
+      }
+    ]
+  }
+}

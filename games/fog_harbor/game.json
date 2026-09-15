@@ -1,0 +1,233 @@
+{
+  "visuals": {
+    "interior": {
+      "path": "res://games/fog_harbor/assets/home-interior-atlas-v1.png",
+      "columns": 4,
+      "rows": 4,
+      "opaque": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "decor": {
+      "path": "res://games/fog_harbor/assets/home-decor-v2.png",
+      "columns": 3,
+      "rows": 3,
+      "regions": {
+        "4": [
+          0.18,
+          0.21,
+          0.78,
+          0.65
+        ]
+      }
+    },
+    "characters": {
+      "path": "res://games/fog_harbor/assets/characters-v1.png",
+      "columns": 3,
+      "rows": 2
+    },
+    "town": {
+      "path": "res://games/fog_harbor/assets/town-v2.png",
+      "columns": 4,
+      "rows": 4,
+      "opaque": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "presentation": {
+    "title": {
+      "eyebrow": "brand",
+      "title": "title",
+      "subtitle": "subtitle",
+      "chapter": "chapter",
+      "layers": [
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 0
+          },
+          "rect": [
+            825,
+            365,
+            315,
+            540
+          ]
+        },
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 1
+          },
+          "rect": [
+            1090,
+            190,
+            360,
+            715
+          ]
+        },
+        {
+          "image": {
+            "sheet": "characters",
+            "index": 2
+          },
+          "rect": [
+            1430,
+            275,
+            335,
+            630
+          ]
+        }
+      ]
+    },
+    "palette": {
+      "background": "101b2b",
+      "panel": "203247",
+      "border": "50758a",
+      "button": "2a435b",
+      "hover": "3c607c",
+      "accent": "ecc48c",
+      "title_outer": "21354c",
+      "title_inner": "2a4863"
+    },
+    "world": {
+      "wall": {
+        "sheet": "interior",
+        "horizontal": 2,
+        "vertical": 3
+      },
+      "icons": {
+        "pickup": {
+          "sheet": "town",
+          "index": 12
+        },
+        "switch": {
+          "sheet": "town",
+          "index": 5
+        }
+      }
+    }
+  },
+  "locale_names": {
+    "zh_TW": "繁體中文",
+    "en": "English"
+  },
+  "id": "fog_harbor",
+  "version": 1,
+  "protagonist": "noah",
+  "default_language": "zh_TW",
+  "assets": [
+    "res://games/fog_harbor/assets/home-interior-atlas-v1.png",
+    "res://games/fog_harbor/assets/home-decor-v2.png",
+    "res://games/fog_harbor/assets/characters-v1.png",
+    "res://games/fog_harbor/assets/town-v2.png"
+  ],
+  "avatars": {
+    "noah": {
+      "portrait": {
+        "sheet": "characters",
+        "index": 0
+      },
+      "sprite": {
+        "sheet": "characters",
+        "index": 3
+      }
+    },
+    "iris": {
+      "portrait": {
+        "sheet": "characters",
+        "index": 1
+      },
+      "sprite": {
+        "sheet": "characters",
+        "index": 4
+      }
+    },
+    "mara": {
+      "portrait": {
+        "sheet": "characters",
+        "index": 2
+      },
+      "sprite": {
+        "sheet": "characters",
+        "index": 5
+      }
+    }
+  },
+  "initial": {
+    "map": "quay",
+    "position": [
+      2,
+      7
+    ],
+    "day": 1,
+    "period": "day",
+    "money": 0,
+    "inventory": {},
+    "characters": {
+      "iris": {
+        "stage": 0,
+        "affection": 0
+      },
+      "mara": {
+        "stage": 0,
+        "affection": 0
+      }
+    },
+    "completed": [],
+    "flags": {},
+    "objects": {},
+    "stock": {
+      "supplies:repair_kit": 1
+    }
+  },
+  "sources": {
+    "maps": [
+      "maps/quay.json",
+      "maps/workshop.json",
+      "maps/signal.json"
+    ],
+    "characters": [
+      "characters/iris.json",
+      "characters/mara.json"
+    ],
+    "events": [
+      "events/inspect_signal.json",
+      "events/repair_relay.json",
+      "events/decode_chart.json",
+      "events/light_beacon.json",
+      "events/sort_letters.json",
+      "events/last_dispatch.json"
+    ],
+    "items": [
+      "items/manifest.json",
+      "items/repair_kit.json",
+      "items/chart.json"
+    ],
+    "shops": [
+      "shops/supplies.json"
+    ],
+    "routes": [
+      "routes/iris.json",
+      "routes/mara.json"
+    ],
+    "endings": [
+      "endings/harbor_reopens.json"
+    ],
+    "gallery": [
+      "gallery/signal_memory.json",
+      "gallery/letter_memory.json"
+    ],
+    "locales": [
+      "locales/zh_TW.json",
+      "locales/en.json"
+    ]
+  },
+  "format_version": 1
+}

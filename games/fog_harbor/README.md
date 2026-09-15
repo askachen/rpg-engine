@@ -1,0 +1,35 @@
+# 霧港來信 / Letters from Fog Harbor
+
+S3 的獨立重用示範：港口因濃霧停航，諾亞協助訊號員伊莉絲修復訊號台，並陪郵務員瑪拉整理未寄出的信。三張地圖、兩條 4／2 事件路線與一個共同結局；玩法、地圖、角色 ID 和故事重新撰寫，使用共用引擎與現有美術副本。
+
+```powershell
+python tools/dev.py play --game fog_harbor
+python tools/dev.py test --game fog_harbor --json
+python tools/dev.py test --game fog_harbor --scenario games/fog_harbor/tests/courier_first.json --json
+python tools/dev.py build --game fog_harbor --json
+```
+
+## 滑鼠通關
+
+1. 碼頭拾取維修津貼及郵袋，與瑪拉核對名冊。
+2. 前往工坊，櫃台買修理包（15），開備援電源，取出舊訊號圖。
+3. 返回碼頭並前往訊號台，和伊莉絲談話；按等待切到晚上。
+4. 與伊莉絲修理電路，再談一次解讀訊號圖。解讀完成推進到深夜。
+5. 點校準訊號鏡，再與伊莉絲交談，完成她的四個事件。
+6. 返回碼頭，深夜與瑪拉完成最後一班郵船的準備。兩條線完成後出現共同結局提示。
+
+若取消選項可再次交談。錯過時段可按等待繞回；修理包、名冊及圖只在對應事件完成時消耗。最終餘額 25，伊莉絲 stage 4／好感 40，瑪拉 stage 2／好感 20。結局目前是 HUD 文字，並非片尾演出。
+
+另一條 courier_first 路線先拜訪伊莉絲，當晚先完成瑪拉，再於隔天晚上處理訊號台；驗證完成次序不固定，也不需要注入狀態或重置遊戲。
+
+## 配置與驗證
+
+- quay／workshop／signal：碼頭、工坊、訊號台，皆為 26×15 格；不同出口與家具配置，地毯不阻擋行走。
+- iris 路線：inspect_signal → repair_relay → decode_chart → light_beacon。
+- mara 路線：sort_letters → last_dispatch。
+- 條件使用 stage、好感、已完成事件、道具、時段及旗標；玩家看到的條件與正式規則共用。
+- 語系為 zh_TW／en；保留範本中的共通 UI 文字以及部分未引用翻譯，但所有故事演出均使用本包新文字。
+- tests/ 內是已展開的逐格正常操作；每步由共用 Godot test_runner 驗證。tests/harbor_mouse.gd（repo 根目錄）另用 Viewport 滑鼠跑完整流程。
+- 原始圖集與提示詞放在本包 assets/，沒有執行時 demo 路徑相依。人物圖片為共用佔位美術，不宣稱是新繪製的角色設定；正式授權與 SDK 整理仍屬 S7。
+
+跨遊戲 profile／設定／存檔／已讀／畫廊的完整交替測試在 S3-03，不能以這份單遊戲通關結果取代。

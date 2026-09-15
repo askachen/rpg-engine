@@ -2,7 +2,7 @@
 
 給 AI Agentic Coding 使用的 **Godot 4.7.2 / GDScript 無戰鬥敘事 RPG 框架**。內容由 JSON 與素材檔案定義；建立地圖、對話、條件、角色路線與商店不需要操作 Godot 編輯器。
 
-**目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈本批已實作，等待使用者驗收；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
+**目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈已確認；S3 第二款故事已實作，跨遊戲隔離專項尚待完成；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
 
 ## 其他 AI：先用這個流程評估
 
@@ -69,6 +69,8 @@ python tools/dev.py check --game ai_review --json
 
 `demo` 是四張地圖、兩位角色六事件的較完整展示。`first_story` 是一個房間、兩個事件的最小範本。`theme_preview` 是主題測試 fixture。後兩者不是 S3 的獨立第二款正式示範遊戲。
 
+`fog_harbor` 是 S3 的獨立故事《霧港來信》：三張新地圖、兩位角色 4／2 個事件路線，包含不同次序的兩條通關情境，使用既有美術的獨立副本。直接執行 `python tools/dev.py play --game fog_harbor`；攻略與限制見 [內容包說明](games/fog_harbor/README.md)。demo 現在也附帶 tests/walkthrough.json，可使用同一 test 指令通關。
+
 first_story 的滑鼠路線：拾取錢 → 跟 Haru 對話接受 → 到櫃台買茶 → 再跟 Haru 對話接受。demo 的路線與美術歷史見既有驗收紀錄與內容檔案。
 
 ## 檔案與延伸閱讀
@@ -89,7 +91,7 @@ first_story 的滑鼠路線：拾取錢 → 跟 Haru 對話接受 → 到櫃台�
 
 ## 尚缺的交付能力
 
-影片／Live2D、正式 CG 畫廊、完整設定、存檔 Schema 與備份、更多動作與轉場、獨立第二遊戲驗證、Windows 匯出與多解析度矩陣、完整 SDK／授權清單及外部團隊試用仍未完成。素材提示詞與來源記錄位於各 assets/；本 repo 尚未提供正式對外授權文件。
+影片／Live2D、正式 CG 畫廊、完整設定、存檔 Schema 與備份、更多動作與轉場、跨遊戲隔離專項驗證、Windows 匯出與多解析度矩陣、完整 SDK／授權清單及外部團隊試用仍未完成。素材提示詞與來源記錄位於各 assets/；本 repo 尚未提供正式對外授權文件。
 
 素材檢查已包含 Python 圖片／WAV 檢查與 Godot 原生載入，但不等於完整音訊播放、所有字形或影片解碼驗證。本機 Godot 可能輸出憑證存放區警告；請分辨環境警告與 SCRIPT ERROR，不要把失敗測試忽略。
 

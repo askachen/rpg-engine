@@ -1,0 +1,60 @@
+{
+  "sort_letters": {
+    "character": "mara",
+    "title": "sort_letters",
+    "text": "sort_letters_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "value": 0,
+        "id": "mara"
+      },
+      {
+        "kind": "item",
+        "value": 1,
+        "id": "manifest"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "value": 1,
+        "id": "mara"
+      },
+      {
+        "kind": "affection",
+        "value": 10,
+        "id": "mara"
+      },
+      {
+        "kind": "item",
+        "value": -1,
+        "id": "manifest"
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "sort_letters_intro",
+        "speaker": "mara",
+        "text": "sort_letters_line"
+      },
+      {
+        "id": "sort_letters_reply",
+        "speaker": "noah",
+        "text": "sort_letters_reply"
+      }
+    ]
+  }
+}

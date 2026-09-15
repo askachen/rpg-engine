@@ -1,0 +1,17 @@
+{
+  "harbor_reopens": {
+    "text": "ending_harbor",
+    "conditions": [
+      {
+        "kind": "completed",
+        "value": true,
+        "id": "light_beacon"
+      },
+      {
+        "kind": "completed",
+        "value": true,
+        "id": "last_dispatch"
+      }
+    ]
+  }
+}

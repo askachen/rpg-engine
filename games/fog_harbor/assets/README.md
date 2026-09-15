@@ -1,0 +1,1 @@
+Artwork copied unchanged from the bundled demo with its original generation prompts. Used as shared placeholder art for the independent Fog Harbor story, not newly illustrated characters. Layouts, dialogue, routes and world are authored for this package. See the repository asset provenance and pending S7 licensing work.

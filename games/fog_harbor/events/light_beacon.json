@@ -1,0 +1,64 @@
+{
+  "light_beacon": {
+    "character": "iris",
+    "title": "light_beacon",
+    "text": "light_beacon_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "value": 3,
+        "id": "iris"
+      },
+      {
+        "kind": "flag",
+        "value": true,
+        "id": "aligned"
+      },
+      {
+        "kind": "period",
+        "value": "late"
+      },
+      {
+        "kind": "affection",
+        "value": 30,
+        "id": "iris"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "value": 4,
+        "id": "iris"
+      },
+      {
+        "kind": "affection",
+        "value": 10,
+        "id": "iris"
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "light_beacon_intro",
+        "speaker": "iris",
+        "text": "light_beacon_line"
+      },
+      {
+        "id": "light_beacon_reply",
+        "speaker": "noah",
+        "text": "light_beacon_reply"
+      }
+    ]
+  }
+}

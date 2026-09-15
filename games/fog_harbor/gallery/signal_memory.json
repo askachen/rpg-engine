@@ -1,0 +1,14 @@
+{
+  "signal_memory": {
+    "character": "iris",
+    "title": "signal_memory",
+    "text": "light_beacon_line",
+    "conditions": [
+      {
+        "kind": "completed",
+        "value": true,
+        "id": "light_beacon"
+      }
+    ]
+  }
+}

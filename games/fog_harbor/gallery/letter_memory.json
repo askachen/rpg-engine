@@ -1,0 +1,14 @@
+{
+  "letter_memory": {
+    "character": "mara",
+    "title": "letter_memory",
+    "text": "last_dispatch_line",
+    "conditions": [
+      {
+        "kind": "completed",
+        "value": true,
+        "id": "last_dispatch"
+      }
+    ]
+  }
+}

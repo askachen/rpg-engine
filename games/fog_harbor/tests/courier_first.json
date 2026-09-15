@@ -1,0 +1,926 @@
+{
+  "steps": [
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "grant"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "to_signal"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "iris_station"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "signal_return"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "mailbag"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "mara_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "to_workshop"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "supply_counter"
+    },
+    {
+      "op": "buy",
+      "shop": "supplies",
+      "item": "repair_kit"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "power_panel"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "chart_drawer"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "workshop_return"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "mara_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "to_signal"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "iris_station"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "iris_station"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "alignment"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "iris_station"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    }
+  ],
+  "expect": {
+    "money": 25,
+    "day": 2,
+    "period": "late",
+    "completed": [
+      "inspect_signal",
+      "sort_letters",
+      "last_dispatch",
+      "repair_relay",
+      "decode_chart",
+      "light_beacon"
+    ]
+  }
+}

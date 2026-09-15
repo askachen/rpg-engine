@@ -1,0 +1,65 @@
+{
+  "decode_chart": {
+    "character": "iris",
+    "title": "decode_chart",
+    "text": "decode_chart_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "value": 2,
+        "id": "iris"
+      },
+      {
+        "kind": "item",
+        "value": 1,
+        "id": "chart"
+      },
+      {
+        "kind": "completed",
+        "value": true,
+        "id": "repair_relay"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "value": 3,
+        "id": "iris"
+      },
+      {
+        "kind": "affection",
+        "value": 10,
+        "id": "iris"
+      },
+      {
+        "kind": "item",
+        "value": -1,
+        "id": "chart"
+      }
+    ],
+    "time_cost": 1,
+    "sequence": [
+      {
+        "id": "decode_chart_intro",
+        "speaker": "iris",
+        "text": "decode_chart_line"
+      },
+      {
+        "id": "decode_chart_reply",
+        "speaker": "noah",
+        "text": "decode_chart_reply"
+      }
+    ]
+  }
+}
