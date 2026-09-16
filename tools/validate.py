@@ -73,6 +73,11 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
     for who,avatar in data.get('avatars',{}).items():
         image_ref(who,avatar.get('portrait'))
         image_ref(who,avatar.get('sprite'))
+        if 'walk' in avatar:
+            cycle = avatar['walk']
+            for direction in ('down','left','right','up'):
+                if cycle['idle_frame'] >= len(cycle[direction]): errors.append(f'{who}/walk/{direction}: idle_frame outside frames')
+                for index, frame in enumerate(cycle[direction]): image_ref(f'{who}/walk/{direction}/{index}', frame)
     ref('protagonist',data.get('protagonist','player'),data.get('avatars',{}))
     ref('default_language',data.get('default_language','zh_TW'),data['locales'])
     presentation=data.get('presentation',{})

@@ -33,3 +33,5 @@ python tools/dev.py build --game fog_harbor --json
 - 原始圖集與提示詞放在本包 assets/，沒有執行時 demo 路徑相依。人物圖片為共用佔位美術，不宣稱是新繪製的角色設定；正式授權與 SDK 整理仍屬 S7。
 
 跨遊戲 profile／設定／存檔／已讀／畫廊交替測試已於 S3-03 通過，詳細方法見 docs/acceptance/010-isolation.md（repo 根目錄）。
+
+主角諾亞已使用獨立四方向行走圖集，依滑鼠／鍵盤移動轉向，停止保留方向。NPC 保留舊素材；完整动画配置見 repo 的 docs/actor-animation.md。

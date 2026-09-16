@@ -60,7 +60,7 @@ func draw(view: Control, surface: Control) -> void:
 		if entry.has("prop"):
 			draw_prop(view, entry.prop, unit)
 		elif entry.has("player"):
-			draw_actor(view, view.core.protagonist_id(), view.core.state.position, unit, not view.walking.is_empty())
+			draw_actor(view, view.core.protagonist_id(), view.core.state.position, unit, view.motion.remaining > 0)
 		else:
 			var target: Dictionary = entry.target
 			var center = view.ORIGIN + (Vector2(target.position[0], target.position[1]) + Vector2(0.5, 0.5)) * unit
@@ -85,11 +85,12 @@ func draw_prop(view: Control, prop: Dictionary, unit: float) -> void:
 
 func draw_actor(view: Control, who: String, position_value: Array, unit: float, moving: bool = false) -> void:
 	var feet = view.ORIGIN + (Vector2(position_value[0], position_value[1]) + Vector2(0.5, 0.9)) * unit
-	var bob = sin(view.avatar_time * 20.0) * 2.0 if moving else 0.0
+	var avatar: Dictionary = view.core.content.avatars[who]
+	var bob = sin(view.avatar_time * 20.0) * 2.0 if moving and not avatar.has("walk") else 0.0
 	var shadow = tile_style(view, Color(0.05, 0.1, 0.06, 0.27))
 	shadow.set_corner_radius_all(8)
 	canvas.draw_style_box(shadow, Rect2(feet + Vector2(-unit * 0.27, -5), Vector2(unit * 0.54, 10)))
-	view.art.draw_fitted(canvas, view.art.resolve(view.core.content.avatars[who].sprite), Rect2(feet + Vector2(-unit * 0.65, -unit * 1.85 + bob), Vector2(unit * 1.3, unit * 1.85)))
+	view.art.draw_fitted(canvas, view.art.resolve(view.motion.image_spec(avatar, who, moving)), Rect2(feet + Vector2(-unit * 0.65, -unit * 1.85 + bob), Vector2(unit * 1.3, unit * 1.85)))
 
 func draw_chip(view: Control, text: String, center: Vector2, tint: Color = Color("efe3c8")) -> void:
 	var text_size = view.appearance.font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 17)

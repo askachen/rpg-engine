@@ -1155,6 +1155,9 @@
         },
         "sprite": {
           "$ref": "#/$defs/image"
+        },
+        "walk": {
+          "$ref": "#/$defs/walkCycle"
         }
       },
       "required": [
@@ -1498,6 +1501,61 @@
         }
       },
       "required": [],
+      "additionalProperties": false
+    },
+    "walkCycle": {
+      "type": "object",
+      "properties": {
+        "down": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/image"
+          }
+        },
+        "left": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/image"
+          }
+        },
+        "right": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/image"
+          }
+        },
+        "up": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/image"
+          }
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 60
+        },
+        "idle_frame": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "down",
+        "left",
+        "right",
+        "up",
+        "fps",
+        "idle_frame"
+      ],
       "additionalProperties": false
     }
   }

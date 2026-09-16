@@ -39,6 +39,99 @@
         2,
         3
       ]
+    },
+    "noah_walk": {
+      "path": "res://games/fog_harbor/assets/noah-walk-v1.png",
+      "columns": 3,
+      "rows": 4,
+      "opaque": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "regions": {
+        "0": [
+          0.3425414364640884,
+          0.03867403314917127,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "1": [
+          0.22375690607734808,
+          0.03867403314917127,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "2": [
+          0.09944751381215469,
+          0.03867403314917127,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "3": [
+          0.35911602209944754,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "4": [
+          0.23204419889502761,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "5": [
+          0.10497237569060773,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "6": [
+          0.34806629834254144,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "7": [
+          0.22099447513812154,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "8": [
+          0.09944751381215469,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "9": [
+          0.35359116022099446,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "10": [
+          0.23204419889502761,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ],
+        "11": [
+          0.10497237569060773,
+          0,
+          0.5524861878453039,
+          0.9613259668508287
+        ]
+      }
     }
   },
   "presentation": {
@@ -126,7 +219,8 @@
     "res://games/fog_harbor/assets/home-interior-atlas-v1.png",
     "res://games/fog_harbor/assets/home-decor-v2.png",
     "res://games/fog_harbor/assets/characters-v1.png",
-    "res://games/fog_harbor/assets/town-v2.png"
+    "res://games/fog_harbor/assets/town-v2.png",
+    "res://games/fog_harbor/assets/noah-walk-v1.png"
   ],
   "avatars": {
     "noah": {
@@ -137,6 +231,82 @@
       "sprite": {
         "sheet": "characters",
         "index": 3
+      },
+      "walk": {
+        "fps": 10,
+        "idle_frame": 1,
+        "down": [
+          {
+            "sheet": "noah_walk",
+            "index": 0
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 1
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 2
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 1
+          }
+        ],
+        "left": [
+          {
+            "sheet": "noah_walk",
+            "index": 3
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 4
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 5
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 4
+          }
+        ],
+        "right": [
+          {
+            "sheet": "noah_walk",
+            "index": 6
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 7
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 8
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 7
+          }
+        ],
+        "up": [
+          {
+            "sheet": "noah_walk",
+            "index": 9
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 10
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 11
+          },
+          {
+            "sheet": "noah_walk",
+            "index": 10
+          }
+        ]
       }
     },
     "iris": {

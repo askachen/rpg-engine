@@ -33,6 +33,8 @@ var appearance = Appearance.new()
 const Profiles = preload("res://engine/profile_store.gd")
 const World = preload("res://engine/world_renderer.gd")
 var world = World.new()
+const ActorMotion = preload("res://engine/actor_motion.gd")
+var motion = ActorMotion.new()
 const WorldSurface = preload("res://engine/world_surface.gd")
 const WORLD_SIZE = Vector2(1320, 760)
 var camera := Vector2.ZERO
@@ -125,9 +127,9 @@ func show_title() -> void:
 	box.add_child(label(t(appearance.title_text("title", "title")), 82))
 	box.add_child(label(t(appearance.title_text("subtitle", "subtitle")), 19))
 	box.add_child(label(" ", 12))
-	box.add_child(button(t("new"), func(): core.new_game(); dialogue_log.clear(); message = ""; show_game()))
+	box.add_child(button(t("new"), func(): core.new_game(); motion.reset(); dialogue_log.clear(); message = ""; show_game()))
 	var continue_button := button(t("continue"), func():
-		if saves.load_slot(saves.latest()): show_game()
+		if saves.load_slot(saves.latest()): motion.reset(); show_game()
 		else: show_notice(t("load_failed")))
 	continue_button.disabled = saves.latest() < 0
 	box.add_child(continue_button)
@@ -334,6 +336,7 @@ func slot_button(slot: int, saving: bool) -> Button:
 			else: write_slot(slot)
 		else:
 			if saves.load_slot(slot):
+				motion.reset()
 				message = t("loaded") + " · " + slot_title(slot)
 				show_game()
 			else: show_notice(t("load_failed")))
@@ -422,12 +425,20 @@ func change_map(command: Dictionary) -> void:
 	transitioning = false
 
 func execute_immediate(command: Dictionary) -> void:
+	if command.get("op") == "interact":
+		for target in core.content.maps[core.state.map].objects:
+			if target.id == command.get("target") and core.adjacent(target.position):
+				var delta := Vector2i(int(target.position[0] - core.state.position[0]), int(target.position[1] - core.state.position[1]))
+				motion.face(core.protagonist_id(), delta)
+				if target.kind == "npc": motion.face(target.character, -delta)
 	if is_instance_valid(story):
 		remove_child(story)
 		story.queue_free()
 		story = null
 	cancel_walk()
 	var response: Dictionary = core.act(command)
+	if command.get("op") == "move":
+		motion.step(core.protagonist_id(), Vector2i(command.dx, command.dy), movement_interval(), response.ok)
 	message = t(response.message)
 	show_game()
 	match response.message:
@@ -450,6 +461,7 @@ func execute_immediate(command: Dictionary) -> void:
 			if not saves.save(0): message = t("save_failed"); status.text = message
 
 func cancel_walk() -> void:
+	motion.stop()
 	walking.clear()
 	pending_target = ""
 	walk_elapsed = 0.0
@@ -503,6 +515,7 @@ func click_cell(cell: Vector2i) -> void:
 
 func _process(delta: float) -> void:
 	avatar_time += delta
+	motion.tick(delta, transitioning or screen != "game" or is_instance_valid(overlay) or core.active_event != "")
 	if is_instance_valid(world_surface): world_surface.queue_redraw()
 	if transitioning: return
 	if screen != "game" or is_instance_valid(overlay) or core.active_event != "": return
@@ -512,7 +525,9 @@ func _process(delta: float) -> void:
 		if walk_elapsed < interval: return
 		walk_elapsed = minf(walk_elapsed - interval, interval)
 		var next: Vector2i = walking.pop_front()
-		var response: Dictionary = core.act({"op": "move", "dx": next.x - int(core.state.position[0]), "dy": next.y - int(core.state.position[1])})
+		var direction := next - Vector2i(int(core.state.position[0]), int(core.state.position[1]))
+		var response: Dictionary = core.act({"op": "move", "dx": direction.x, "dy": direction.y})
+		motion.step(core.protagonist_id(), direction, interval, response.ok)
 		if not response.ok:
 			cancel_walk()
 			message = t(response.message)

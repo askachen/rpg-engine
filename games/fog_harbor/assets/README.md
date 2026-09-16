@@ -1,1 +1,3 @@
 Artwork copied unchanged from the bundled demo with its original generation prompts. Used as shared placeholder art for the independent Fog Harbor story, not newly illustrated characters. Layouts, dialogue, routes and world are authored for this package. See the repository asset provenance and pending S7 licensing work.
+
+noah-walk-v1.png was generated for this game with the built-in imagegen tool, copied unchanged. It is a transparent 1086x1448 PNG with 3 columns and 4 directional rows. The exact prompt is in noah-walk-v1.prompt.txt. Fixed-size runtime atlas regions align the poses without altering the original pixels. Older portrait and NPC artwork remain shared placeholder art.
