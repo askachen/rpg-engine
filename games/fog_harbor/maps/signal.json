@@ -385,7 +385,8 @@
           4,
           3
         ],
-        "solid": false
+        "solid": false,
+        "layer": "floor"
       },
       {
         "id": "books",

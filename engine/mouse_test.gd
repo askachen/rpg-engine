@@ -40,14 +40,14 @@ func target(id: String) -> void:
 	var found := false
 	for object in app.core.content.maps[app.core.state.map].objects:
 		if object.id == id:
-			await click(app.ORIGIN + (Vector2(object.position[0], object.position[1]) + Vector2(0.5, 0.5)) * app.tile_size())
+			await click(app.cell_to_screen(Vector2(object.position[0], object.position[1])))
 			found = true
 			break
 	if not found:
 		failures.append("Missing map target: " + id)
 		return
 	var frames := 0
-	while (not app.walking.is_empty() or app.pending_target != "") and frames < 3000:
+	while (not app.walking.is_empty() or app.pending_target != "" or app.transitioning) and frames < 3000:
 		await process_frame
 		frames += 1
 	check(frames < 3000, "Navigation timed out: " + id)

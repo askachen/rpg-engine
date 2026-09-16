@@ -387,14 +387,15 @@
         "sheet": "decor",
         "sprite": 0,
         "position": [
-          6,
-          10
+          5,
+          4
         ],
         "size": [
-          8,
-          3
+          9,
+          7
         ],
-        "solid": false
+        "solid": false,
+        "layer": "floor"
       },
       {
         "id": "shelves",

@@ -16,7 +16,7 @@
 | main | 組裝上述模組，輸入、選單與事件生命週期協調；保留實例供測試 |
 | test_runner | JSON 操作橋接，呼叫正式 core，不重寫玩法 |
 
-目前 renderer 與 dialogue 透過動態宿主介面工作，不載入 main.gd；這不等於完全無耦合。renderer 使用宿主的 core、art、appearance、ORIGIN、walking、avatar_time、tile_size()、card_style()、t() 與 CanvasItem 繪圖方法。只能在宿主 `_draw()` 內呼叫 `world.draw(host)`。它不能寫入 core.state。
+目前 renderer 與 dialogue 透過動態宿主介面工作，不載入 main.gd；這不等於完全無耦合。renderer 使用宿主的 core、art、appearance、ORIGIN、WORLD_SIZE、camera、walking、avatar_time、hovered_target()、tile_size()、card_style()、t()。由獨立 world_surface 的 `_draw()` 呼叫 `world.draw(host, surface)`，繪圖命令送到 surface，父視窗裁切世界；HUD 留在 main。它不能寫入 core.state。
 
 dialogue 的宿主契約為 core、profile、dialogue_log、language、appearance，以及 t／portrait／label／button／card_style／modal／close_modal／save_profile／execute。完成回呼 `execute(choose)` 會清理當前演出；完成後不要再操作已退出的節點。模組不匯入宿主腳本，避免載入依賴循環。
 

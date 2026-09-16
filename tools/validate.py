@@ -109,9 +109,9 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
                 errors.append(f'{where}: invalid furniture size');continue
             for x in range(furniture['position'][0],furniture['position'][0]+furniture['size'][0]):
                 for y in range(furniture['position'][1],furniture['position'][1]+furniture['size'][1]):
-                    if not valid_position([x,y]) or (x,y) in furniture_cells:
+                    if not valid_position([x,y]) or (furniture.get('solid', True) and (x,y) in furniture_cells):
                         errors.append(f'{where}: overlapping or invalid footprint at {x},{y}')
-                    furniture_cells.add((x,y))
+                    if furniture.get('solid', True): furniture_cells.add((x,y))
         for decoration in area.get('decorations',[]):
             visual(decoration['id'],decoration.get('sheet','decor'),decoration.get('sprite'))
         for room in area.get('rooms',[]):

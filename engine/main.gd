@@ -33,6 +33,38 @@ var appearance = Appearance.new()
 const Profiles = preload("res://engine/profile_store.gd")
 const World = preload("res://engine/world_renderer.gd")
 var world = World.new()
+const WorldSurface = preload("res://engine/world_surface.gd")
+const WORLD_SIZE = Vector2(1320, 760)
+var camera := Vector2.ZERO
+var world_surface: Control
+var transitioning := false
+var transition_layer: ColorRect
+var pointer_position := Vector2(-100, -100)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		pointer_position = get_global_transform_with_canvas().affine_inverse() * event.position
+
+func update_camera() -> void:
+	var area: Dictionary = core.content.maps[core.state.map]
+	var extent := Vector2(area.width, area.height) * tile_size()
+	var focus := (Vector2(core.state.position[0], core.state.position[1]) + Vector2(0.5, 0.5)) * tile_size()
+	camera = Vector2(clampf(focus.x - WORLD_SIZE.x / 2, 0, maxf(0, extent.x - WORLD_SIZE.x)), clampf(focus.y - WORLD_SIZE.y / 2, 0, maxf(0, extent.y - WORLD_SIZE.y)))
+
+func cell_to_screen(cell: Vector2) -> Vector2:
+	return ORIGIN + (cell + Vector2(0.5, 0.5)) * tile_size() - camera
+
+func screen_to_cell(point: Vector2) -> Vector2i:
+	return Vector2i(((point - ORIGIN + camera) / tile_size()).floor())
+
+func hovered_target() -> Dictionary:
+	if screen != "game" or transitioning or is_instance_valid(overlay) or core.active_event != "": return {}
+	var point := pointer_position
+	if not Rect2(ORIGIN, WORLD_SIZE).has_point(point): return {}
+	var cell := screen_to_cell(point)
+	for target in core.content.maps[core.state.map].objects:
+		if Vector2i(int(target.position[0]), int(target.position[1])) == cell and not core.state.objects.get(target.id, false): return target
+	return {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -70,6 +102,7 @@ func button(text: String, action: Callable) -> Button:
 
 func clear_ui() -> void:
 	for child in get_children():
+		if child == transition_layer: continue
 		remove_child(child)
 		child.queue_free()
 	overlay = null
@@ -110,6 +143,21 @@ func show_title() -> void:
 func show_game() -> void:
 	screen = "game"
 	clear_ui()
+	update_camera()
+	var window := Control.new()
+	window.name = "WorldWindow"
+	window.position = ORIGIN
+	window.size = WORLD_SIZE
+	window.clip_contents = true
+	window.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(window)
+	world_surface = WorldSurface.new()
+	world_surface.host = self
+	world_surface.position = -ORIGIN - camera
+	var area: Dictionary = core.content.maps[core.state.map]
+	world_surface.size = Vector2(area.width, area.height) * tile_size() + ORIGIN
+	world_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	window.add_child(world_surface)
 	var hero := portrait(core.protagonist_id(), Vector2(80, 100))
 	hero.position = Vector2(60, 35)
 	hero.size = Vector2(80, 100)
@@ -195,6 +243,7 @@ func show_game() -> void:
 	var ending: String = core.current_ending()
 	if ending != "":
 		status.text = t(core.content.endings[ending].text)
+	if is_instance_valid(transition_layer): move_child(transition_layer, get_child_count() - 1)
 	queue_redraw()
 
 func modal(title: String) -> VBoxContainer:
@@ -343,6 +392,36 @@ func show_gallery() -> void:
 	box.add_child(button(t("back"), close_modal))
 
 func execute(command: Dictionary) -> void:
+	if transitioning: return
+	if command.get("op") == "interact":
+		for target in core.content.maps[core.state.map].objects:
+			if target.id == command.get("target") and target.kind == "exit" and core.adjacent(target.position) and core.target_visible(target):
+				await change_map(command)
+				return
+	execute_immediate(command)
+
+func change_map(command: Dictionary) -> void:
+	transitioning = true
+	cancel_walk()
+	transition_layer = ColorRect.new()
+	transition_layer.name = "MapTransition"
+	transition_layer.color = Color(0, 0, 0, 0)
+	transition_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	transition_layer.mouse_filter = Control.MOUSE_FILTER_STOP
+	transition_layer.z_index = 100
+	add_child(transition_layer)
+	var fade := create_tween()
+	fade.tween_property(transition_layer, "color:a", 1.0, 0.18)
+	await fade.finished
+	execute_immediate(command)
+	var reveal := create_tween()
+	reveal.tween_property(transition_layer, "color:a", 0.0, 0.18)
+	await reveal.finished
+	transition_layer.queue_free()
+	transition_layer = null
+	transitioning = false
+
+func execute_immediate(command: Dictionary) -> void:
 	if is_instance_valid(story):
 		remove_child(story)
 		story.queue_free()
@@ -390,22 +469,23 @@ func toggle_dash() -> void:
 		dash_button.text = t("dash_on") if dash_enabled else t("dash_off")
 
 func _unhandled_input(event: InputEvent) -> void:
-	if screen != "game" or is_instance_valid(overlay) or core.active_event != "":
+	if transitioning or screen != "game" or is_instance_valid(overlay) or core.active_event != "":
 		return
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			cancel_walk()
 			get_viewport().set_input_as_handled()
 		elif event.button_index == MOUSE_BUTTON_LEFT:
-			var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position - ORIGIN
-			var cell := Vector2i(floori(local.x / tile_size()), floori(local.y / tile_size()))
+			var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
+			if not Rect2(ORIGIN, WORLD_SIZE).has_point(local): return
+			var cell := screen_to_cell(local)
 			var area: Dictionary = core.content.maps[core.state.map]
 			if cell.x >= 0 and cell.y >= 0 and cell.x < area.width and cell.y < area.height:
 				click_cell(cell)
 				get_viewport().set_input_as_handled()
 
 func click_cell(cell: Vector2i) -> void:
-	if screen != "game" or is_instance_valid(overlay) or core.active_event != "": return
+	if transitioning or screen != "game" or is_instance_valid(overlay) or core.active_event != "": return
 	cancel_walk()
 	for target in core.content.maps[core.state.map].objects:
 		if Vector2i(int(target.position[0]), int(target.position[1])) == cell and not core.state.objects.get(target.id, false):
@@ -423,6 +503,8 @@ func click_cell(cell: Vector2i) -> void:
 
 func _process(delta: float) -> void:
 	avatar_time += delta
+	if is_instance_valid(world_surface): world_surface.queue_redraw()
+	if transitioning: return
 	if screen != "game" or is_instance_valid(overlay) or core.active_event != "": return
 	if not walking.is_empty():
 		walk_elapsed += delta
@@ -441,6 +523,7 @@ func _process(delta: float) -> void:
 		execute({"op": "interact", "target": target})
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if transitioning: return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if screen != "game": return
@@ -468,4 +551,3 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _draw() -> void:
 	if core.content.is_empty(): return
 	if screen == "title": appearance.draw_title(self)
-	else: world.draw(self)
