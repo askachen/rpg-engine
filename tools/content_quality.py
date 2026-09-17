@@ -57,6 +57,9 @@ def quality_errors(data, root):
     for eid, event in data['events'].items():
         groups = [('sequence', event.get('sequence', []))]
         groups += [(f'choices/{choice["id"]}/sequence', choice.get('sequence', [])) for choice in event['choices']]
+        for node_id,node in event.get('nodes',{}).items():
+            groups.append((f'nodes/{node_id}/sequence',node.get('sequence',[])))
+            groups += [(f'nodes/{node_id}/choices/{choice["id"]}/sequence',choice.get('sequence',[])) for choice in node['choices']]
         for group, lines in groups:
             for line in lines:
                 for field, allowed in [('background', IMAGES), ('portrait', IMAGES), ('bgm', AUDIO), ('sfx', AUDIO)]:

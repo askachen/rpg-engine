@@ -5,6 +5,8 @@ extends RefCounted
 var content: Dictionary = {}
 var state: Dictionary = {}
 var active_event := ""
+var active_node := ""
+var pending_effects: Array = []
 var history: Array = []
 var load_error := ""
 const PERIODS = ["day", "evening", "late"]
@@ -24,8 +26,41 @@ func load_content(path: String) -> bool:
 
 func new_game() -> void:
 	state = content.get("initial", {}).duplicate(true)
-	active_event = ""
+	clear_event()
 	history.clear()
+
+func clear_event() -> void:
+	active_event = ""
+	active_node = ""
+	pending_effects.clear()
+
+func event_view() -> Dictionary:
+	if active_event == "": return {}
+	var view: Dictionary = content.events[active_event].duplicate(true)
+	if active_node != "":
+		var node: Dictionary = view.nodes[active_node]
+		view.sequence = node.get("sequence", []).duplicate(true)
+		view.choices = node.choices.duplicate(true)
+	return view
+
+func event_candidates(who: String) -> Array:
+	var candidates: Array = []
+	for id in content.events:
+		var event: Dictionary = content.events[id]
+		if event.character != who: continue
+		var reason := "eligible"
+		if id in state.completed and not event.get("repeatable", false): reason = "completed"
+		elif not route_allows(id): reason = "route_order"
+		elif not satisfied(event.conditions): reason = "conditions"
+		candidates.append({"id": id, "priority": event.get("priority", 0), "eligible": reason == "eligible", "reason": reason, "checks": checks(event.conditions), "selected": false})
+	candidates.sort_custom(func(a, b): return a.priority > b.priority if a.priority != b.priority else a.id < b.id)
+	var selected := false
+	for candidate in candidates:
+		if candidate.eligible:
+			candidate.selected = not selected
+			candidate.reason = "selected" if not selected else "lower_rank"
+			selected = true
+	return candidates
 
 func tr_key(key: String, language: String = "zh_TW") -> String:
 	var catalog: Dictionary = content.get("locales", {})
@@ -184,16 +219,21 @@ func act(command: Dictionary) -> Dictionary:
 		state = before.duplicate(true)
 		# Return to exploration if committing a choice would trap the player.
 		# The event remains uncompleted and can be started again after moving.
-		active_event = "" if command.get("op") == "choose" else event_before
+		if command.get("op") == "choose": clear_event()
+		else: active_event = event_before
 		response = result(false, "world_blocked")
 	history.append({"command": command.duplicate(true), "result": response.duplicate(true), "before": before, "after": state.duplicate(true)})
 	return response
 
 func _act(command: Dictionary) -> Dictionary:
 	var op := str(command.get("op", ""))
-	if active_event != "" and op != "choose":
+	if active_event != "" and op not in ["choose", "cancel_event"]:
 		return result(false, "event_busy")
 	match op:
+		"cancel_event":
+			if active_event == "": return result(false, "no_event")
+			clear_event()
+			return result(true, "cancelled")
 		"move":
 			var dx := int(command.get("dx", 0))
 			var dy := int(command.get("dy", 0))
@@ -242,19 +282,13 @@ func _act(command: Dictionary) -> Dictionary:
 					"shop":
 						return result(true, "shop", {"shop": target.shop})
 					"npc":
-						var candidates: Array = []
-						for event_id in content.events:
-							var event: Dictionary = content.events[event_id]
-							if event.character == target.character and event_id not in state.completed and route_allows(event_id) and satisfied(event.conditions):
-								candidates.append(event_id)
-						candidates.sort_custom(func(a, b):
-							var pa = content.events[a].get("priority", 0)
-							var pb = content.events[b].get("priority", 0)
-							return pa > pb if pa != pb else a < b)
-						if candidates.is_empty():
-							return result(true, "smalltalk", {"character": target.character})
-						active_event = candidates[0]
-						return result(true, "event", {"event": active_event})
+						var candidates := event_candidates(target.character)
+						for candidate in candidates:
+							if candidate.selected:
+								clear_event()
+								active_event = candidate.id
+								return result(true, "event", {"event": active_event, "candidates": candidates})
+						return result(true, "smalltalk", {"character": target.character, "candidates": candidates})
 			return result(false, "unknown_target")
 		"buy":
 			var shop_id := str(command.get("shop", ""))
@@ -281,19 +315,24 @@ func _act(command: Dictionary) -> Dictionary:
 			if active_event == "":
 				return result(false, "no_event")
 			var event: Dictionary = content.events[active_event]
-			for choice in event.choices:
+			for choice in event_view().choices:
 				if choice.id == command.get("choice", ""):
 					if not satisfied(choice.get("conditions", [])):
 						return result(false, "choice_locked")
 					if choice.get("cancel", false):
-						active_event = ""
+						clear_event()
 						return result(true, "cancelled")
-					if not satisfied(event.conditions) or not apply_effects(choice.get("effects", []) + event.get("effects", [])):
+					if not satisfied(event.conditions): return result(false, "effect_failed")
+					if choice.has("next"):
+						pending_effects.append_array(choice.get("effects", []).duplicate(true))
+						active_node = choice.next
+						return result(true, "event_branch", {"event": active_event, "node": active_node})
+					if not apply_effects(pending_effects + choice.get("effects", []) + event.get("effects", [])):
 						return result(false, "effect_failed")
 					var finished := active_event
-					state.completed.append(finished)
+					if finished not in state.completed: state.completed.append(finished)
 					advance_time(int(event.get("time_cost", 0)))
-					active_event = ""
+					clear_event()
 					return result(true, "event_completed", {"event": finished})
 			return result(false, "unknown_choice")
 	return result(false, "unknown_operation")
@@ -383,5 +422,5 @@ func load_game(path: String) -> bool:
 	var data := read_save(path)
 	if data.is_empty(): return false
 	state = data.state.duplicate(true)
-	active_event = ""
+	clear_event()
 	return true

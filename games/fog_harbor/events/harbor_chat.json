@@ -1,0 +1,107 @@
+{
+  "harbor_chat": {
+    "character": "mara",
+    "title": "harbor_chat",
+    "text": "harbor_chat_intro",
+    "priority": -10,
+    "repeatable": true,
+    "conditions": [
+      {
+        "kind": "flag",
+        "id": "harbor_note_found",
+        "value": true
+      }
+    ],
+    "sequence": [
+      {
+        "id": "intro",
+        "speaker": "mara",
+        "text": "harbor_chat_intro"
+      }
+    ],
+    "choices": [
+      {
+        "id": "work",
+        "text": "harbor_chat_work",
+        "next": "work",
+        "effects": [
+          {
+            "kind": "flag",
+            "id": "chat_work",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "weather",
+        "text": "harbor_chat_weather",
+        "next": "weather",
+        "effects": [
+          {
+            "kind": "flag",
+            "id": "chat_weather",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "nodes": {
+      "work": {
+        "sequence": [
+          {
+            "id": "reply",
+            "speaker": "mara",
+            "text": "harbor_chat_work_reply"
+          }
+        ],
+        "choices": [
+          {
+            "id": "accept",
+            "text": "harbor_chat_thanks",
+            "sequence": [
+              {
+                "id": "outro",
+                "speaker": "noah",
+                "text": "harbor_chat_outro"
+              }
+            ]
+          }
+        ]
+      },
+      "weather": {
+        "sequence": [
+          {
+            "id": "reply",
+            "speaker": "mara",
+            "text": "harbor_chat_weather_reply"
+          }
+        ],
+        "choices": [
+          {
+            "id": "accept",
+            "text": "harbor_chat_thanks",
+            "sequence": [
+              {
+                "id": "outro",
+                "speaker": "noah",
+                "text": "harbor_chat_outro"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "effects": [
+      {
+        "kind": "flag",
+        "id": "chat_finished",
+        "value": true
+      }
+    ]
+  }
+}

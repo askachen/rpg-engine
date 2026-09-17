@@ -248,6 +248,18 @@
                 "maximum": 6
               }
             }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "op": {
+                "const": "cancel_event"
+              }
+            },
+            "required": [
+              "op"
+            ],
+            "additionalProperties": false
           }
         ]
       }

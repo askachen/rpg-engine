@@ -21,11 +21,13 @@ var read_ids: Array
 var music: AudioStreamPlayer
 var sound: AudioStreamPlayer
 var music_path := ""
+var node_scope := ""
 
 func setup(owner_app, id: String) -> void:
 	app = owner_app
 	event_id = id
-	event = app.core.content.events[id]
+	event = app.core.event_view()
+	node_scope = app.core.active_node
 	lines = event.get("sequence", [{"id": id + "_legacy", "text": event.text, "speaker": event.character}]).duplicate(true)
 	read_ids = app.profile.get("read_lines", []).duplicate()
 
@@ -40,7 +42,9 @@ func _ready() -> void:
 	show_line()
 
 func line_id() -> String:
-	return event_id + ":" + str(lines[cursor].id) + ":" + app.language + ":" + app.t(lines[cursor].text)
+	var scope := event_id
+	if event.has("nodes"): scope += ":node=" + node_scope + ":choice=" + chosen
+	return scope + ":" + str(lines[cursor].id) + ":" + app.language + ":" + app.t(lines[cursor].text)
 
 func clear() -> void:
 	for child in get_children():
@@ -123,7 +127,19 @@ func show_line() -> void:
 		controls.add_child(app.button(app.t("story_skip"), func(): skip = not skip; auto = false; update_controls()))
 	controls.add_child(app.button(app.t("story_log"), show_log))
 	controls.add_child(app.button(app.t("story_hide"), func(): hidden_box = not hidden_box; body.get_parent().visible = not hidden_box))
+	controls.add_child(app.button(app.t("story_cancel"), abort))
 	update_controls()
+
+func abort() -> void:
+	if finished: return
+	finished = true
+	app.execute({"op": "cancel_event"})
+
+func _exit_tree() -> void:
+	# Ignore queued input and stop sound immediately on replacement/title navigation.
+	finished = true
+	if is_instance_valid(music): music.stop()
+	if is_instance_valid(sound): sound.stop()
 
 func update_controls() -> void:
 	for child in controls.get_children():

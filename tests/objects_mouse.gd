@@ -35,8 +35,8 @@ func run() -> void:
 		if object.id == "mara_desk": found = object.position == [19.0,12.0]
 	check(found, "NPC moved to workshop")
 	await target("mara_desk")
-	check(is_instance_valid(app.overlay), "Relocated NPC receives mouse interaction")
-	await press("back")
+	check(is_instance_valid(app.story), "Relocated NPC receives mouse interaction")
+	await press("story_cancel")
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://test-results/objects-workshop.png")

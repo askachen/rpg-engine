@@ -39,7 +39,14 @@ func run() -> void:
 	await click(app.cell_to_screen(Vector2(55, 27)))
 	check(app.transitioning, "Exit did not start transition")
 	var before: Dictionary = app.core.state.duplicate(true)
-	await click(app.ORIGIN + Vector2(100, 100))
+	# Inject synchronously: yielding two frames can legitimately finish fade-out
+	# on a busy machine and change maps before the state assertion.
+	for pressed in [true, false]:
+		var mouse := InputEventMouseButton.new()
+		mouse.position = app.ORIGIN + Vector2(100, 100)
+		mouse.button_index = MOUSE_BUTTON_LEFT
+		mouse.pressed = pressed
+		root.push_input(mouse, true)
 	var key := InputEventKey.new()
 	key.keycode = KEY_T
 	key.pressed = true

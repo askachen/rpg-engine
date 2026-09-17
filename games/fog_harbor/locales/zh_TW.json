@@ -189,6 +189,16 @@
     "harbor_note": "工坊便條",
     "harbor_note_text": "瑪拉已收到消息，晚上會到工坊。",
     "item_consumed": "使用後會消耗上述物品。",
-    "item_kept": "使用後會保留物品。"
+    "item_kept": "使用後會保留物品。",
+    "story_cancel": "離開對話",
+    "event_branch": "對話繼續",
+    "harbor_chat": "碼頭閒聊",
+    "harbor_chat_intro": "還有一點空檔。你想聊什麼？",
+    "harbor_chat_work": "聊聊工坊的工作",
+    "harbor_chat_weather": "聊聊今晚的天氣",
+    "harbor_chat_work_reply": "今晚整理舊信，也許能找到有人一直等待的消息。",
+    "harbor_chat_weather_reply": "霧正在散去，今晚應該能看見遠方的燈。",
+    "harbor_chat_thanks": "謝謝，下次再聊",
+    "harbor_chat_outro": "那就先不打擾你了。我們下次再聊。"
   }
 }

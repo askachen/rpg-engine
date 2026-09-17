@@ -150,6 +150,8 @@
     "inspected": "調查完成",
     "world_blocked": "角色預定的位置被佔用，請先移動一步再試。",
     "item_consumed": "使用後會消耗上述物品。",
-    "item_kept": "使用後會保留物品。"
+    "item_kept": "使用後會保留物品。",
+    "story_cancel": "離開對話",
+    "event_branch": "對話繼續"
   }
 }

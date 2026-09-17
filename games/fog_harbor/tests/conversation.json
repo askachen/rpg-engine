@@ -1,0 +1,159 @@
+{
+  "steps": [
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "locker_key_pickup"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "harbor_locker",
+      "item": "locker_key"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "mara_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "work"
+    },
+    {
+      "op": "cancel_event"
+    },
+    {
+      "op": "interact",
+      "target": "mara_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "weather"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "mara_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "work"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "load"
+    }
+  ],
+  "expect": {
+    "completed": [
+      "harbor_chat"
+    ],
+    "inventory": {
+      "locker_key": 0
+    },
+    "flags": {
+      "harbor_note_found": true,
+      "chat_weather": true,
+      "chat_work": true,
+      "chat_finished": true
+    },
+    "money": 0,
+    "day": 1,
+    "period": "day"
+  }
+}

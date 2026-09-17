@@ -1,0 +1,58 @@
+extends "res://engine/mouse_test.gd"
+
+func run() -> void:
+	Engine.time_scale = 30
+	root.size = Vector2i(1920,1080)
+	app = load("res://engine/main.tscn").instantiate()
+	root.add_child(app)
+	await process_frame
+	await press("new")
+	await target("locker_key_pickup")
+	await target("harbor_locker")
+	await press("use_item")
+	await press("back")
+	await target("mara_desk")
+	var before: Dictionary = app.core.state.duplicate(true)
+	await finish_lines()
+	await press("harbor_chat_work")
+	check(app.core.active_node == "work" and app.core.state == before, "Mouse branch must defer effects")
+	await finish_lines()
+	await press("failure_choice")
+	check(is_instance_valid(app.story) and app.core.active_node == "work" and app.core.state == before, "Failed commit must allow retry/cancel in UI")
+	await finish_lines()
+	await press("harbor_chat_thanks")
+	check(app.story.chosen == "accept" and app.core.state == before, "Effects await final outro")
+	await press("story_cancel")
+	check(app.core.active_event == "" and app.core.pending_effects.is_empty() and app.core.state == before, "Cancel during outro discards entire branch")
+	await target("mara_desk")
+	await finish_lines()
+	await press("harbor_chat_weather")
+	await finish_lines()
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://test-results/story-branch.png")
+	await press("harbor_chat_thanks")
+	await finish_lines()
+	check(app.core.state.flags.get("chat_weather",false) and not app.core.state.flags.get("chat_work",false), "Mouse commits only chosen path")
+	check(app.core.state.money == before.money + 2, "Mouse commits reward once")
+	check(app.saves.details(0).valid, "Terminal branch autosaves")
+	await target("mara_desk")
+	await finish_lines()
+	await press("harbor_chat_work")
+	# Simulate application navigation interruption, without injecting gameplay state.
+	app.show_title()
+	await process_frame
+	await process_frame
+	check(app.core.pending_effects.is_empty() and app.core.active_event == "" and not is_instance_valid(app.story), "Title interruption cleans session and presentation")
+	await press("continue")
+	check(app.core.state.flags.get("chat_weather",false) and not app.core.state.flags.get("chat_work",false), "Continue restores committed state only")
+	await target("mara_desk")
+	await finish_lines()
+	await press("harbor_chat_work")
+	await finish_lines()
+	await press("harbor_chat_thanks")
+	await finish_lines()
+	check(app.core.state.money == before.money + 4 and app.core.state.completed.count("harbor_chat") == 1, "Mouse repeat completes exactly once")
+	check(app.profile.read_lines.any(func(id): return ":node=work:" in id) and app.profile.read_lines.any(func(id): return ":node=weather:" in id), "Read tracking distinguishes branch scopes")
+	print(JSON.stringify({"story_mouse_failures":failures}))
+	quit(0 if failures.is_empty() else 1)

@@ -373,7 +373,8 @@
       "events/decode_chart.json",
       "events/light_beacon.json",
       "events/sort_letters.json",
-      "events/last_dispatch.json"
+      "events/last_dispatch.json",
+      "events/harbor_chat.json"
     ],
     "items": [
       "items/manifest.json",

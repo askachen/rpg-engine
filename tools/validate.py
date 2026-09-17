@@ -184,12 +184,32 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         ref(event_id,event['character'],data['characters'])
         text(event_id,event['title']); text(event_id,event['text'])
         conditions(event_id,event['conditions']);effects(event_id,event.get('effects',[]))
-        choice_ids=set()
-        for choice in event['choices']:
-            if choice['id'] in choice_ids: errors.append(f'{event_id}: duplicate choice {choice["id"]}')
-            choice_ids.add(choice['id'])
-            sequence(event_id,choice.get('sequence',[]))
-            text(event_id,choice['text']);conditions(event_id,choice.get('conditions',[]));effects(event_id,choice.get('effects',[]))
+        nodes = event.get('nodes',{})
+        groups = {'':event, **nodes}
+        if '' in nodes: errors.append(f'{event_id}: empty node ID is reserved for root')
+        for node_id,node in groups.items():
+            where=f'{event_id}/nodes/{node_id}' if node_id else event_id
+            if node_id: sequence(where,node.get('sequence',[]))
+            choice_ids=set()
+            for choice in node['choices']:
+                if choice['id'] in choice_ids: errors.append(f'{where}: duplicate choice {choice["id"]}')
+                choice_ids.add(choice['id'])
+                sequence(where,choice.get('sequence',[]))
+                text(where,choice['text']);conditions(where,choice.get('conditions',[]));effects(where,choice.get('effects',[]))
+                if 'next' in choice: ref(where,choice['next'],nodes)
+                if choice.get('cancel') and (choice.get('effects') or choice.get('sequence') or 'next' in choice):
+                    errors.append(f'{where}/{choice["id"]}: cancel cannot have effects, sequence or next')
+        visiting_nodes, seen_nodes = set(),set()
+        def visit_node(node_id):
+            if node_id in visiting_nodes:
+                errors.append(f'{event_id}: cyclic dialogue node {node_id}'); return
+            if node_id in seen_nodes or node_id not in groups: return
+            visiting_nodes.add(node_id)
+            for choice in groups[node_id]['choices']:
+                if 'next' in choice: visit_node(choice['next'])
+            visiting_nodes.remove(node_id); seen_nodes.add(node_id)
+        visit_node('')
+        for node_id in nodes.keys()-seen_nodes: errors.append(f'{event_id}: unreachable node {node_id}')
     routed=set()
     route_previous={}
     for who,route in data.get('routes',{}).items():
@@ -207,6 +227,8 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
             if index and isinstance(ids[index-1],str): route_previous[eid]=ids[index-1]
             if eid in data['events'] and data['events'][eid]['character']!=who:
                 errors.append(f'{where}: event character mismatch {eid}')
+            if data['events'].get(eid,{}).get('repeatable'):
+                errors.append(f'{where}: repeatable event must be an independent side event: {eid}')
     for eid,ending in data.get('endings',{}).items():
         where=f'endings/{eid}'
         text(where,ending['text'])

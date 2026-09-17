@@ -150,6 +150,8 @@
     "inspected": "Inspected",
     "world_blocked": "An arriving character needs this tile. Move away and try again.",
     "item_consumed": "These items will be consumed.",
-    "item_kept": "These items will be kept."
+    "item_kept": "These items will be kept.",
+    "story_cancel": "Leave conversation",
+    "event_branch": "Conversation continues"
   }
 }

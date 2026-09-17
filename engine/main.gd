@@ -120,7 +120,7 @@ func stack(parent: Node, position_value: Vector2, dimensions: Vector2) -> VBoxCo
 func show_title() -> void:
 	cancel_walk()
 	screen = "title"
-	core.active_event = ""
+	core.clear_event()
 	clear_ui()
 	var box := stack(self, Vector2(170, 150), Vector2(590, 750))
 	box.add_child(label(t(appearance.title_text("eyebrow", "title")), 18, appearance.palette("accent")))
@@ -356,6 +356,9 @@ func write_slot(slot: int) -> void:
 func show_debug() -> void:
 	var box := modal(t("debug"))
 	box.add_child(label(JSON.stringify(core.state, "  "), 14))
+	var diagnostics: Dictionary = {}
+	for who in core.content.characters: diagnostics[who] = core.event_candidates(who)
+	box.add_child(label(JSON.stringify({"event_candidates": diagnostics}, "  "), 14))
 	box.add_child(button(t("back"), close_modal))
 
 func show_settings() -> void:
@@ -454,7 +457,7 @@ func execute_immediate(command: Dictionary) -> void:
 			use.disabled = core.state.inventory.get(requirement.id, 0) < requirement.count
 			box.add_child(use)
 			box.add_child(button(t("back"), close_modal))
-		"event":
+		"event", "event_branch":
 			story = Dialogue.new()
 			story.setup(self, response.event)
 			add_child(story)
@@ -471,6 +474,11 @@ func execute_immediate(command: Dictionary) -> void:
 					profile.unlocked.append(id)
 			save_profile()
 			if not saves.save(0): message = t("save_failed"); status.text = message
+	# Failed terminal effects keep the current node available for another choice/cancel.
+	if not response.ok and core.active_event != "":
+		story = Dialogue.new()
+		story.setup(self, core.active_event)
+		add_child(story)
 
 func cancel_walk() -> void:
 	motion.stop()

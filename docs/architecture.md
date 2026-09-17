@@ -30,7 +30,8 @@ dialogue 的宿主契約為 core、profile、dialogue_log、language、appearanc
 | wait | 無 | time_advanced |
 | interact | target 物件 ID、可選 item | map_changed／collected／activated／shop／event／smalltalk／inspected |
 | buy | shop、item | purchased |
-| choose | choice ID | cancelled／event_completed |
+| choose | 目前節點 choice ID | cancelled／event_branch／event_completed |
+| cancel_event | 無 | cancelled |
 
 `event` 帶 event ID；`shop` 帶 shop ID。操作紀錄 `history` 保留命令、回應與前後狀態。存檔、載入及讀取資料不是 act 指令；由對應持久化介面負責。
 
@@ -61,3 +62,5 @@ dialogue 的宿主契約為 core、profile、dialogue_log、language、appearanc
 actor_motion 僅保存呈現朝向及步態時間，從 main 的正式移動結果更新；world_renderer 依 image_spec 選取配置影格，不寫入 core.state。
 
 動態地圖物件由 `core.map_objects()` 解析；不要直接以原始 maps.objects 當作當前位置。`item_required` 與 `world_blocked` 的失敗／還原規則見 [物件契約](world-objects.md)。
+
+`core.event_view()` 提供目前對話節點，`event_candidates(character)` 提供唯讀觸發診斷。`clear_event()` 清理 active_event、active_node 及 pending_effects；宿主不得只把 active_event 設空而遺留分支交易。詳細見 [劇情契約](story-contract.md)。

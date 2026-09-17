@@ -39,3 +39,9 @@ python tools/dev.py build --game fog_harbor --json
 ## S4-02 互動示範
 
 碼頭新增港口告示、鑰匙、舊置物櫃及條件式便條。瑪拉晚上會換位：未調查置物櫃時在碼頭，調查後在工坊；白天和深夜在郵務桌。此為可選探索，兩條原有結局路線不要求完成。詳細試玩與資料格式見 [物件契約](../../docs/world-objects.md)。
+
+## S4-03 分支閒聊
+
+調查置物櫃後可找瑪拉選擇工作／天氣話題，可取消或完成後再次交談。已符合主線條件時主線優先。這段閒聊不增加金錢或好感，只記錄選過的話題。
+
+自動驗證：`python tools/dev.py test --game fog_harbor --scenario games/fog_harbor/tests/conversation.json --json`。規則與限制見 [劇情契約](../../docs/story-contract.md)。

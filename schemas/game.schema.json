@@ -539,6 +539,10 @@
           "items": {
             "$ref": "#/$defs/line"
           }
+        },
+        "next": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -594,6 +598,16 @@
             "$ref": "#/$defs/line"
           },
           "minItems": 1
+        },
+        "repeatable": {
+          "type": "boolean"
+        },
+        "nodes": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/storyNode"
+          }
         }
       },
       "required": [
@@ -1612,6 +1626,29 @@
         "up",
         "fps",
         "idle_frame"
+      ],
+      "additionalProperties": false
+    },
+    "storyNode": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/line"
+          },
+          "minItems": 1
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/choice"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "choices"
       ],
       "additionalProperties": false
     }

@@ -1,6 +1,6 @@
 # 劇情演出 v1
 
-目前所有事件使用 `engine/dialogue_player.gd`。`StoryCore` 保留事件條件、選擇、道具及獎勵規則；演出層只在選擇後的收尾完成時提交一次 `choose`。沒有 `sequence` 的舊事件仍能以原本的 `text` 播放。
+目前所有事件使用 `engine/dialogue_player.gd`。`StoryCore` 保留事件條件、選擇、道具及獎勵規則；演出層只在選擇後的收尾完成時提交一次 `choose`；局部分支會跳到下一節點，只有結尾才提交整個事件的效果。完整規則見 [S4-03 劇情契約](story-contract.md)。沒有 `sequence` 的舊事件仍能以原本的 `text` 播放。
 
 ## 編輯劇本
 
