@@ -366,7 +366,48 @@
           7
         ],
         "label": "mara_desk",
-        "character": "mara"
+        "character": "mara",
+        "schedule": [
+          {
+            "map": "workshop",
+            "position": [
+              19,
+              12
+            ],
+            "conditions": [
+              {
+                "kind": "period",
+                "value": "evening"
+              },
+              {
+                "kind": "flag",
+                "id": "harbor_note_found",
+                "value": true
+              }
+            ]
+          },
+          {
+            "map": "quay",
+            "position": [
+              16,
+              9
+            ],
+            "conditions": [
+              {
+                "kind": "period",
+                "value": "evening"
+              }
+            ]
+          },
+          {
+            "map": "quay",
+            "position": [
+              14,
+              7
+            ],
+            "conditions": []
+          }
+        ]
       },
       {
         "id": "to_workshop",
@@ -389,6 +430,77 @@
         "label": "to_signal",
         "destination": "signal",
         "spawn": "entry"
+      },
+      {
+        "id": "harbor_notice",
+        "kind": "inspect",
+        "label": "harbor_notice",
+        "position": [
+          5,
+          8
+        ],
+        "solid": false,
+        "text": "harbor_notice_text",
+        "repeatable": true
+      },
+      {
+        "id": "locker_key_pickup",
+        "kind": "pickup",
+        "label": "locker_key",
+        "position": [
+          6,
+          10
+        ],
+        "solid": false,
+        "effects": [
+          {
+            "kind": "item",
+            "id": "locker_key",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "harbor_locker",
+        "kind": "inspect",
+        "label": "harbor_locker",
+        "position": [
+          10,
+          10
+        ],
+        "solid": false,
+        "text": "harbor_locker_text",
+        "required_item": {
+          "id": "locker_key",
+          "count": 1,
+          "consume": true
+        },
+        "effects": [
+          {
+            "kind": "flag",
+            "id": "harbor_note_found",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "harbor_note",
+        "kind": "inspect",
+        "label": "harbor_note",
+        "position": [
+          11,
+          10
+        ],
+        "solid": false,
+        "text": "harbor_note_text",
+        "repeatable": true,
+        "visible_when": [
+          {
+            "kind": "flag",
+            "id": "harbor_note_found",
+            "value": true
+          }
+        ]
       }
     ],
     "furniture": [

@@ -28,7 +28,7 @@ dialogue 的宿主契約為 core、profile、dialogue_log、language、appearanc
 | --- | --- | --- |
 | move | dx、dy，四方向一步 | moved |
 | wait | 無 | time_advanced |
-| interact | target 物件 ID | map_changed／collected／activated／shop／event／smalltalk |
+| interact | target 物件 ID、可選 item | map_changed／collected／activated／shop／event／smalltalk／inspected |
 | buy | shop、item | purchased |
 | choose | choice ID | cancelled／event_completed |
 
@@ -59,3 +59,5 @@ dialogue 的宿主契約為 core、profile、dialogue_log、language、appearanc
 目前測試會檢查靜態 load／preload 腳本依賴無循環，並回歸正常滑鼠通關。動態宿主介面另由實際 UI 整合測試覆蓋，不把靜態依賴檢查當成完整架構證明。
 
 actor_motion 僅保存呈現朝向及步態時間，從 main 的正式移動結果更新；world_renderer 依 image_spec 選取配置影格，不寫入 core.state。
+
+動態地圖物件由 `core.map_objects()` 解析；不要直接以原始 maps.objects 當作當前位置。`item_required` 與 `world_blocked` 的失敗／還原規則見 [物件契約](world-objects.md)。

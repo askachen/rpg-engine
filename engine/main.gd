@@ -64,8 +64,8 @@ func hovered_target() -> Dictionary:
 	var point := pointer_position
 	if not Rect2(ORIGIN, WORLD_SIZE).has_point(point): return {}
 	var cell := screen_to_cell(point)
-	for target in core.content.maps[core.state.map].objects:
-		if Vector2i(int(target.position[0]), int(target.position[1])) == cell and not core.state.objects.get(target.id, false): return target
+	for target in core.map_objects():
+		if Vector2i(int(target.position[0]), int(target.position[1])) == cell and not core.object_removed(target): return target
 	return {}
 
 func _ready() -> void:
@@ -268,7 +268,9 @@ func modal(title: String) -> VBoxContainer:
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_theme_constant_override("separation", 15)
 	scroll.add_child(box)
-	box.add_child(label(title, 30))
+	var heading := label(title, 30)
+	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(heading)
 	return box
 
 func close_modal() -> void:
@@ -397,7 +399,7 @@ func show_gallery() -> void:
 func execute(command: Dictionary) -> void:
 	if transitioning: return
 	if command.get("op") == "interact":
-		for target in core.content.maps[core.state.map].objects:
+		for target in core.map_objects():
 			if target.id == command.get("target") and target.kind == "exit" and core.adjacent(target.position) and core.target_visible(target):
 				await change_map(command)
 				return
@@ -426,7 +428,7 @@ func change_map(command: Dictionary) -> void:
 
 func execute_immediate(command: Dictionary) -> void:
 	if command.get("op") == "interact":
-		for target in core.content.maps[core.state.map].objects:
+		for target in core.map_objects():
 			if target.id == command.get("target") and core.adjacent(target.position):
 				var delta := Vector2i(int(target.position[0] - core.state.position[0]), int(target.position[1] - core.state.position[1]))
 				motion.face(core.protagonist_id(), delta)
@@ -442,6 +444,16 @@ func execute_immediate(command: Dictionary) -> void:
 	message = t(response.message)
 	show_game()
 	match response.message:
+		"inspected": show_notice(t(response.text))
+		"item_required":
+			var requirement: Dictionary = response.requirement
+			var box := modal(t("item_required"))
+			box.add_child(label("%s × %d" % [t(requirement.id), requirement.count], 24))
+			box.add_child(label(t("item_consumed") if requirement.consume else t("item_kept"), 20))
+			var use := button(t("use_item"), func(): execute({"op": "interact", "target": response.target, "item": requirement.id}))
+			use.disabled = core.state.inventory.get(requirement.id, 0) < requirement.count
+			box.add_child(use)
+			box.add_child(button(t("back"), close_modal))
 		"event":
 			story = Dialogue.new()
 			story.setup(self, response.event)
@@ -499,8 +511,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func click_cell(cell: Vector2i) -> void:
 	if transitioning or screen != "game" or is_instance_valid(overlay) or core.active_event != "": return
 	cancel_walk()
-	for target in core.content.maps[core.state.map].objects:
-		if Vector2i(int(target.position[0]), int(target.position[1])) == cell and not core.state.objects.get(target.id, false):
+	for target in core.map_objects():
+		if Vector2i(int(target.position[0]), int(target.position[1])) == cell and not core.object_removed(target):
 			pending_target = target.id
 			break
 	var plan: Dictionary = core.path_to(cell, pending_target != "")
@@ -555,8 +567,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_T: execute({"op": "wait"})
 		KEY_ESCAPE: show_menu()
 		KEY_E, KEY_ENTER:
-			for target in core.content.maps[core.state.map].objects:
-				if core.adjacent(target.position) and not core.state.objects.get(target.id, false):
+			for target in core.map_objects():
+				if core.adjacent(target.position) and not core.object_removed(target):
 					execute({"op": "interact", "target": target.id})
 					break
 		KEY_F3:

@@ -51,8 +51,8 @@ func draw(view: Control, surface: Control) -> void:
 		layers.append({"y": furnishing.position[1] + furnishing.size[1], "prop": furnishing})
 	for decor in area.get("decorations", []):
 		if decor.layer == "prop": layers.append({"y": decor.position[1] + decor.size[1], "prop": decor})
-	for target in area.objects:
-		if view.core.state.objects.get(target.id, false): continue
+	for target in view.core.map_objects():
+		if view.core.object_removed(target): continue
 		layers.append({"y": target.position[1] + 1, "target": target})
 	layers.append({"y": view.core.state.position[1] + 1, "player": true})
 	layers.sort_custom(func(a, b): return a.y < b.y)
@@ -72,6 +72,7 @@ func draw(view: Control, surface: Control) -> void:
 				"switch": draw_icon(view, "switch", Rect2(center - Vector2(unit * 0.4, unit * 1.5), Vector2(unit * 0.8, unit * 1.85)))
 				"exit":
 					draw_chip(view, "› " + view.t(target.label), center + Vector2(0, -18), Color("d7c391") if view.core.target_visible(target) else Color("9c8d7c"))
+				"inspect": draw_chip(view, view.t(target.label) + "  ···", center + Vector2(0, -18))
 				"shop": draw_chip(view, view.t("counter") + "  ···", center + Vector2(0, 20))
 	for cell in view.walking:
 		canvas.draw_circle(view.ORIGIN + (Vector2(cell) + Vector2(0.5, 0.5)) * unit, 3, Color(1, 0.94, 0.7, 0.55))

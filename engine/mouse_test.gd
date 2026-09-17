@@ -38,7 +38,7 @@ func press(key: String) -> void:
 
 func target(id: String) -> void:
 	var found := false
-	for object in app.core.content.maps[app.core.state.map].objects:
+	for object in app.core.map_objects():
 		if object.id == id:
 			await click(app.cell_to_screen(Vector2(object.position[0], object.position[1])))
 			found = true

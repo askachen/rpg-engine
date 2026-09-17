@@ -176,6 +176,19 @@
     "last_dispatch_reply": "那就把出發留給明天，把今天的努力記下來。",
     "signal_memory": "霧中的回覆",
     "letter_memory": "封好的最後一袋",
-    "ending_harbor": "霧港恢復通航。伊莉絲守住了燈，瑪拉送出了信，而你留下了新的約定。"
+    "ending_harbor": "霧港恢復通航。伊莉絲守住了燈，瑪拉送出了信，而你留下了新的約定。",
+    "item_required": "需要指定物品",
+    "use_item": "使用物品",
+    "inspected": "調查完成",
+    "world_blocked": "角色預定的位置被佔用，請先移動一步再試。",
+    "locker_key": "舊置物櫃鑰匙",
+    "harbor_notice": "港口告示",
+    "harbor_notice_text": "瑪拉白天與深夜在郵務桌。晚上到碼頭散步；找到置物櫃裡的便條後，晚上可在工坊找到她。",
+    "harbor_locker": "舊置物櫃",
+    "harbor_locker_text": "鑰匙卡在鎖裡了。櫃內的便條寫著：今晚到工坊整理舊信。",
+    "harbor_note": "工坊便條",
+    "harbor_note_text": "瑪拉已收到消息，晚上會到工坊。",
+    "item_consumed": "使用後會消耗上述物品。",
+    "item_kept": "使用後會保留物品。"
   }
 }

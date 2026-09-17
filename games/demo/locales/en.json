@@ -134,6 +134,12 @@
     "coffee_end": "It is a promise. I will remember it.",
     "route_progress": "Story",
     "stage_requirement": "Required stage %d; current %d",
-    "brand": "S T O R Y   G A R D E N"
+    "brand": "S T O R Y   G A R D E N",
+    "item_required": "Required item",
+    "use_item": "Use item",
+    "inspected": "Inspected",
+    "world_blocked": "An arriving character needs this tile. Move away and try again.",
+    "item_consumed": "These items will be consumed.",
+    "item_kept": "These items will be kept."
   }
 }

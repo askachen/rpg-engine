@@ -378,7 +378,8 @@
     "items": [
       "items/manifest.json",
       "items/repair_kit.json",
-      "items/chart.json"
+      "items/chart.json",
+      "items/locker_key.json"
     ],
     "shops": [
       "shops/supplies.json"

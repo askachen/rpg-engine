@@ -176,6 +176,19 @@
     "last_dispatch_reply": "Then tomorrow can hold the departure. Let us remember what we did today.",
     "signal_memory": "An answer in the fog",
     "letter_memory": "The last sealed mailbag",
-    "ending_harbor": "Fog Harbor reopens. Iris keeps the light, Mara sends the letters, and you leave with a promise to return."
+    "ending_harbor": "Fog Harbor reopens. Iris keeps the light, Mara sends the letters, and you leave with a promise to return.",
+    "item_required": "Required item",
+    "use_item": "Use item",
+    "inspected": "Inspected",
+    "world_blocked": "An arriving character needs this tile. Move away and try again.",
+    "locker_key": "Old locker key",
+    "harbor_notice": "Harbor notice",
+    "harbor_notice_text": "Mara works at the mail desk by day and late at night. In the evening she walks along the quay. After the locker note is found, she spends evenings in the workshop.",
+    "harbor_locker": "Old locker",
+    "harbor_locker_text": "The key sticks in the lock. A note inside says: Sort the old letters in the workshop tonight.",
+    "harbor_note": "Workshop note",
+    "harbor_note_text": "Mara received the message. She will be at the workshop in the evening.",
+    "item_consumed": "These items will be consumed.",
+    "item_kept": "These items will be kept."
   }
 }

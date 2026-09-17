@@ -114,6 +114,29 @@ func adjacent(position: Array) -> bool:
 func target_visible(target: Dictionary) -> bool:
 	return satisfied(target.get("conditions", []))
 
+func map_objects(map_id: String = "") -> Array:
+	## One resolved view for rendering, picking, navigation and gameplay. Content stays immutable.
+	if map_id == "": map_id = state.map
+	var output: Array = []
+	for source_map in content.maps:
+		for original in content.maps[source_map].objects:
+			if not satisfied(original.get("visible_when", [])): continue
+			var target: Dictionary = original
+			var location: String = source_map
+			if original.has("schedule"):
+				location = ""
+				for placement in original.schedule:
+					if satisfied(placement.conditions):
+						location = placement.map
+						target = original.duplicate(true)
+						target.position = placement.position.duplicate()
+						break
+			if location == map_id: output.append(target)
+	return output
+
+func object_removed(target: Dictionary) -> bool:
+	return target.kind in ["pickup", "switch"] and state.objects.get(target.id, false)
+
 func walkable(pos: Vector2i) -> bool:
 	var area: Dictionary = content.maps[state.map]
 	if pos.x < 0 or pos.y < 0 or pos.x >= area.width or pos.y >= area.height:
@@ -124,8 +147,8 @@ func walkable(pos: Vector2i) -> bool:
 	for furnishing in area.get("furniture", []):
 		if furnishing.get("solid", true) and Rect2i(int(furnishing.position[0]), int(furnishing.position[1]), int(furnishing.size[0]), int(furnishing.size[1])).has_point(pos):
 			return false
-	for target in area.objects:
-		if Vector2i(int(target.position[0]), int(target.position[1])) == pos and target.get("solid", true) and target_visible(target) and not state.objects.get(target.id, false):
+	for target in map_objects():
+		if Vector2i(int(target.position[0]), int(target.position[1])) == pos and target.get("solid", true) and target_visible(target) and not object_removed(target):
 			return false
 	return true
 
@@ -154,7 +177,15 @@ func path_to(destination: Vector2i, interaction: bool = false) -> Dictionary:
 
 func act(command: Dictionary) -> Dictionary:
 	var before := state.duplicate(true)
+	var event_before := active_event
 	var response := _act(command)
+	# A schedule/flag change must never place a solid actor on the player.
+	if response.ok and command.get("op") != "move" and not walkable(Vector2i(int(state.position[0]), int(state.position[1]))):
+		state = before.duplicate(true)
+		# Return to exploration if committing a choice would trap the player.
+		# The event remains uncompleted and can be started again after moving.
+		active_event = "" if command.get("op") == "choose" else event_before
+		response = result(false, "world_blocked")
 	history.append({"command": command.duplicate(true), "result": response.duplicate(true), "before": before, "after": state.duplicate(true)})
 	return response
 
@@ -177,7 +208,7 @@ func _act(command: Dictionary) -> Dictionary:
 			advance_time(1)
 			return result(true, "time_advanced")
 		"interact":
-			for target in content.maps[state.map].objects:
+			for target in map_objects():
 				if target.id != command.get("target", ""):
 					continue
 				if not adjacent(target.position):
@@ -185,6 +216,18 @@ func _act(command: Dictionary) -> Dictionary:
 				if not target_visible(target):
 					return result(false, "unavailable", {"checks": checks(target.get("conditions", []))})
 				match target.kind:
+					"inspect":
+						if state.objects.get(target.id, false) and not target.get("repeatable", false):
+							return result(true, "inspected", {"text": target.text})
+						var effects: Array = target.get("effects", []).duplicate(true)
+						if target.has("required_item"):
+							var requirement: Dictionary = target.required_item
+							if command.get("item", "") != requirement.id or state.inventory.get(requirement.id, 0) < requirement.count:
+								return result(false, "item_required", {"target": target.id, "requirement": requirement})
+							if requirement.consume: effects.push_front({"kind": "item", "id": requirement.id, "value": -requirement.count})
+						if not apply_effects(effects): return result(false, "effect_failed")
+						state.objects[target.id] = true
+						return result(true, "inspected", {"text": target.text})
 					"exit":
 						state.map = target.destination
 						state.position = content.maps[state.map].spawns[target.spawn].duplicate()
@@ -217,7 +260,7 @@ func _act(command: Dictionary) -> Dictionary:
 			var shop_id := str(command.get("shop", ""))
 			var item_id := str(command.get("item", ""))
 			var reachable := false
-			for target in content.maps[state.map].objects:
+			for target in map_objects():
 				if target.kind == "shop" and target.shop == shop_id and adjacent(target.position) and target_visible(target):
 					reachable = true
 			if not reachable:

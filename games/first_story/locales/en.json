@@ -144,6 +144,12 @@
     "tea_line": "Thank you for the tea. It is lovely to meet you!",
     "welcome": "First meeting",
     "tea_time": "Tea time",
-    "memory": "First memory"
+    "memory": "First memory",
+    "item_required": "Required item",
+    "use_item": "Use item",
+    "inspected": "Inspected",
+    "world_blocked": "An arriving character needs this tile. Move away and try again.",
+    "item_consumed": "These items will be consumed.",
+    "item_kept": "These items will be kept."
   }
 }

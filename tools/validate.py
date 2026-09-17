@@ -132,13 +132,39 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
             text(oid,obj['label'])
             if not valid_position(obj['position']): errors.append(f'{oid}: invalid position')
             conditions(oid,obj.get('conditions',[]))
+            conditions(oid,obj.get('visible_when',[]))
             effects(oid,obj.get('effects',[]))
+            for placement in obj.get('schedule',[]):
+                conditions(oid,placement['conditions'])
+                ref(oid,placement['map'],data['maps'])
+            if obj['kind']=='inspect':
+                text(oid,obj['text'])
+                if 'required_item' in obj: ref(oid,obj['required_item']['id'],data['items'])
             if obj['kind']=='exit':
                 ref(oid,obj['destination'],data['maps'])
                 if obj['destination'] in data['maps']:
                     ref(oid,obj['spawn'],data['maps'][obj['destination']]['spawns'])
             if obj['kind']=='npc': ref(oid,obj['character'],data['characters'])
             if obj['kind']=='shop': ref(oid,obj['shop'],data['shops'])
+    # Reserve every scheduled location, regardless of mutually exclusive conditions.
+    # This conservative rule avoids ambiguous overlaps without a second rules engine.
+    for source in data['maps'].values():
+        for obj in source['objects']:
+            for placement in obj.get('schedule',[]):
+                area = data['maps'].get(placement['map'])
+                if area is None: continue
+                pos = placement['position']
+                blocked = not (0 <= pos[0] < area['width'] and 0 <= pos[1] < area['height']) or pos in area['walls']
+                for prop in area.get('furniture',[]):
+                    if prop.get('solid',True) and all(prop['position'][i] <= pos[i] < prop['position'][i]+prop['size'][i] for i in (0,1)): blocked=True
+                if pos in area['spawns'].values(): blocked=True
+                if placement['map']==data['initial']['map'] and pos==data['initial']['position']: blocked=True
+                for other_source_id, other_source in data['maps'].items():
+                    for other in other_source['objects']:
+                        if other['id']==obj['id']: continue
+                        locations=other.get('schedule',[{'map':other_source_id,'position':other['position']}])
+                        if any(loc['map']==placement['map'] and loc['position']==pos for loc in locations): blocked=True
+                if blocked: errors.append(f'{obj["id"]}/schedule: blocked or reserved position {placement["map"]}/{pos}')
     def sequence(where, lines):
         seen=set()
         if not isinstance(lines,list):

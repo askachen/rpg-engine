@@ -35,3 +35,7 @@ python tools/dev.py build --game fog_harbor --json
 跨遊戲 profile／設定／存檔／已讀／畫廊交替測試已於 S3-03 通過，詳細方法見 docs/acceptance/010-isolation.md（repo 根目錄）。
 
 主角諾亞已使用獨立四方向行走圖集，依滑鼠／鍵盤移動轉向，停止保留方向。NPC 保留舊素材；完整动画配置見 repo 的 docs/actor-animation.md。
+
+## S4-02 互動示範
+
+碼頭新增港口告示、鑰匙、舊置物櫃及條件式便條。瑪拉晚上會換位：未調查置物櫃時在碼頭，調查後在工坊；白天和深夜在郵務桌。此為可選探索，兩條原有結局路線不要求完成。詳細試玩與資料格式見 [物件契約](../../docs/world-objects.md)。
