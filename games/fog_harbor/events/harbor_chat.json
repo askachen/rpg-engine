@@ -16,7 +16,62 @@
       {
         "id": "intro",
         "speaker": "mara",
-        "text": "harbor_chat_intro"
+        "text": "harbor_chat_intro",
+        "visual": {
+          "background": {
+            "path": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+          },
+          "layers": [
+            {
+              "id": "mara",
+              "rect": [
+                710,
+                60,
+                600,
+                640
+              ],
+              "animation": {
+                "frames": [
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 0
+                  },
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 0
+                  },
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 0
+                  },
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 0
+                  },
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 0
+                  },
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 1
+                  },
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 0
+                  },
+                  {
+                    "sheet": "mara_expressions",
+                    "index": 0
+                  }
+                ],
+                "fps": 6,
+                "loop": true,
+                "end": "hold"
+              }
+            }
+          ]
+        }
       }
     ],
     "choices": [
@@ -56,7 +111,27 @@
           {
             "id": "reply",
             "speaker": "mara",
-            "text": "harbor_chat_work_reply"
+            "text": "harbor_chat_work_reply",
+            "visual": {
+              "background": {
+                "path": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+              },
+              "layers": [
+                {
+                  "id": "mara",
+                  "rect": [
+                    320,
+                    50,
+                    640,
+                    650
+                  ],
+                  "image": {
+                    "sheet": "mara_expressions",
+                    "index": 3
+                  }
+                }
+              ]
+            }
           }
         ],
         "choices": [
@@ -67,7 +142,62 @@
               {
                 "id": "outro",
                 "speaker": "noah",
-                "text": "harbor_chat_outro"
+                "text": "harbor_chat_outro",
+                "visual": {
+                  "background": {
+                    "path": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+                  },
+                  "layers": [
+                    {
+                      "id": "mara",
+                      "rect": [
+                        710,
+                        60,
+                        600,
+                        640
+                      ],
+                      "animation": {
+                        "frames": [
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 1
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          }
+                        ],
+                        "fps": 6,
+                        "loop": false,
+                        "end": "hold"
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -76,9 +206,40 @@
       "weather": {
         "sequence": [
           {
+            "id": "scenery",
+            "speaker": "mara",
+            "text": "harbor_scenery_line",
+            "visual": {
+              "background": {
+                "path": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+              },
+              "layers": []
+            }
+          },
+          {
             "id": "reply",
             "speaker": "mara",
-            "text": "harbor_chat_weather_reply"
+            "text": "harbor_chat_weather_reply",
+            "visual": {
+              "background": {
+                "path": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+              },
+              "layers": [
+                {
+                  "id": "mara",
+                  "rect": [
+                    1090,
+                    160,
+                    480,
+                    530
+                  ],
+                  "image": {
+                    "sheet": "mara_expressions",
+                    "index": 2
+                  }
+                }
+              ]
+            }
           }
         ],
         "choices": [
@@ -89,7 +250,62 @@
               {
                 "id": "outro",
                 "speaker": "noah",
-                "text": "harbor_chat_outro"
+                "text": "harbor_chat_outro",
+                "visual": {
+                  "background": {
+                    "path": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+                  },
+                  "layers": [
+                    {
+                      "id": "mara",
+                      "rect": [
+                        710,
+                        60,
+                        600,
+                        640
+                      ],
+                      "animation": {
+                        "frames": [
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 1
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          },
+                          {
+                            "sheet": "mara_expressions",
+                            "index": 0
+                          }
+                        ],
+                        "fps": 6,
+                        "loop": false,
+                        "end": "hide"
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }

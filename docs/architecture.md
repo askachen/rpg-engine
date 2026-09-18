@@ -12,6 +12,7 @@
 | art_library | 圖像資源快取、圖集與等比例繪圖，不修改遊戲狀態 |
 | presentation_theme | 主題、字型、標題構圖及 UI 元件工廠；注入內容與 art_library |
 | world_renderer | 地圖／角色繪圖，僅讀取主畫面提供的資料，不執行 act |
+| story_visual | 對話圖片分層與逐格動畫；使用 art_library，時鐘由 dialogue_player 控制，不改 core |
 | dialogue_player | 演出與播放控制，透過宿主提交一次 choose，不自行發獎 |
 | main | 組裝上述模組，輸入、選單與事件生命週期協調；保留實例供測試 |
 | test_runner | JSON 操作橋接，呼叫正式 core，不重寫玩法 |

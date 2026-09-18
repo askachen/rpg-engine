@@ -45,3 +45,7 @@ python tools/dev.py build --game fog_harbor --json
 調查置物櫃後可找瑪拉選擇工作／天氣話題，可取消或完成後再次交談。已符合主線條件時主線優先。這段閒聊不增加金錢或好感，只記錄選過的話題。
 
 自動驗證：`python tools/dev.py test --game fog_harbor --scenario games/fog_harbor/tests/conversation.json --json`。規則與限制見 [劇情契約](../../docs/story-contract.md)。
+
+## S4-04 圖片演出
+
+瑪拉閒聊已加入新港口背景／風景 CG、四格表情素材、眨眼循環、左右位置與大小，以及收尾停格／隱藏。完整素材與操作契約見 [圖片演出](../../docs/story-visuals.md)。核心劇情條件和獎勵不受演出影響，原有 conversation JSON 路線可繼續驗證。

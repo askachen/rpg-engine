@@ -179,6 +179,20 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
             ref(where,line.get('speaker'),data.get('avatars',{}))
             for field in ('background','portrait','bgm','sfx'):
                 if field in line and not (field == 'bgm' and line[field] == '') and line[field] not in data['assets']:errors.append(f'{where}: undeclared {field} asset')
+            if 'visual' in line:
+                if 'background' in line or 'portrait' in line: errors.append(f'{where}: visual cannot mix with legacy background/portrait')
+                scene = line['visual']
+                if 'background' in scene: image_ref(where,scene['background'])
+                layer_ids=set()
+                for layer in scene.get('layers',[]):
+                    if layer['id'] in layer_ids: errors.append(f'{where}: duplicate visual layer {layer["id"]}')
+                    layer_ids.add(layer['id'])
+                    x,y,w,h=layer['rect']
+                    if x<0 or y<0 or w<=0 or h<=0 or x+w>1920 or y+h>1080: errors.append(f'{where}: visual rect outside 1920x1080 canvas')
+                    if 'image' in layer: image_ref(where,layer['image'])
+                    if 'animation' in layer:
+                        for frame in layer['animation']['frames']: image_ref(where,frame)
+                        if layer['animation']['loop'] and layer['animation']['end']!='hold': errors.append(f'{where}: looping animation must use end=hold')
     for event_id,event in data['events'].items():
         sequence(event_id,event.get('sequence',[]))
         ref(event_id,event['character'],data['characters'])

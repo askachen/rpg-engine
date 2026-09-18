@@ -132,6 +132,43 @@
           0.9613259668508287
         ]
       }
+    },
+    "mara_expressions": {
+      "path": "res://games/fog_harbor/assets/mara-expressions-v1.png",
+      "columns": 2,
+      "rows": 2,
+      "opaque": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "regions": {
+        "0": [
+          0.1,
+          0.01,
+          0.88,
+          0.98
+        ],
+        "1": [
+          0.1,
+          0.01,
+          0.88,
+          0.98
+        ],
+        "2": [
+          0.1,
+          0.01,
+          0.88,
+          0.98
+        ],
+        "3": [
+          0.1,
+          0.01,
+          0.88,
+          0.98
+        ]
+      }
     }
   },
   "presentation": {
@@ -220,7 +257,9 @@
     "res://games/fog_harbor/assets/home-decor-v2.png",
     "res://games/fog_harbor/assets/characters-v1.png",
     "res://games/fog_harbor/assets/town-v2.png",
-    "res://games/fog_harbor/assets/noah-walk-v1.png"
+    "res://games/fog_harbor/assets/noah-walk-v1.png",
+    "res://games/fog_harbor/assets/harbor-evening-v1.png",
+    "res://games/fog_harbor/assets/mara-expressions-v1.png"
   ],
   "avatars": {
     "noah": {

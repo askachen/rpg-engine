@@ -22,6 +22,7 @@ var music: AudioStreamPlayer
 var sound: AudioStreamPlayer
 var music_path := ""
 var node_scope := ""
+var visual_stage: Control
 
 func setup(owner_app, id: String) -> void:
 	app = owner_app
@@ -47,6 +48,7 @@ func line_id() -> String:
 	return scope + ":" + str(lines[cursor].id) + ":" + app.language + ":" + app.t(lines[cursor].text)
 
 func clear() -> void:
+	visual_stage = null
 	for child in get_children():
 		if child is AudioStreamPlayer: continue
 		remove_child(child)
@@ -75,22 +77,27 @@ func show_line() -> void:
 			sound.stream = load(line.sfx)
 			sound.volume_db = -12.0
 			sound.play()
-		if line.has("background"):
+		if line.has("visual"):
+			visual_stage = preload("res://engine/story_visual.gd").new()
+			visual_stage.setup(app.art, line.visual)
+			add_child(visual_stage)
+		elif line.has("background"):
 			var bg := TextureRect.new()
 			bg.texture = load(line.background)
 			bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 			bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 			add_child(bg)
-		var who: String = line.get("speaker", event.character)
-		var portrait: TextureRect = app.portrait(who, Vector2(500, 660))
-		portrait.position = Vector2(710, 70)
-		portrait.size = Vector2(500, 660)
-		add_child(portrait)
-		if line.has("portrait"):
-			portrait.texture = load(line.portrait)
-		portrait.modulate.a = 0.0
-		create_tween().tween_property(portrait, "modulate:a", 1.0, 0.2)
+		if not line.has("visual"):
+			var who: String = line.get("speaker", event.character)
+			var portrait: TextureRect = app.portrait(who, Vector2(500, 660))
+			portrait.position = Vector2(710, 70)
+			portrait.size = Vector2(500, 660)
+			add_child(portrait)
+			if line.has("portrait"):
+				portrait.texture = load(line.portrait)
+			portrait.modulate.a = 0.0
+			create_tween().tween_property(portrait, "modulate:a", 1.0, 0.2)
 		was_read = line_id() in read_ids
 	var panel := PanelContainer.new()
 	panel.position = Vector2(150, 700)
@@ -188,6 +195,7 @@ func commit() -> void:
 	app.execute({"op": "choose", "choice": chosen})
 
 func _process(delta: float) -> void:
+	if is_instance_valid(visual_stage): visual_stage.tick(delta, finished or paused or hidden_box)
 	if is_instance_valid(music):
 		music.stream_paused = paused or hidden_box
 		sound.stream_paused = paused or hidden_box

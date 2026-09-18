@@ -499,6 +499,9 @@
         "sfx": {
           "type": "string",
           "minLength": 1
+        },
+        "visual": {
+          "$ref": "#/$defs/storyVisual"
         }
       },
       "required": [
@@ -1650,6 +1653,96 @@
       "required": [
         "choices"
       ],
+      "additionalProperties": false
+    },
+    "frameAnimation": {
+      "type": "object",
+      "properties": {
+        "frames": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 120,
+          "items": {
+            "$ref": "#/$defs/image"
+          }
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 60
+        },
+        "loop": {
+          "type": "boolean"
+        },
+        "end": {
+          "enum": [
+            "hold",
+            "hide"
+          ]
+        }
+      },
+      "required": [
+        "frames",
+        "fps",
+        "loop",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "storyLayer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rect": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "number"
+          }
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "animation": {
+          "$ref": "#/$defs/frameAnimation"
+        }
+      },
+      "required": [
+        "id",
+        "rect"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "image"
+          ]
+        },
+        {
+          "required": [
+            "animation"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "storyVisual": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "$ref": "#/$defs/image"
+        },
+        "layers": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/storyLayer"
+          }
+        }
+      },
       "additionalProperties": false
     }
   }
