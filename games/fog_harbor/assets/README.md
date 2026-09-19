@@ -8,3 +8,7 @@ noah-walk-v1.png was generated for this game with the built-in imagegen tool, co
 - `mara-expressions-v1.png`: 1254x1254 RGBA, 2x2 waist-up expression atlas, generated with the built-in imagegen tool using the top-right adult character of `characters-v1.png` as identity reference. Exact prompt: `mara-expressions-v1.prompt.txt`.
 
 Both generated files are copied unchanged; fixed-size runtime atlas regions preserve pose scale without editing PNG pixels. The first two cells form the blink example. Small generated contour differences remain; these can be replaced by artist-authored aligned frames. These are story assets, not a Live2D model. Pending S7 provenance/license review still applies.
+
+## S4-05 video fixture (2026-09-18)
+
+`video-check-v1.ogv` is a procedural FFmpeg testsrc2 pattern with a 440 Hz sine tone, 640x480, 24 fps, 1.25 seconds, Theora/Vorbis. No external footage or music. Generation command is in `video-check-v1.recipe.txt`; created with FFmpeg 7.1 from imageio-ffmpeg 0.6.0. This is a technical test clip, not final cinematic artwork.

@@ -142,6 +142,10 @@
     "item_consumed": "These items will be consumed.",
     "item_kept": "These items will be kept.",
     "story_cancel": "Leave conversation",
-    "event_branch": "Conversation continues"
+    "event_branch": "Conversation continues",
+    "video_skip": "Continue / Skip video",
+    "video_pause": "Pause / Resume",
+    "video_failed": "Video unavailable. Skip or leave the conversation.",
+    "video_volume": "Video volume"
   }
 }

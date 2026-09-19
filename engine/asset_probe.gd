@@ -11,6 +11,9 @@ func _initialize() -> void:
 		if extension in ["png", "jpg", "jpeg", "webp", "svg"]:
 			var decoded := Image.new()
 			if decoded.load(path) != OK or decoded.is_empty(): errors.append(path + ": Godot image decode failed")
+		elif extension == "ogv":
+			var stream = load(path)
+			if not stream is VideoStreamTheora: errors.append(path + ": expected Theora video resource")
 		elif extension in ["wav", "ogg", "mp3"]:
 			var stream = load(path)
 			if not stream is AudioStream or stream.get_length() <= 0:

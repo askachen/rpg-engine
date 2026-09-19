@@ -200,6 +200,14 @@
     "harbor_chat_weather_reply": "The fog is lifting. We should see the distant lights tonight.",
     "harbor_chat_thanks": "Thanks. Talk again soon.",
     "harbor_chat_outro": "I will let you get back to work. Talk again soon.",
-    "harbor_scenery_line": "The fog is lifting. Look, the distant light is reflected on the water."
+    "harbor_scenery_line": "The fog is lifting. Look, the distant light is reflected on the water.",
+    "video_skip": "Continue / Skip video",
+    "video_pause": "Pause / Resume",
+    "video_failed": "Video unavailable. Skip or leave the conversation.",
+    "harbor_film": "Watch the projector test",
+    "harbor_film_once": "This color and audio test continues automatically when it ends.",
+    "harbor_film_loop": "This clip loops. Select Continue / Skip video when ready.",
+    "harbor_film_back": "The projector test is finished. Let us keep talking.",
+    "video_volume": "Video volume"
   }
 }

@@ -100,6 +100,18 @@
         ]
       },
       {
+        "id": "film",
+        "text": "harbor_film",
+        "next": "film",
+        "effects": [
+          {
+            "kind": "flag",
+            "id": "chat_film",
+            "value": true
+          }
+        ]
+      },
+      {
         "id": "later",
         "text": "later",
         "cancel": true
@@ -308,6 +320,41 @@
                 }
               }
             ]
+          }
+        ]
+      },
+      "film": {
+        "sequence": [
+          {
+            "id": "once",
+            "speaker": "mara",
+            "text": "harbor_film_once",
+            "video": {
+              "path": "res://games/fog_harbor/assets/video-check-v1.ogv",
+              "loop": false,
+              "volume": 0.3
+            }
+          },
+          {
+            "id": "loop",
+            "speaker": "mara",
+            "text": "harbor_film_loop",
+            "video": {
+              "path": "res://games/fog_harbor/assets/video-check-v1.ogv",
+              "loop": true,
+              "volume": 0.3
+            }
+          },
+          {
+            "id": "back",
+            "speaker": "mara",
+            "text": "harbor_film_back"
+          }
+        ],
+        "choices": [
+          {
+            "id": "accept",
+            "text": "harbor_chat_thanks"
           }
         ]
       }

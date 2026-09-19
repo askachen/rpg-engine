@@ -142,6 +142,10 @@
     "item_consumed": "使用後會消耗上述物品。",
     "item_kept": "使用後會保留物品。",
     "story_cancel": "離開對話",
-    "event_branch": "對話繼續"
+    "event_branch": "對話繼續",
+    "video_skip": "繼續／跳過影片",
+    "video_pause": "暫停／恢復",
+    "video_failed": "影片無法播放，可跳過或離開對話。",
+    "video_volume": "影片音量"
   }
 }

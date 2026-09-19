@@ -23,6 +23,7 @@ var sound: AudioStreamPlayer
 var music_path := ""
 var node_scope := ""
 var visual_stage: Control
+var video_stage: Control
 
 func setup(owner_app, id: String) -> void:
 	app = owner_app
@@ -49,6 +50,7 @@ func line_id() -> String:
 
 func clear() -> void:
 	visual_stage = null
+	video_stage = null
 	for child in get_children():
 		if child is AudioStreamPlayer: continue
 		remove_child(child)
@@ -66,6 +68,12 @@ func show_line() -> void:
 	add_child(shade)
 	if cursor < lines.size():
 		var line: Dictionary = lines[cursor]
+		if line.has("video"):
+			music.stop()
+			music_path = ""
+			sound.stop()
+			show_video(line)
+			return
 		if line.has("bgm") and line.bgm != music_path:
 			music_path = line.bgm
 			music.stop()
@@ -136,6 +144,48 @@ func show_line() -> void:
 	controls.add_child(app.button(app.t("story_hide"), func(): hidden_box = not hidden_box; body.get_parent().visible = not hidden_box))
 	controls.add_child(app.button(app.t("story_cancel"), abort))
 	update_controls()
+
+func show_video(line: Dictionary) -> void:
+	line_label = null
+	video_stage = preload("res://engine/story_video.gd").new()
+	video_stage.setup(line.video)
+	# Defer line replacement until the decoder's signal stack unwinds.
+	video_stage.completed.connect(func(reason): call_deferred("finish_video", video_stage, reason))
+	var caption: Label = app.label(app.t(line.text), 26)
+	caption.position = Vector2(150, 895)
+	caption.size = Vector2(1620, 70)
+	caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	video_stage.failed.connect(func(): caption.text = app.t("video_failed"))
+	add_child(video_stage)
+	add_child(caption)
+	controls = HBoxContainer.new()
+	controls.position = Vector2(150,975)
+	controls.add_theme_constant_override("separation",18)
+	add_child(controls)
+	controls.add_child(app.button(app.t("video_skip"), func(): video_stage.complete("skipped")))
+	controls.add_child(app.button(app.t("video_pause"), func(): video_stage.player.paused = not video_stage.player.paused))
+	controls.add_child(app.button(app.t("story_cancel"), abort))
+	var volume := HSlider.new()
+	volume.name = "VideoVolume"
+	volume.custom_minimum_size = Vector2(250,48)
+	volume.min_value = 0
+	volume.max_value = 1
+	volume.step = 0.01
+	volume.value = line.video.volume
+	volume.value_changed.connect(func(value): video_stage.player.volume = value)
+	controls.add_child(app.label(app.t("video_volume"),22))
+	controls.add_child(volume)
+
+func finish_video(stage: Control, reason: String) -> void:
+	if finished or not is_instance_valid(stage) or stage != video_stage: return
+	if reason == "finished" and line_id() not in read_ids:
+		read_ids.append(line_id())
+		app.profile.read_lines = read_ids.duplicate()
+		app.save_profile()
+	app.dialogue_log.append({"speaker":lines[cursor].speaker,"text":lines[cursor].text})
+	cursor += 1
+	if cursor >= lines.size() and chosen != "": commit()
+	else: show_line()
 
 func abort() -> void:
 	if finished: return

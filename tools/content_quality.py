@@ -13,6 +13,10 @@ AUDIO = {'.wav', '.ogg', '.mp3'}
 @lru_cache(maxsize=256)
 def inspect_file(path, stamp, size):
     path = Path(path)
+    if path.suffix.lower() == '.ogv':
+        if __package__: from .video_tools import inspect_video
+        else: from video_tools import inspect_video
+        inspect_video(path)
     if path.suffix.lower() in RASTER:
         with Image.open(path) as image:
             expected={'.png':'PNG','.jpg':'JPEG','.jpeg':'JPEG','.webp':'WEBP'}[path.suffix.lower()]
@@ -62,6 +66,8 @@ def quality_errors(data, root):
             groups += [(f'nodes/{node_id}/choices/{choice["id"]}/sequence',choice.get('sequence',[])) for choice in node['choices']]
         for group, lines in groups:
             for line in lines:
+                if 'video' in line and Path(line['video']['path']).suffix.lower()!='.ogv':
+                    errors.append(f'events/{eid}/{group}/{line["id"]}: video must be .ogv; convert MP4 with tools/video_tools.py')
                 for field, allowed in [('background', IMAGES), ('portrait', IMAGES), ('bgm', AUDIO), ('sfx', AUDIO)]:
                     path = line.get(field)
                     if path and Path(path).suffix.lower() not in allowed:

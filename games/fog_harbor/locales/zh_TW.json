@@ -200,6 +200,14 @@
     "harbor_chat_weather_reply": "霧正在散去，今晚應該能看見遠方的燈。",
     "harbor_chat_thanks": "謝謝，下次再聊",
     "harbor_chat_outro": "那就先不打擾你了。我們下次再聊。",
-    "harbor_scenery_line": "霧散開了。你看，遠方的燈正映在海面上。"
+    "harbor_scenery_line": "霧散開了。你看，遠方的燈正映在海面上。",
+    "video_skip": "繼續／跳過影片",
+    "video_pause": "暫停／恢復",
+    "video_failed": "影片無法播放，可跳過或離開對話。",
+    "harbor_film": "看看投影機測試片",
+    "harbor_film_once": "這是投影機的色彩與聲音測試片，播完後會繼續。",
+    "harbor_film_loop": "現在是循環播放。看完後按「繼續／跳過影片」。",
+    "harbor_film_back": "投影機測試結束，我們繼續聊吧。",
+    "video_volume": "影片音量"
   }
 }

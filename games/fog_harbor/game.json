@@ -259,7 +259,8 @@
     "res://games/fog_harbor/assets/town-v2.png",
     "res://games/fog_harbor/assets/noah-walk-v1.png",
     "res://games/fog_harbor/assets/harbor-evening-v1.png",
-    "res://games/fog_harbor/assets/mara-expressions-v1.png"
+    "res://games/fog_harbor/assets/mara-expressions-v1.png",
+    "res://games/fog_harbor/assets/video-check-v1.ogv"
   ],
   "avatars": {
     "noah": {

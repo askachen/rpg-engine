@@ -559,6 +559,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if transitioning: return
+	if core.active_event != "": return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if screen != "game": return

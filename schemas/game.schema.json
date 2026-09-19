@@ -502,6 +502,29 @@
         },
         "visual": {
           "$ref": "#/$defs/storyVisual"
+        },
+        "video": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "loop": {
+              "type": "boolean"
+            },
+            "volume": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "path",
+            "loop",
+            "volume"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [

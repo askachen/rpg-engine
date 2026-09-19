@@ -179,6 +179,9 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
             ref(where,line.get('speaker'),data.get('avatars',{}))
             for field in ('background','portrait','bgm','sfx'):
                 if field in line and not (field == 'bgm' and line[field] == '') and line[field] not in data['assets']:errors.append(f'{where}: undeclared {field} asset')
+            if 'video' in line:
+                if line['video']['path'] not in data['assets']: errors.append(f'{where}: undeclared video asset')
+                if any(key in line for key in ('visual','background','portrait','bgm','sfx')): errors.append(f'{where}: video cannot mix with image/audio fields')
             if 'visual' in line:
                 if 'background' in line or 'portrait' in line: errors.append(f'{where}: visual cannot mix with legacy background/portrait')
                 scene = line['visual']
