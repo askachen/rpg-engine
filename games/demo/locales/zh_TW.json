@@ -146,6 +146,15 @@
     "video_skip": "繼續／跳過影片",
     "video_pause": "暫停／恢復",
     "video_failed": "影片無法播放，可跳過或離開對話。",
-    "video_volume": "影片音量"
+    "video_volume": "影片音量",
+    "music_volume": "音樂音量",
+    "sfx_volume": "音效音量",
+    "voice_volume": "語音音量",
+    "text_size": "對話文字大小",
+    "text_speed": "打字速度（字／秒）",
+    "auto_delay": "自動播放等待（秒）",
+    "resolution": "視窗解析度",
+    "settings_hint": "設定會自動儲存；自動播放會等待語音結束。全螢幕使用螢幕尺寸，視窗會縮小以符合桌面。",
+    "text_preview": "文字預覽：明天一起到港口看看吧。"
   }
 }

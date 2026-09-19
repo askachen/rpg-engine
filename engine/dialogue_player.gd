@@ -20,6 +20,7 @@ var controls: HBoxContainer
 var read_ids: Array
 var music: AudioStreamPlayer
 var sound: AudioStreamPlayer
+var voice: AudioStreamPlayer
 var music_path := ""
 var node_scope := ""
 var visual_stage: Control
@@ -37,6 +38,11 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	music = AudioStreamPlayer.new()
 	sound = AudioStreamPlayer.new()
+	voice = AudioStreamPlayer.new()
+	music.bus = "Music"
+	sound.bus = "SFX"
+	voice.bus = "Voice"
+	add_child(voice)
 	add_child(music)
 	add_child(sound)
 	music.finished.connect(func():
@@ -58,6 +64,7 @@ func clear() -> void:
 
 func show_line() -> void:
 	clear()
+	voice.stop()
 	elapsed = 0.0
 	visible_count = 0.0
 	paused = false
@@ -85,6 +92,9 @@ func show_line() -> void:
 			sound.stream = load(line.sfx)
 			sound.volume_db = -12.0
 			sound.play()
+		if line.has("voice"):
+			voice.stream = load(line.voice)
+			voice.play()
 		if line.has("visual"):
 			visual_stage = preload("res://engine/story_visual.gd").new()
 			visual_stage.setup(app.art, line.visual)
@@ -120,7 +130,7 @@ func show_line() -> void:
 	if cursor < lines.size():
 		var line: Dictionary = lines[cursor]
 		body.add_child(app.label(app.t(line.get("speaker", event.character)), 28))
-		line_label = app.label(app.t(line.text), 28)
+		line_label = app.label(app.t(line.text), int(app.profile.text_size))
 		line_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		line_label.custom_minimum_size.y = 110
 		line_label.visible_characters = 0
@@ -197,6 +207,7 @@ func _exit_tree() -> void:
 	finished = true
 	if is_instance_valid(music): music.stop()
 	if is_instance_valid(sound): sound.stop()
+	if is_instance_valid(voice): voice.stop()
 
 func update_controls() -> void:
 	for child in controls.get_children():
@@ -249,16 +260,17 @@ func _process(delta: float) -> void:
 	if is_instance_valid(music):
 		music.stream_paused = paused or hidden_box
 		sound.stream_paused = paused or hidden_box
+		voice.stream_paused = paused or hidden_box
 	if finished or paused or hidden_box or not is_instance_valid(line_label): return
 	if line_label.visible_characters != -1:
-		visible_count += delta * 35.0
+		visible_count += delta * float(app.profile.text_speed)
 		line_label.visible_characters = int(visible_count)
 		if visible_count >= line_label.text.length(): reveal()
 	else: elapsed += delta
 	if skip and was_read:
 		reveal()
 		advance()
-	elif auto and elapsed >= 1.4:
+	elif auto and elapsed >= float(app.profile.auto_delay) and not voice.playing:
 		advance()
 
 func show_log() -> void:

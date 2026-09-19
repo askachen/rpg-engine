@@ -68,7 +68,7 @@ def quality_errors(data, root):
             for line in lines:
                 if 'video' in line and Path(line['video']['path']).suffix.lower()!='.ogv':
                     errors.append(f'events/{eid}/{group}/{line["id"]}: video must be .ogv; convert MP4 with tools/video_tools.py')
-                for field, allowed in [('background', IMAGES), ('portrait', IMAGES), ('bgm', AUDIO), ('sfx', AUDIO)]:
+                for field, allowed in [('background', IMAGES), ('portrait', IMAGES), ('bgm', AUDIO), ('sfx', AUDIO), ('voice', AUDIO)]:
                     path = line.get(field)
                     if path and Path(path).suffix.lower() not in allowed:
                         errors.append(f'events/{eid}/{group}/{line["id"]}/{field}: wrong media type: {path}')

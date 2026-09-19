@@ -146,6 +146,15 @@
     "video_skip": "Continue / Skip video",
     "video_pause": "Pause / Resume",
     "video_failed": "Video unavailable. Skip or leave the conversation.",
-    "video_volume": "Video volume"
+    "video_volume": "Video volume",
+    "music_volume": "Music volume",
+    "sfx_volume": "Sound effects volume",
+    "voice_volume": "Voice volume",
+    "text_size": "Dialogue text size",
+    "text_speed": "Text speed (characters/sec)",
+    "auto_delay": "Auto advance delay (seconds)",
+    "resolution": "Window resolution",
+    "settings_hint": "Settings save automatically. Auto waits for voice playback. Fullscreen uses the display size; windows fit the desktop.",
+    "text_preview": "Text preview: Let us visit the harbor tomorrow."
   }
 }

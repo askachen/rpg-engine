@@ -2,6 +2,7 @@ extends RefCounted
 ## Profile persistence is independent of UI, world state and content loading.
 static func read(path: String, language: String) -> Dictionary:
 	var result := {"unlocked": [], "read_lines": [], "language": language, "volume": 0.8, "dash": true}
+	result.merge(preload("res://engine/player_settings.gd").normalize({}),true)
 	if not FileAccess.file_exists(path): return result
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not parsed is Dictionary: return result
@@ -11,8 +12,7 @@ static func read(path: String, language: String) -> Dictionary:
 				if value is String and value not in result[key]: result[key].append(value)
 	if parsed.get("language") is String: result.language = parsed.language
 	if parsed.get("dash") is bool: result.dash = parsed.dash
-	if parsed.get("volume") is float or parsed.get("volume") is int:
-		result.volume = clampf(float(parsed.volume), 0.0, 1.0)
+	result.merge(preload("res://engine/player_settings.gd").normalize(parsed),true)
 	return result
 
 static func write(path: String, data: Dictionary) -> bool:

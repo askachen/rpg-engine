@@ -67,3 +67,5 @@ actor_motion 僅保存呈現朝向及步態時間，從 main 的正式移動結�
 `core.event_view()` 提供目前對話節點，`event_candidates(character)` 提供唯讀觸發診斷。`clear_event()` 清理 active_event、active_node 及 pending_effects；宿主不得只把 active_event 設空而遺留分支交易。詳細見 [劇情契約](story-contract.md)。
 
 `story_video.gd` 管理單句影片、比例、暫停及完成訊號；`dialogue_player` 清理播放器並推進句游標，不在媒體回呼提交玩法效果。`tools/video_tools.py` 負責離線轉檔及損壞診斷；Godot 執行時無 FFmpeg 相依。見 [影片契約](video.md)。
+
+`player_settings.gd` 正規化 profile 設定並套用音訊 bus／視窗；profile_store 負責讀寫，main 組裝設定 UI。dialogue_player 讀取文字／自動偏好並將音訊送到 Music／SFX／Voice。詳見 [設定契約](settings.md)。

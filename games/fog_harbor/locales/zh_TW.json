@@ -208,6 +208,15 @@
     "harbor_film_once": "這是投影機的色彩與聲音測試片，播完後會繼續。",
     "harbor_film_loop": "現在是循環播放。看完後按「繼續／跳過影片」。",
     "harbor_film_back": "投影機測試結束，我們繼續聊吧。",
-    "video_volume": "影片音量"
+    "video_volume": "影片音量",
+    "music_volume": "音樂音量",
+    "sfx_volume": "音效音量",
+    "voice_volume": "語音音量",
+    "text_size": "對話文字大小",
+    "text_speed": "打字速度（字／秒）",
+    "auto_delay": "自動播放等待（秒）",
+    "resolution": "視窗解析度",
+    "settings_hint": "設定會自動儲存；自動播放會等待語音結束。全螢幕使用螢幕尺寸，視窗會縮小以符合桌面。",
+    "text_preview": "文字預覽：明天一起到港口看看吧。"
   }
 }

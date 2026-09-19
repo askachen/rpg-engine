@@ -1819,7 +1819,16 @@
       "video_skip": "繼續／跳過影片",
       "video_pause": "暫停／恢復",
       "video_failed": "影片無法播放，可跳過或離開對話。",
-      "video_volume": "影片音量"
+      "video_volume": "影片音量",
+      "music_volume": "音樂音量",
+      "sfx_volume": "音效音量",
+      "voice_volume": "語音音量",
+      "text_size": "對話文字大小",
+      "text_speed": "打字速度（字／秒）",
+      "auto_delay": "自動播放等待（秒）",
+      "resolution": "視窗解析度",
+      "settings_hint": "設定會自動儲存；自動播放會等待語音結束。全螢幕使用螢幕尺寸，視窗會縮小以符合桌面。",
+      "text_preview": "文字預覽：明天一起到港口看看吧。"
     },
     "en": {
       "title": "Story Garden",
@@ -1981,7 +1990,16 @@
       "video_skip": "Continue / Skip video",
       "video_pause": "Pause / Resume",
       "video_failed": "Video unavailable. Skip or leave the conversation.",
-      "video_volume": "Video volume"
+      "video_volume": "Video volume",
+      "music_volume": "Music volume",
+      "sfx_volume": "Sound effects volume",
+      "voice_volume": "Voice volume",
+      "text_size": "Dialogue text size",
+      "text_speed": "Text speed (characters/sec)",
+      "auto_delay": "Auto advance delay (seconds)",
+      "resolution": "Window resolution",
+      "settings_hint": "Settings save automatically. Auto waits for voice playback. Fullscreen uses the display size; windows fit the desktop.",
+      "text_preview": "Text preview: Let us visit the harbor tomorrow."
     }
   },
   "description": "Configuration preview; not the second standalone sample game."

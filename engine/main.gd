@@ -31,6 +31,7 @@ var profile_path := ""
 const Appearance = preload("res://engine/presentation_theme.gd")
 var appearance = Appearance.new()
 const Profiles = preload("res://engine/profile_store.gd")
+const Settings = preload("res://engine/player_settings.gd")
 const World = preload("res://engine/world_renderer.gd")
 var world = World.new()
 const ActorMotion = preload("res://engine/actor_motion.gd")
@@ -84,7 +85,8 @@ func _ready() -> void:
 	language = str(profile.language)
 	dash_enabled = bool(profile.dash)
 	if language not in core.content.locales: language = core.default_language()
-	AudioServer.set_bus_volume_db(0, linear_to_db(float(profile.volume)))
+	Settings.apply_audio(profile)
+	Settings.apply_display(profile)
 	show_title()
 
 func t(key: String) -> String:
@@ -371,17 +373,47 @@ func show_settings() -> void:
 		if screen == "title": show_title()
 		else: show_game()
 		show_settings()))
-	box.add_child(button(t("fullscreen"), func():
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN else DisplayServer.WINDOW_MODE_FULLSCREEN)))
-	box.add_child(label(t("volume")))
-	var slider := HSlider.new()
-	slider.min_value = 0
-	slider.max_value = 1
-	slider.step = 0.01
-	slider.value = profile.volume
-	slider.value_changed.connect(func(value): profile.volume = value; AudioServer.set_bus_volume_db(0, linear_to_db(value)); save_profile())
-	box.add_child(slider)
+	box.add_child(button(t("fullscreen") + (" ✓" if profile.fullscreen else ""), func():
+		profile.fullscreen = not profile.fullscreen
+		Settings.apply_display(profile)
+		save_profile()
+		show_settings()))
+	box.add_child(button(t("resolution") + ": " + profile.resolution, func():
+		var ids: Array = []
+		for dimensions in Settings.RESOLUTIONS: ids.append("%dx%d" % [dimensions.x,dimensions.y])
+		profile.resolution = ids[(ids.find(profile.resolution)+1)%ids.size()]
+		Settings.apply_display(profile)
+		save_profile()
+		show_settings()))
+	for key in Settings.RANGES: settings_slider(box,key)
+	var preview := label(t("text_preview"),int(profile.text_size))
+	preview.name = "TextPreview"
+	preview.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(preview)
+	var hint := label(t("settings_hint"),18)
+	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(hint)
 	box.add_child(button(t("back"), close_modal))
+
+func settings_slider(box: VBoxContainer, key: String) -> void:
+	var heading := label(t(key) + ": " + str(profile[key]),22)
+	box.add_child(heading)
+	var slider := HSlider.new()
+	slider.name = "Setting_" + key
+	slider.custom_minimum_size.y = 40
+	slider.min_value = Settings.RANGES[key][0]
+	slider.max_value = Settings.RANGES[key][1]
+	slider.step = 1.0 if key in ["text_size","text_speed"] else 0.1 if key == "auto_delay" else 0.01
+	slider.value = profile[key]
+	slider.value_changed.connect(func(value):
+		profile[key] = value
+		heading.text = t(key) + ": " + str(snappedf(value,0.01))
+		if key == "text_size":
+			var preview := box.find_child("TextPreview",true,false)
+			if preview != null: preview.add_theme_font_size_override("font_size",int(value))
+		Settings.apply_audio(profile)
+		save_profile())
+	box.add_child(slider)
 
 func show_gallery() -> void:
 	var box := modal(t("gallery"))

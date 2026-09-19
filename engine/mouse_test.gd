@@ -34,6 +34,13 @@ func press(key: String) -> void:
 	if target == null:
 		failures.append("Missing button: " + key)
 		return
+	var ancestor := target.get_parent()
+	while ancestor != null:
+		if ancestor is ScrollContainer:
+			ancestor.ensure_control_visible(target)
+			await process_frame
+			await process_frame
+		ancestor = ancestor.get_parent()
 	await click(target.get_global_rect().get_center())
 
 func target(id: String) -> void:

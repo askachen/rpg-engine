@@ -525,6 +525,10 @@
             "volume"
           ],
           "additionalProperties": false
+        },
+        "voice": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [

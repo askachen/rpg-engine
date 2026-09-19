@@ -208,6 +208,15 @@
     "harbor_film_once": "This color and audio test continues automatically when it ends.",
     "harbor_film_loop": "This clip loops. Select Continue / Skip video when ready.",
     "harbor_film_back": "The projector test is finished. Let us keep talking.",
-    "video_volume": "Video volume"
+    "video_volume": "Video volume",
+    "music_volume": "Music volume",
+    "sfx_volume": "Sound effects volume",
+    "voice_volume": "Voice volume",
+    "text_size": "Dialogue text size",
+    "text_speed": "Text speed (characters/sec)",
+    "auto_delay": "Auto advance delay (seconds)",
+    "resolution": "Window resolution",
+    "settings_hint": "Settings save automatically. Auto waits for voice playback. Fullscreen uses the display size; windows fit the desktop.",
+    "text_preview": "Text preview: Let us visit the harbor tomorrow."
   }
 }
