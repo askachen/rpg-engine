@@ -256,6 +256,9 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         ref(where,card['character'],data['characters'])
         text(where,card['title']);text(where,card['text'])
         conditions(where,card.get('conditions',[]))
+        if 'media' in card:
+            for field in ('path','thumbnail'):
+                if card['media'][field] not in data['assets']: errors.append(f'{where}/media/{field}: undeclared asset')
     for shop,offers in data['shops'].items():
         for item,offer in offers.items():
             ref(shop,item,data['items'])

@@ -145,6 +145,7 @@ func show_title() -> void:
 	queue_redraw()
 
 func show_game() -> void:
+	sync_gallery_unlocks()
 	screen = "game"
 	clear_ui()
 	update_camera()
@@ -415,21 +416,20 @@ func settings_slider(box: VBoxContainer, key: String) -> void:
 		save_profile())
 	box.add_child(slider)
 
+var gallery_view = preload("res://engine/gallery_view.gd").new()
+
 func show_gallery() -> void:
-	var box := modal(t("gallery"))
-	box.add_child(label(t("gallery_empty"), 16))
+	gallery_view.setup(self)
+	gallery_view.show_list()
+
+func sync_gallery_unlocks() -> void:
+	if core.active_event != "": return
+	var changed := false
 	for id in core.content.get("gallery", {}):
-		var card: Dictionary = core.content.gallery[id]
-		var entry := button(t(card.title) if id in profile.unlocked else t("locked"), func():
-			var view := modal(t(card.title))
-			view.add_child(portrait(card.character, Vector2(250, 310)))
-			var quote := label(t(card.text), 22)
-			quote.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			view.add_child(quote)
-			view.add_child(button(t("back"), show_gallery)))
-		entry.disabled = id not in profile.unlocked
-		box.add_child(entry)
-	box.add_child(button(t("back"), close_modal))
+		if core.satisfied(core.content.gallery[id].conditions) and id not in profile.unlocked:
+			profile.unlocked.append(id)
+			changed = true
+	if changed: save_profile()
 
 func execute(command: Dictionary) -> void:
 	if transitioning: return
@@ -501,9 +501,6 @@ func execute_immediate(command: Dictionary) -> void:
 				box.add_child(button("%s — %d" % [t(item), price], func(): execute({"op": "buy", "shop": response.shop, "item": item})))
 			box.add_child(button(t("back"), close_modal))
 		"event_completed":
-			for id in core.content.get("gallery", {}):
-				if core.satisfied(core.content.gallery[id].conditions) and id not in profile.unlocked:
-					profile.unlocked.append(id)
 			save_profile()
 			if not saves.save(0): message = t("save_failed"); status.text = message
 	# Failed terminal effects keep the current node available for another choice/cancel.

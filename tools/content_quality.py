@@ -43,6 +43,12 @@ def quality_errors(data, root):
             dimensions[asset] = inspect_file(str(target.resolve()), stat.st_mtime_ns, stat.st_size)
         except (OSError, ValueError, EOFError, wave.Error, Image.DecompressionBombError) as error:
             errors.append(f'{target}: asset decode failed: {error}')
+    for gid, card in data.get('gallery', {}).items():
+        if 'media' not in card: continue
+        media = card['media']
+        if Path(media['thumbnail']).suffix.lower() not in IMAGES: errors.append(f'gallery/{gid}: thumbnail must be an image')
+        allowed = IMAGES if media['kind'] == 'image' else {'.ogv'}
+        if Path(media['path']).suffix.lower() not in allowed: errors.append(f'gallery/{gid}: media format does not match kind')
     for name, spec in data['visuals'].items():
         if Path(spec['path']).suffix.lower() not in IMAGES:
             errors.append(f'visuals/{name}/path: expected image, got {spec["path"]}')

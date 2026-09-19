@@ -2,13 +2,18 @@
   "letter_memory": {
     "character": "mara",
     "title": "letter_memory",
-    "text": "last_dispatch_line",
+    "text": "gallery_test_video_note",
     "conditions": [
       {
         "kind": "completed",
         "value": true,
         "id": "last_dispatch"
       }
-    ]
+    ],
+    "media": {
+      "kind": "video",
+      "path": "res://games/fog_harbor/assets/video-check-v1.ogv",
+      "thumbnail": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+    }
   }
 }

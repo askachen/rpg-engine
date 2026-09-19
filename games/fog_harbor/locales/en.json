@@ -217,6 +217,14 @@
     "auto_delay": "Auto advance delay (seconds)",
     "resolution": "Window resolution",
     "settings_hint": "Settings save automatically. Auto waits for voice playback. Fullscreen uses the display size; windows fit the desktop.",
-    "text_preview": "Text preview: Let us visit the harbor tomorrow."
+    "text_preview": "Text preview: Let us visit the harbor tomorrow.",
+    "gallery_all": "All",
+    "gallery_memory": "Memories",
+    "gallery_image": "CG images",
+    "gallery_video": "Videos",
+    "gallery_no_entries": "No entries in this category.",
+    "gallery_replay": "Replay",
+    "gallery_test_video_note": "Projector test clip: a technical demonstration, not a story cinematic.",
+    "gallery_failed": "Video unavailable. Return to the gallery."
   }
 }

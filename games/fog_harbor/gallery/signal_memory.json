@@ -9,6 +9,11 @@
         "value": true,
         "id": "light_beacon"
       }
-    ]
+    ],
+    "media": {
+      "kind": "image",
+      "path": "res://games/fog_harbor/assets/harbor-evening-v1.png",
+      "thumbnail": "res://games/fog_harbor/assets/harbor-evening-v1.png"
+    }
   }
 }

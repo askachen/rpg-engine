@@ -1357,6 +1357,31 @@
           "items": {
             "$ref": "#/$defs/condition"
           }
+        },
+        "media": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "image",
+                "video"
+              ]
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "thumbnail": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "path",
+            "thumbnail"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [

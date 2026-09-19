@@ -165,6 +165,13 @@
     "auto_delay": "自動播放等待（秒）",
     "resolution": "視窗解析度",
     "settings_hint": "設定會自動儲存；自動播放會等待語音結束。全螢幕使用螢幕尺寸，視窗會縮小以符合桌面。",
-    "text_preview": "文字預覽：明天一起到港口看看吧。"
+    "text_preview": "文字預覽：明天一起到港口看看吧。",
+    "gallery_all": "全部",
+    "gallery_memory": "紀念卡",
+    "gallery_image": "CG 圖片",
+    "gallery_video": "影片",
+    "gallery_no_entries": "這個分類目前沒有項目。",
+    "gallery_replay": "重新播放",
+    "gallery_failed": "影片無法播放，請返回畫廊。"
   }
 }
