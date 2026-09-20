@@ -6,7 +6,7 @@
 
 ## 其他 AI：先用這個流程評估
 
-**Homestay 需求排程更新**：新增 [S5 內容能力計畫](docs/s5-content-capabilities.md)，先補 P0 通用數值、日期比較、地點／互動上下文與開場／物件完整事件，再補 P1 條件樹、計數、提示、庫存、回想及 Extra Day。這些是**待開發能力**，目前不可直接依此匯入正式內容。原 S5／S6／S7 順延為 S6（存檔與測試）／S7（Windows）／S8（團隊交付）；詳細任務及門檻見 [TASKS.md](TASKS.md)。
+**Homestay 需求排程更新**：S5-01 通用數值已實作，見 [數值契約](docs/numeric-state.md)，可用 `python tools/dev.py play --game numeric_lab` 試玩。其餘 P0 日期比較、地點／互動上下文與開場／物件完整事件，以及 P1／P2 **仍待開發**，尚未達到 Homestay 正式匯入門檻。[S5 計畫](docs/s5-content-capabilities.md)列出依賴與驗收；原 S5／S6／S7 順延為 S6（存檔與測試）／S7（Windows）／S8（團隊交付），詳細狀態見 [TASKS.md](TASKS.md)。
 
 請從 repo 根目錄執行。不要先修改 `engine/`；先用新內容包验证可重用性。
 
@@ -75,6 +75,7 @@ python tools/dev.py check --game ai_review --timeout 240 --json
 素材按建議格數配置，保持長寬比；安裝工具不修改既有地圖，重複安裝不會覆寫自訂素材。牆面是裝飾面板，尚非自動拼接牆系統；門與燈為靜態圖片，互動事件須另設。詳見 [本批驗收](docs/acceptance/021-cozy-home.md)。
 
 - 可行走地圖、碰撞、出口／鎖定出口、拾取、啟動物件、商店、金錢與背包。
+- 通用 stats／variables：整數／有限小數、初值、add／set、六種比較、上下限拒絕與交易回滾、狀態面板及基本存讀檔驗證；[契約與範例](docs/numeric-state.md)。
 - NPC 依時段／AND 條件跨地圖換位、條件式出現、調查及指定物品互動；資料格式與霧港試玩步驟見 [物件契約](docs/world-objects.md)。
 - 白天／晚上／深夜；多位角色的單線劇情可同時推進；好感、完成事件、道具等 AND 條件與進度提示。
 - 多段對話、事件內多節點分支、可重複支線、優先序診斷，以及結尾一次提交／中途取消；見 [劇情契約](docs/story-contract.md)。

@@ -1,0 +1,65 @@
+{
+  "steps": [
+    {
+      "op": "interact",
+      "target": "coins"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "load"
+    }
+  ],
+  "expect": {
+    "money": 16,
+    "stats": {
+      "INT": 2,
+      "FIT": 1,
+      "CHA": 0
+    },
+    "variables": {
+      "focus": 0,
+      "internal_note": 9
+    },
+    "completed": [
+      "welcome",
+      "tea_time"
+    ],
+    "period": "late"
+  }
+}

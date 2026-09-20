@@ -1,0 +1,55 @@
+{
+  "tea_time": {
+    "character": "guide",
+    "title": "tea_time",
+    "text": "tea_line",
+    "priority": 10,
+    "conditions": [
+      {
+        "kind": "stat",
+        "id": "INT",
+        "op": "gte",
+        "value": 2
+      },
+      {
+        "kind": "variable",
+        "id": "focus",
+        "op": "eq",
+        "value": 0.5
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stat",
+        "id": "FIT",
+        "op": "set",
+        "value": 1
+      },
+      {
+        "kind": "variable",
+        "id": "focus",
+        "op": "add",
+        "value": -0.5
+      }
+    ],
+    "time_cost": 0,
+    "sequence": [
+      {
+        "id": "assessment",
+        "speaker": "guide",
+        "text": "tea_line"
+      }
+    ]
+  }
+}

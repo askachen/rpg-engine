@@ -8,6 +8,8 @@
 | content_loader | 合併 Manifest 明列的 JSON 片段，提供載入錯誤，不實作遊戲規則 |
 | core | 載入內容、規則、狀態、路線及單局存檔；依賴 bootstrap 與 content_loader，不依賴渲染與輸入 |
 | save_slots | 包裝 core 的槽位查詢／存讀檔；由建構式取得 core |
+| numeric_state | core 使用的數值定義、型別／範圍、比較與效果驗證；對存檔候選補缺欄位，不依賴 UI |
+| numeric_view | 唯讀數值面板與條件文字；透過 main 的 modal／label／button 與翻譯顯示 |
 | profile_store | profile 讀寫、欄位清理及暫存檔替換；不讀單局規則 |
 | art_library | 圖像資源快取、圖集與等比例繪圖，不修改遊戲狀態 |
 | presentation_theme | 主題、字型、標題構圖及 UI 元件工廠；注入內容與 art_library |

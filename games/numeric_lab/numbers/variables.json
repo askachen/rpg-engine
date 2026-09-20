@@ -1,0 +1,14 @@
+{
+  "focus": {
+    "name": "focus",
+    "type": "number",
+    "min": 0,
+    "max": 1,
+    "visible": true
+  },
+  "internal_note": {
+    "name": "internal_note",
+    "type": "integer",
+    "default": 7
+  }
+}

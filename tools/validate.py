@@ -19,6 +19,11 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
     else:
         from content_quality import quality_errors
     errors = quality_errors(data, root)
+    if __package__:
+        from .numeric_validation import definitions_errors, reference_errors
+    else:
+        from numeric_validation import definitions_errors, reference_errors
+    errors.extend(definitions_errors(data))
     required = {'id', 'version', 'characters', 'items', 'shops', 'maps', 'events', 'locales', 'assets', 'initial'}
     for key in sorted(required - data.keys()):
         errors.append(f'game: missing {key}')
@@ -37,6 +42,9 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         collections = {'item':'items', 'affection':'characters', 'stage':'characters', 'completed':'events'}
         for condition in values:
             kind = condition.get('kind')
+            if kind in ('stat', 'variable'):
+                errors.extend(reference_errors(data, where, condition))
+                continue
             if kind not in (*collections, 'flag', 'period', 'money'):
                 errors.append(f'{where}: unknown condition {kind}')
             elif kind in collections:
@@ -46,6 +54,9 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
     def effects(where, values):
         for effect in values:
             kind=effect.get('kind')
+            if kind in ('stat', 'variable'):
+                errors.extend(reference_errors(data, where, effect, effect=True))
+                continue
             if kind not in ('money','item','affection','stage','flag'):
                 errors.append(f'{where}: unknown effect {kind}')
             if kind in ('item','affection','stage'):

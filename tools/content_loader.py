@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 COLLECTIONS = {'maps', 'characters', 'events', 'items', 'shops', 'routes', 'endings',
-               'gallery', 'locales', 'avatars', 'visuals'}
+               'gallery', 'locales', 'avatars', 'visuals', 'stats', 'variables'}
 
 class ContentDocument(dict):
     """Source metadata lives outside JSON keys and is never passed to game rules."""

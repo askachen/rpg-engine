@@ -241,12 +241,18 @@ func show_game() -> void:
 					detail = t(str(check.condition.id))
 				elif check.condition.kind == "stage": detail = t("stage_requirement") % [int(check.expected), int(check.actual)]
 				elif check.condition.kind == "period": detail = t("period") + " · " + t(str(check.expected))
+				elif check.condition.kind in ["stat", "variable"]: detail = numeric_view.condition_text(self, check)
 				var line := label(("✓ " if check.passed else "○ ") + detail, 17, appearance.palette("success") if check.passed else appearance.palette("warning"))
 				line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				body.add_child(line)
 	var inv := button(t("inventory"),show_inventory)
 	inv.position = Vector2(60, 944)
 	add_child(inv)
+	if not numeric_view.visible_entries(core).is_empty():
+		var stats_button := button(numeric_view.title(self), func(): numeric_view.show_status(self))
+		stats_button.name = "NumericStatus"
+		stats_button.position = Vector2(240, 944)
+		add_child(stats_button)
 	status = label(message, 20, appearance.palette("warning"))
 	status.position = Vector2(60, 1004)
 	add_child(status)
@@ -303,6 +309,8 @@ func show_menu() -> void:
 	box.add_child(button(t("settings"), show_settings))
 	box.add_child(button(t("gallery"), show_gallery))
 	box.add_child(button(t("inventory"), show_inventory))
+	if not numeric_view.visible_entries(core).is_empty():
+		box.add_child(button(numeric_view.title(self), func(): numeric_view.show_status(self)))
 	box.add_child(button(t("credits"), show_credits))
 	box.add_child(button(t("quit"), confirm_quit))
 	if OS.is_debug_build():
@@ -343,6 +351,7 @@ func show_credits() -> void:
 	box.add_child(button(t("back"),close_modal))
 
 var inventory_view = preload("res://engine/inventory_view.gd").new()
+var numeric_view = preload("res://engine/numeric_view.gd").new()
 
 func show_inventory() -> void:
 	inventory_view.setup(self)

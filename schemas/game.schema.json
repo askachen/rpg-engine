@@ -150,6 +150,24 @@
         "minLength": 1
       },
       "minItems": 1
+    },
+    "stats": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_]{0,63}$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/numericDefinition"
+      }
+    },
+    "variables": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_]{0,63}$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/numericDefinition"
+      }
     }
   },
   "required": [
@@ -332,6 +350,74 @@
             "value"
           ],
           "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "stat"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "type": "number",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "op": {
+              "enum": [
+                "eq",
+                "ne",
+                "lt",
+                "lte",
+                "gt",
+                "gte"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "variable"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "type": "number",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "op": {
+              "enum": [
+                "eq",
+                "ne",
+                "lt",
+                "lte",
+                "gt",
+                "gte"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
         }
       ]
     },
@@ -433,6 +519,66 @@
           "required": [
             "kind",
             "id",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "stat"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "type": "number",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "op": {
+              "enum": [
+                "add",
+                "set"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "variable"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "value": {
+              "type": "number",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "op": {
+              "enum": [
+                "add",
+                "set"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "op",
             "value"
           ],
           "additionalProperties": false
@@ -1478,6 +1624,22 @@
             "type": "integer",
             "minimum": 0
           }
+        },
+        "stats": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "variables": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
         }
       },
       "required": [
@@ -1803,6 +1965,44 @@
           }
         }
       },
+      "additionalProperties": false
+    },
+    "numericDefinition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "integer",
+            "number"
+          ]
+        },
+        "default": {
+          "type": "number",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "min": {
+          "type": "number",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "max": {
+          "type": "number",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "visible": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
       "additionalProperties": false
     }
   }

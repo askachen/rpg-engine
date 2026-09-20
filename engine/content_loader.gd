@@ -1,7 +1,7 @@
 extends RefCounted
 ## Runtime counterpart of tools/content_loader.py. No gameplay implementation.
 var error := ""
-const COLLECTIONS = ["maps", "characters", "events", "items", "shops", "routes", "endings", "gallery", "locales", "avatars", "visuals"]
+const COLLECTIONS = ["maps", "characters", "events", "items", "shops", "routes", "endings", "gallery", "locales", "avatars", "visuals", "stats", "variables"]
 
 func read_object(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):

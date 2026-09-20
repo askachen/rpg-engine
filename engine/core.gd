@@ -10,6 +10,7 @@ var pending_effects: Array = []
 var history: Array = []
 var load_error := ""
 const PERIODS = ["day", "evening", "late"]
+var numbers = preload("res://engine/numeric_state.gd").new()
 
 func load_content(path: String) -> bool:
 	var loader = preload("res://engine/content_loader.gd").new()
@@ -20,12 +21,19 @@ func load_content(path: String) -> bool:
 	if not preload("res://engine/game_bootstrap.gd").valid_id(str(parsed.get("id", ""))):
 		load_error = "Invalid game ID; expected 1-64 letters, digits, underscores or hyphens."
 		return false
+	load_error = numbers.definitions_error(parsed)
+	if load_error != "": return false
+	var initial: Dictionary = parsed.initial.duplicate(true)
+	if not numbers.normalize(initial, parsed):
+		load_error = "initial: invalid numeric state"
+		return false
 	content = parsed
 	new_game()
 	return true
 
 func new_game() -> void:
 	state = content.get("initial", {}).duplicate(true)
+	numbers.normalize(state, content)
 	clear_event()
 	history.clear()
 
@@ -84,6 +92,11 @@ func checks(conditions: Array) -> Array:
 		var expected = condition.get("value", true)
 		var passed := false
 		match condition.get("kind", ""):
+			"stat", "variable":
+				var group := "stats" if condition.kind == "stat" else "variables"
+				var id: String = condition.get("id", "")
+				actual = state.get(group, {}).get(id)
+				passed = numbers.compare(actual, expected, condition.get("op", ""), content.get(group, {}).get(id, {}))
 			"affection":
 				actual = state.characters[condition.id].affection
 				passed = actual >= expected
@@ -343,6 +356,10 @@ func apply_effects(effects: Array) -> bool:
 	var previous := state.duplicate(true)
 	for effect in effects:
 		match effect.kind:
+			"stat", "variable":
+				if not numbers.apply(state, content, effect):
+					state = previous
+					return false
 			"money": state.money += effect.value
 			"item": state.inventory[effect.id] = state.inventory.get(effect.id, 0) + effect.value
 			"affection": state.characters[effect.id].affection += effect.value
@@ -363,6 +380,8 @@ func apply_effects(effects: Array) -> bool:
 func save_game(path: String) -> bool:
 	if active_event != "":
 		return false
+	var checked := state.duplicate(true)
+	if not numbers.normalize(checked, content): return false
 	var file := FileAccess.open(path + ".tmp", FileAccess.WRITE)
 	if file == null:
 		return false
@@ -382,7 +401,9 @@ func read_save(path: String) -> Dictionary:
 	if not data is Dictionary or data.get("game_id") != content.id or data.get("version") != 1 or not data.get("state") is Dictionary:
 		return {}
 	var candidate: Dictionary = data.state
+	if not numbers.normalize(candidate, content): return {}
 	for key in content.initial:
+		if key in numbers.GROUPS: continue
 		if not candidate.has(key) or typeof(candidate[key]) != typeof(content.initial[key]):
 			return {}
 	if not content.maps.has(candidate.map) or candidate.period not in PERIODS or candidate.day < 1 or candidate.money < 0:

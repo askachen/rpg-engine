@@ -33,7 +33,7 @@ events/meeting.json 內容為該 collection 的鍵值片段：
 
 翻譯檔採 `{"zh_TW":{"meeting_title":"初次見面"}}`，每種語言一份 catalog。現階段沒有巢狀字典自動合併；兩個檔案同時定義 zh_TW 會視為重複 ID。
 
-可拆分集合：maps、characters、events、items、shops、routes、endings、gallery、locales、avatars、visuals。Manifest 自己也可保留同一 collection 的其他項目，但不能重複同一鍵。initial／presentation 等非集合欄位目前保留在 Manifest。
+可拆分集合：maps、characters、events、items、shops、routes、endings、gallery、locales、avatars、visuals、stats、variables。Manifest 自己也可保留同一 collection 的其他項目，但不能重複同一鍵。initial／presentation 等非集合欄位目前保留在 Manifest。數值定義見 [數值契約](numeric-state.md)。
 
 來源按清單順序讀取，同一集合遇到重複 ID 直接失敗，列出第二來源與原來源；不允許默默覆寫。片段只是一層鍵值物件，不是另一份遞迴 Manifest。原始 sources／format_version 在合併後移除，Python 工具與 Godot runtime 得到同一份玩法資料。
 

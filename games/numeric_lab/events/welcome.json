@@ -1,0 +1,53 @@
+{
+  "welcome": {
+    "character": "guide",
+    "title": "welcome",
+    "text": "welcome_line",
+    "repeatable": true,
+    "conditions": [
+      {
+        "kind": "stat",
+        "id": "INT",
+        "op": "lt",
+        "value": 2
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "money",
+        "value": -2
+      },
+      {
+        "kind": "stat",
+        "id": "INT",
+        "op": "add",
+        "value": 1
+      },
+      {
+        "kind": "variable",
+        "id": "focus",
+        "op": "add",
+        "value": 0.25
+      }
+    ],
+    "time_cost": 1,
+    "sequence": [
+      {
+        "id": "training",
+        "speaker": "guide",
+        "text": "welcome_line"
+      }
+    ]
+  }
+}

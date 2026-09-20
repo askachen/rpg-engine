@@ -9,7 +9,8 @@ def load_scenario(path, content):
     errors = check_schema(scenario, 'walkthrough.schema.json')
     if errors: raise ValueError(f'{path}: ' + '; '.join(errors))
     for key in scenario['expect']:
-        if key not in content['initial']: raise ValueError(f'{path}#/expect/{key}: unknown state field')
+        if key not in content['initial'] and not (key in ('stats', 'variables') and content.get(key)):
+            raise ValueError(f'{path}#/expect/{key}: unknown state field')
     for index, step in enumerate(scenario['steps']):
         if step['op'] == 'checks' and step['event'] not in content['events']:
             raise ValueError(f'{path}#/steps/{index}/event: unknown event')
