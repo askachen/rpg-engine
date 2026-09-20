@@ -1,0 +1,177 @@
+{
+  "steps": [
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "coins"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "load"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "work_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "explore_spot"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "kiosk_counter"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "tea"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "course_station",
+      "item": "tea"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "load"
+    },
+    {
+      "op": "interact",
+      "target": "course_station",
+      "item": "tea",
+      "expect_result": {
+        "ok": false,
+        "message": "item_required"
+      }
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "load"
+    }
+  ],
+  "expect": {
+    "money": 9,
+    "stats": {
+      "INT": 2,
+      "FIT": 1,
+      "CHA": 1
+    },
+    "variables": {
+      "focus": 0,
+      "internal_note": 9
+    },
+    "completed": [
+      "opening",
+      "welcome",
+      "tea_time",
+      "work",
+      "explore",
+      "course"
+    ],
+    "period": "day",
+    "day": 3
+  }
+}

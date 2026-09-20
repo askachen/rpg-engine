@@ -42,7 +42,7 @@ process_failed 訊息與日誌記錄原始子程序退出碼。缺少 Godot 不�
 }
 ```
 
-steps 與 expect 皆不可空。expect 僅接受 initial 已存在的頂層狀態欄位；指定欄位採完整 JSON 值比較（陣列順序、巢狀物件均須相等），未指定欄位不比較。每步 response.ok 必須為 true，回應數須等於步數，結束時不得有 active_event。checks/path/snapshot 是查詢；存讀檔使用當次測試目錄，沒有預先留下的槽位。負面玩法案例仍由 pytest 撰寫，不以此成功路線格式表示。
+steps 與 expect 皆不可空。expect 接受 initial 已存在的頂層狀態欄位，以及已宣告 stats／variables 與 actions；指定欄位採完整 JSON 值比較（陣列順序、巢狀物件均須相等），未指定欄位不比較。每步預設要求 response.ok=true；可用 expect_result 指定 ok／message 負例，回應數須等於步數，結束時不得有 active_event。checks/path/snapshot 是查詢；存讀檔使用當次測試目錄，沒有預先留下的槽位。`scenarios --game ID` 批次跑 tests/scenarios/*.json；失敗保留可重播 JSON。
 
 此測試呼叫實際 core.act，但不跑對話 UI 演出。既有 pytest 的 Viewport 滑鼠測試負責介面回歸。check 跑共用測試；test 才是指定遊戲路線。
 
@@ -55,3 +55,9 @@ S2 的 build 先驗證內容、Godot 匯入與原生素材，再產生 Godot 原
 解壓後使用 Godot 4.7.2 匯入 project.godot 即可啟動。Python 編輯／驗證工具仍需完整 repo。S7 另處理 Windows executable、匯出範本與發行驗收。
 
 每次 test/check 使用獨立 run 目錄和 APPDATA，不讀手動試玩存檔。匯入快取仍屬 checkout 共用；請勿在同 checkout 並行跑匯入。builds/、test-results/、.tools/ 不提交到 Git。
+
+## S6 擴充
+
+`check --suite static/rules/ui/media/fast/full` 選擇測試層，預設 full。`play --dev` 啟用有標記的開發修改；只允許 play。`explore` 接受 `--max-states`（1～100000）、`--max-depth`（1～1000）、`--search-seconds`（>0～300）、可選 `--goal` 結局 ID。探索超限回傳 exit 1／inconclusive，不是通關成功也不是死局證明；一條 witness 成功也不保證所有路線。詳見 [可靠性契約](reliability.md)。
+
+探索重播使用完整期末 state 斷言；若證據停在事件內，重播末尾會明確加 cancel_event，避免殘留演出。空路線使用 snapshot 查詢，沒有注入狀態。原始探索狀態／active_event 仍保留在 exploration.json，報告標示 replay_cancels_active_event。

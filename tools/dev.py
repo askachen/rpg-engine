@@ -30,12 +30,22 @@ def main(argv=None):
     try:
         parser = Parser(description=__doc__)
         parser.add_argument('command', nargs='?', default='check', choices=[
-            'check', 'play', 'editor', 'ui-smoke', 'list', 'validate', 'new', 'test', 'build'])
+            'check', 'play', 'editor', 'ui-smoke', 'list', 'validate', 'new', 'test', 'build', 'explore', 'scenarios'])
         parser.add_argument('--game', default='demo', help='games/ directory name or manifest JSON path')
         parser.add_argument('--json', action='store_true', help='Emit exactly one JSON result to stdout')
         parser.add_argument('--scenario', help='test only: scenario path relative to project root')
         parser.add_argument('--timeout', type=float, default=240, help='Per-process deadline in seconds, except interactive play/editor')
+        parser.add_argument('--suite', choices=['fast','static','rules','ui','media','full'], default='full', help='check test layer')
+        parser.add_argument('--dev', action='store_true', help='play only: enable marked developer commands')
+        parser.add_argument('--max-states', type=int, default=1000)
+        parser.add_argument('--max-depth', type=int, default=30)
+        parser.add_argument('--search-seconds', type=float, default=10)
+        parser.add_argument('--goal', default='', help='explore: ending ID; default any ending')
         options = parser.parse_args(argv)
+        if options.dev and options.command != 'play': raise Failure(2,'usage','--dev is only supported by play')
+        if options.suite != 'full' and options.command != 'check': raise Failure(2,'usage','--suite is only supported by check')
+        if not 1 <= options.max_states <= 100000 or not 1 <= options.max_depth <= 1000 or not 0 < options.search_seconds <= 300:
+            raise Failure(2,'usage','Invalid exploration limits')
         report.update(command=options.command, game=options.game)
         if not 0 < options.timeout <= 3600:
             raise Failure(2, 'usage', '--timeout must be greater than zero and at most 3600')
@@ -131,6 +141,45 @@ def execute(options, report):
     report['artifacts']['asset_probe'] = str(output)
     probe = json.loads(output.read_text(encoding='utf-8'))
     if probe['errors']: raise Failure(1, 'asset_probe', str(probe['errors']))
+    if command == 'explore':
+        if not data.get('endings') or (options.goal and options.goal not in data['endings']): raise Failure(2,'goal','Choose a declared ending')
+        request, output = run_dir/'explore-request.json', run_dir/'exploration.json'
+        request.write_text(json.dumps({'content':str(content),'limits':{'max_states':options.max_states,'max_depth':options.max_depth,'seconds':options.search_seconds,'goal':options.goal}}),encoding='utf-8')
+        run(base+['--headless','--script','res://engine/explore_runner.gd','--',str(request),str(output)],'explore')
+        exploration=json.loads(output.read_text(encoding='utf-8'))
+        report['artifacts']['exploration']=str(output)
+        report['data'].update({key:value for key,value in exploration.items() if key not in ('steps','state')})
+        report['data']['resource_preflight']={'declared_assets':len(data['assets']),'validated':True}
+        steps=list(exploration['steps'])
+        if exploration['active_event']: steps.append({'op':'cancel_event'})
+        if not steps: steps=[{'op':'snapshot','id':'initial'}]
+        replay=run_dir/'replay.json'
+        replay.write_text(json.dumps({'steps':steps,'expect':exploration['state']},indent=2),encoding='utf-8')
+        report['artifacts']['replay']=str(replay)
+        report['data']['replay_cancels_active_event']=bool(exploration['active_event'])
+        if exploration['status'] != 'witness_found': raise Failure(1,'reachability_'+exploration['status'],exploration['reason']+'; this is not a proof that every route is completable')
+        return
+    if command == 'scenarios':
+        from scenario import load_scenario, assertions
+        routes=sorted((content.parent/'tests/scenarios').glob('*.json'))
+        if not routes: raise Failure(2,'not_found','No tests/scenarios/*.json in selected package')
+        report['data']['scenarios']=[]
+        failed=False
+        for i,route in enumerate(routes):
+            scenario=load_scenario(route,data)
+            request,output=run_dir/f'case-{i}.json',run_dir/f'case-{i}-result.json'
+            request.write_text(json.dumps(dict(scenario,content=str(content))),encoding='utf-8')
+            run(base+['--headless','--script','res://engine/test_runner.gd','--',str(request),str(output)],f'case-{i}')
+            result=json.loads(output.read_text(encoding='utf-8'))
+            errors=assertions(scenario,result)
+            report['data']['scenarios'].append({'scenario':str(route),'ok':not errors,'errors':errors,'result':str(output)})
+            if errors:
+                failed=True
+                replay=run_dir/f'case-{i}-replay.json'
+                replay.write_text(json.dumps(scenario,indent=2),encoding='utf-8')
+                report['artifacts'][f'replay_{i}']=str(replay)
+        if failed: raise Failure(1,'scenario_failed','Scenario failures; inspect result history/diff and replay artifacts')
+        return
     if command == 'build':
         from build_game import build_source
         report['artifacts']['source_bundle'] = str(build_source(data))
@@ -143,23 +192,24 @@ def execute(options, report):
         report['artifacts']['walkthrough'] = str(output)
         result = json.loads(output.read_text(encoding='utf-8'))
         if command == 'test':
-            failures = [f'step {i}: {item}' for i, item in enumerate(result['responses']) if not item.get('ok')]
-            if len(result['responses']) != len(scenario['steps']): failures.append('Incomplete response count')
-            failures += [f'expected {key}={value}, got {result["state"].get(key)}'
-                         for key, value in scenario['expect'].items() if result['state'].get(key) != value]
-            if result['active_event']: failures.append('Walkthrough ended with an active event')
+            from scenario import assertions
+            failures = assertions(scenario,result)
             report['data'].update(state=result['state'], steps=len(result['responses']))
             if failures:
+                replay = run_dir/'replay.json'
+                replay.write_text(json.dumps(scenario,indent=2),encoding='utf-8')
+                report['artifacts']['replay'] = str(replay)
                 report['diagnostics'].extend(dict(code='assertion', message=item) for item in failures)
                 raise Failure(1, 'test_failed', f'{len(failures)} walkthrough failure(s)')
             return
-        report['data']['scope'] = 'selected package load plus shared engine/demo regressions'
+        report['data']['scope'] = 'selected package load plus '+options.suite+' engine regressions'
+        report['data']['suite'] = options.suite
         report['artifacts']['junit'] = str(run_dir/'junit.xml')
         run([sys.executable, '-m', 'pytest', '-q', '-p', 'no:cacheprovider',
-             f'--basetemp={run_dir / "pytest"}', f'--junitxml={run_dir / "junit.xml"}'], 'pytest', python=True)
+             f'--basetemp={run_dir / "pytest"}', f'--junitxml={run_dir / "junit.xml"}'] + ([] if options.suite == 'full' else ['-m',options.suite]), 'pytest', python=True)
         return
     args = {'play': [], 'editor': ['--editor'], 'ui-smoke': ['--script', 'res://engine/ui_smoke.gd']}[command]
-    run(base+args+['--', f'--game={content}'], command, interactive=command in ('play', 'editor'))
+    run(base+args+['--', f'--game={content}'] + (['--dev'] if options.dev else []), command, interactive=command in ('play', 'editor'))
 
 
 if __name__ == '__main__':

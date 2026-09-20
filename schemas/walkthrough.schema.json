@@ -34,6 +34,21 @@
                 "type": "integer",
                 "minimum": -1,
                 "maximum": 1
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -46,6 +61,21 @@
             "properties": {
               "op": {
                 "const": "wait"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -67,6 +97,21 @@
               "item": {
                 "type": "string",
                 "minLength": 1
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -84,6 +129,21 @@
               "choice": {
                 "type": "string",
                 "minLength": 1
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -104,6 +164,21 @@
               },
               "item": {
                 "type": "string"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -124,6 +199,21 @@
               },
               "y": {
                 "type": "integer"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -136,6 +226,21 @@
             "properties": {
               "op": {
                 "const": "save"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -148,6 +253,21 @@
             "properties": {
               "op": {
                 "const": "load"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -164,6 +284,21 @@
               },
               "id": {
                 "type": "string"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -180,6 +315,21 @@
               },
               "event": {
                 "type": "string"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -192,6 +342,21 @@
             "properties": {
               "op": {
                 "const": "latest_slot"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -210,6 +375,21 @@
                 "type": "integer",
                 "minimum": 0,
                 "maximum": 6
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -228,6 +408,21 @@
                 "type": "integer",
                 "minimum": 0,
                 "maximum": 6
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -246,6 +441,21 @@
                 "type": "integer",
                 "minimum": 0,
                 "maximum": 6
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -254,6 +464,21 @@
             "properties": {
               "op": {
                 "const": "cancel_event"
+              },
+              "expect_result": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ok"
+                ],
+                "additionalProperties": false
               }
             },
             "required": [

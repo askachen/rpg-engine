@@ -1,0 +1,265 @@
+{
+  "steps": [
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "coins"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "interact",
+      "target": "guide_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "load"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "work_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "explore_spot"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "kiosk_counter"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "snack"
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "tea",
+      "expect_result": {
+        "ok": false,
+        "message": "insufficient_money"
+      }
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "load"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "work_desk"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "buy",
+      "shop": "kiosk",
+      "item": "tea"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "course_station",
+      "item": "tea"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "load"
+    }
+  ],
+  "expect": {
+    "stats": {
+      "INT": 2,
+      "FIT": 1,
+      "CHA": 1
+    },
+    "money": 2,
+    "inventory": {
+      "snack": 10,
+      "tea": 0
+    }
+  }
+}

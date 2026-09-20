@@ -25,11 +25,13 @@ func details(slot: int) -> Dictionary:
 	var filename := path(slot)
 	var exists := not filename.is_empty() and FileAccess.file_exists(filename)
 	var data: Dictionary = core.read_save(filename) if exists else {}
+	var reason: String = core.save_error
+	var backup: Dictionary = core.read_save(filename+".bak") if filename != "" else {}
 	var stamp = data.get("saved_at", 0)
 	if not (stamp is float or stamp is int) or stamp <= 0:
 		stamp = FileAccess.get_modified_time(filename) if exists else 0
 	return {"slot": slot, "exists": exists, "valid": not data.is_empty(), "data": data,
-		"saved_at": stamp}
+		"saved_at": stamp, "reason":reason, "recoverable":not backup.is_empty(), "backup":backup, "backup_exists":FileAccess.file_exists(filename+".bak")}
 
 func latest() -> int:
 	var chosen := -1
@@ -40,3 +42,17 @@ func latest() -> int:
 			chosen = slot
 			newest = float(info.saved_at)
 	return chosen
+
+func restore(slot: int) -> bool:
+	if path(slot).is_empty() or core.active_event != "" or core.replay_mode: return false
+	var writer = preload("res://engine/atomic_save.gd").new()
+	var ok: bool = writer.restore(core,path(slot))
+	core.save_error = writer.error
+	return ok
+
+func delete_slot(slot: int) -> bool:
+	if path(slot).is_empty() or core.active_event != "" or core.replay_mode: return false
+	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+		var filename: String = path(slot)+suffix
+		if FileAccess.file_exists(filename) and DirAccess.remove_absolute(filename) != OK: return false
+	return true

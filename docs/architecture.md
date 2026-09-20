@@ -7,6 +7,9 @@
 | game_bootstrap | 入口選擇與 game_id／profile 命名，不匯入 UI |
 | content_loader | 合併 Manifest 明列的 JSON 片段，提供載入錯誤，不實作遊戲規則 |
 | core | 載入內容、規則、狀態、路線及單局存檔；依賴 bootstrap 與 content_loader，不依賴渲染與輸入 |
+| save_contract | 純候選資料的完整巢狀驗證與版本遷移，不修改 live state／檔案 |
+| atomic_save | 主檔／暫存／有效備份的寫入與明確復原 |
+| reachability | 複製可達狀態後呼叫正式 act 的有界探索，不另寫規則 |
 | save_slots | 包裝 core 的槽位查詢／存讀檔；由建構式取得 core |
 | numeric_state | core 使用的數值定義、型別／範圍、比較與效果驗證；對存檔候選補缺欄位，不依賴 UI |
 | progress_view | 唯讀條件樹與非線性 tracking 顯示，不參與 route 判定 |
@@ -52,7 +55,7 @@ dialogue 的宿主契約為 core、profile、dialogue_log、language、appearanc
 
 查詢接口：checks(conditions)、satisfied(conditions)、route_progress(character)、current_ending()、path_to(Vector2i, interaction)。path_to 只規劃路徑，實際移動仍逐步 act。不得用直接寫 state 代替正常遊玩；具名 fixture 可以在專門的隔離測試中使用。
 
-持久化：core.save_game(path)／load_game(path) 回傳 bool；read_save(path) 回傳有效資料或空字典且不改動當局。SaveSlots 的 save／load_slot／details／latest 管理 0 自動槽、1–6 手動槽。Profiles.read(path, language) 回傳整理後的 profile，write 回傳 bool；完整備份／版本復原仍屬 S6。
+持久化：core.save_game(path)／load_game(path) 回傳 bool；read_save(path) 回傳有效資料或空字典且不改動當局。SaveSlots 的 save／load_slot／details／latest 管理 0 自動槽、1–6 手動槽。Profiles.read(path, language) 回傳整理後的 profile，write 回傳 bool；S6 單局槽位的備份／版本復原及 SaveSlots.restore／delete_slot 見 [可靠性契約](reliability.md)。profile 尚未加入復原 UI。
 
 ## 擴充位置
 

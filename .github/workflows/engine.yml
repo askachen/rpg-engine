@@ -1,0 +1,50 @@
+name: Engine verification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [static, rules, ui, media]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          python -m pip install -r requirements-dev.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          New-Item -ItemType Directory -Force .tools/godot | Out-Null
+          Invoke-WebRequest 'https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_win64.exe.zip' -OutFile .tools/godot.zip
+          Expand-Archive .tools/godot.zip .tools/godot
+          $godotBinary = (Resolve-Path .tools/godot/Godot_v4.7.2-stable_win64_console.exe).Path
+          if ((& $godotBinary --version) -notmatch '^4\.7\.2\.stable') { throw 'Unexpected Godot version' }
+          "GODOT_BIN=$godotBinary" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Fresh import and selected layer
+        shell: pwsh
+        run: |
+          python tools/dev.py check --game numeric_lab --suite ${{ matrix.suite }} --timeout 1800 --json
+          exit $LASTEXITCODE
+      - name: Adversarial scenario routes
+        if: matrix.suite == 'rules'
+        shell: pwsh
+        run: |
+          python tools/dev.py scenarios --game numeric_lab --json
+          exit $LASTEXITCODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-${{ matrix.suite }}
+          path: test-results/
+          if-no-files-found: warn
+          retention-days: 14

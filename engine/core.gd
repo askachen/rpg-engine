@@ -3,6 +3,7 @@ extends RefCounted
 ## The authoritative game rules. Both the GUI and headless runner call act().
 
 var content: Dictionary = {}
+var content_sources: Dictionary = {}
 var state: Dictionary = {}
 var active_event := ""
 var active_node := ""
@@ -11,6 +12,9 @@ var event_context: Dictionary = {}
 var history: Array = []
 var load_error := ""
 var replay_mode := false
+var save_error := ""
+var developer_used := false
+var developer_enabled := OS.get_cmdline_user_args().has("--dev")
 const PERIODS = ["day", "evening", "late"]
 var numbers = preload("res://engine/numeric_state.gd").new()
 
@@ -29,12 +33,14 @@ func load_content(path: String) -> bool:
 	if not numbers.normalize(initial, parsed):
 		load_error = "initial: invalid numeric state"
 		return false
+	content_sources = loader.origins.duplicate()
 	content = parsed
 	new_game(false)
 	return true
 
 func new_game(play_opening: bool = true) -> void:
 	if replay_mode: return
+	developer_used = false
 	state = content.get("initial", {}).duplicate(true)
 	numbers.normalize(state, content)
 	if records_enabled(): state["actions"] = []
@@ -68,7 +74,7 @@ func event_candidates(who: String, context: Dictionary = {}) -> Array:
 		if id in state.completed and not event.get("repeatable", false): reason = "completed"
 		elif not route_allows(id): reason = "route_order"
 		elif not satisfied(event.conditions, context): reason = "conditions"
-		candidates.append({"id": id, "priority": event.get("priority", 0), "eligible": reason == "eligible", "reason": reason, "checks": checks(event.conditions, context), "selected": false})
+		candidates.append({"id": id, "priority": event.get("priority", 0), "eligible": reason == "eligible", "reason": reason, "checks": checks(event.conditions, context), "selected": false,"source":content_sources.get("events/"+id,"events/"+id)})
 	candidates.sort_custom(func(a, b): return a.priority > b.priority if a.priority != b.priority else a.id < b.id)
 	var selected := false
 	for candidate in candidates:
@@ -316,6 +322,7 @@ func shop_offer(shop_id: String, item_id: String) -> Dictionary:
 func act(command: Dictionary) -> Dictionary:
 	var before := state.duplicate(true)
 	var event_before := active_event
+	var node_before := active_node
 	var response := _act(command)
 	# A schedule/flag change must never place a solid actor on the player.
 	if not replay_mode and response.ok and command.get("op") != "move" and not walkable(Vector2i(int(state.position[0]), int(state.position[1]))):
@@ -325,7 +332,7 @@ func act(command: Dictionary) -> Dictionary:
 		if command.get("op") == "choose": clear_event()
 		else: active_event = event_before
 		response = result(false, "world_blocked")
-	history.append({"command": command.duplicate(true), "result": response.duplicate(true), "before": before, "after": state.duplicate(true)})
+	history.append({"command": command.duplicate(true), "result": response.duplicate(true), "before": before, "after": state.duplicate(true), "diff":state_diff(before,state), "event":event_before,"node":node_before,"step":history.size()})
 	return response
 
 func _act(command: Dictionary) -> Dictionary:
@@ -334,6 +341,7 @@ func _act(command: Dictionary) -> Dictionary:
 	if active_event != "" and op not in ["choose", "cancel_event"]:
 		return result(false, "event_busy")
 	match op:
+		"debug": return debug_action(command)
 		"cancel_event":
 			if active_event == "": return result(false, "no_event")
 			clear_event()
@@ -476,74 +484,24 @@ func apply_effects(effects: Array) -> bool:
 	return true
 
 func save_game(path: String) -> bool:
-	if replay_mode or active_event != "":
-		return false
-	var checked := state.duplicate(true)
-	if not numbers.normalize(checked, content) or not valid_actions(checked) or not valid_stock(checked): return false
-	var file := FileAccess.open(path + ".tmp", FileAccess.WRITE)
-	if file == null:
-		return false
-	file.store_string(JSON.stringify({"game_id": content.id, "version": 1, "content_version": content.version, "saved_at": Time.get_unix_time_from_system(), "state": state}))
-	file.flush()
-	var write_error := file.get_error()
-	file.close()
-	if write_error != OK:
-		return false
-	return DirAccess.rename_absolute(path + ".tmp", path) == OK
+	if replay_mode or active_event != "": save_error = "event_busy"; return false
+	var writer = preload("res://engine/atomic_save.gd").new()
+	var ok: bool = writer.save(self,path,{"game_id":content.id,"version":2,"content_version":content.version,"saved_at":Time.get_unix_time_from_system(),"developer":developer_used,"state":state})
+	save_error = writer.error
+	return ok
 
 func read_save(path: String) -> Dictionary:
-	## Validates without changing live state; also used by the slot browser.
-	if not FileAccess.file_exists(path):
-		return {}
-	var data = JSON.parse_string(FileAccess.get_file_as_string(path))
-	if not data is Dictionary or data.get("game_id") != content.id or data.get("version") != 1 or not data.get("state") is Dictionary:
-		return {}
-	var candidate: Dictionary = data.state
-	if not numbers.normalize(candidate, content): return {}
-	for key in content.initial:
-		if key in numbers.GROUPS: continue
-		if not candidate.has(key) or typeof(candidate[key]) != typeof(content.initial[key]):
-			return {}
-	if not content.maps.has(candidate.map) or candidate.period not in PERIODS or candidate.day < 1 or candidate.money < 0:
-		return {}
-	if not numbers.valid_value(candidate.day, {"type":"integer","min":1}) or not valid_actions(candidate) or not valid_stock(candidate): return {}
-	if candidate.position.size() != 2:
-		return {}
-	for coordinate in candidate.position:
-		if not (coordinate is float or coordinate is int) or coordinate != floor(coordinate):
-			return {}
-	var area: Dictionary = content.maps[candidate.map]
-	if candidate.position[0] < 0 or candidate.position[1] < 0 or candidate.position[0] >= area.width or candidate.position[1] >= area.height:
-		return {}
-	# Visual-layout v4 repositions world furniture; retain progress at the map entrance.
-	var reposition_before := int(content.get("save_migration", {}).get("reposition_before_version", 0))
-	if int(data.get("content_version", 0)) < reposition_before:
-		candidate.position = area.spawns.entry.duplicate()
-	for wall in area.walls:
-		if wall == candidate.position:
-			return {}
-	for character in content.characters:
-		if not candidate.characters.has(character) or not candidate.characters[character] is Dictionary:
-			return {}
-		if not candidate.characters[character].has_all(["stage", "affection"]):
-			return {}
-		for field in ["stage", "affection"]:
-			var value = candidate.characters[character][field]
-			if not (value is float or value is int) or value < 0 or value != floor(value):
-				return {}
-	for inventory in [candidate.inventory, candidate.stock]:
-		for value in inventory.values():
-			if not (value is float or value is int) or value < 0 or value != floor(value):
-				return {}
-	for event in candidate.completed:
-		if not content.events.has(event): return {}
+	var contract = preload("res://engine/save_contract.gd").new()
+	var data: Dictionary = contract.read(self,path)
+	save_error = contract.error
 	return data
 
 func load_game(path: String) -> bool:
-	if replay_mode or active_event != "": return false
+	if replay_mode or active_event != "": save_error = "event_busy"; return false
 	var data := read_save(path)
 	if data.is_empty(): return false
 	state = data.state.duplicate(true)
+	developer_used = data.developer
 	clear_event()
 	return true
 
@@ -573,7 +531,7 @@ func valid_actions(candidate: Dictionary) -> bool:
 	if not candidate.actions is Array: return false
 	var previous := -1
 	for record in candidate.actions:
-		if not record is Dictionary or not record.has_all(["event","tags","day","period"]): return false
+		if not record is Dictionary or not record.has_all(["event","tags","day","period"]) or record.size() != 4: return false
 		if not content.events.has(record.event) or not record.tags is Array or record.tags.is_empty(): return false
 		if not numbers.valid_value(record.day, {"type":"integer","min":1}) or record.period not in PERIODS: return false
 		var point: int = (int(record.day)-1)*3+PERIODS.find(record.period)
@@ -624,3 +582,47 @@ func valid_stock(candidate: Dictionary) -> bool:
 			var count = candidate.stock.get(shop+":"+item,0)
 			if not numbers.valid_value(count,{"type":"integer","min":0,"max":offer.get("capacity",numbers.LIMIT)}): return false
 	return true
+
+func state_diff(before: Dictionary, after: Dictionary, prefix: String = "") -> Array:
+	var changes: Array = []
+	var keys := before.keys()
+	for key in after:
+		if key not in keys: keys.append(key)
+	keys.sort()
+	for key in keys:
+		var path: String = prefix + "/" + str(key)
+		if before.get(key) is Dictionary and after.get(key) is Dictionary:
+			changes.append_array(state_diff(before[key],after[key],path))
+		elif before.has(key) != after.has(key) or before.get(key) != after.get(key):
+			changes.append({"path":path,"before":before.get(key),"after":after.get(key)})
+	return changes
+
+func debug_allowed() -> bool:
+	return developer_enabled and OS.has_feature("debug") and not OS.get_cmdline_user_args().has("--release") and not replay_mode
+
+func debug_action(command: Dictionary) -> Dictionary:
+	if not debug_allowed(): return result(false,"developer_disabled")
+	var previous := state.duplicate(true)
+	match command.get("action"):
+		"teleport":
+			if not content.maps.has(command.get("map")) or not content.maps[command.map].spawns.has(command.get("spawn")): return result(false,"invalid_debug_target")
+			state.map = command.map
+			state.position = content.maps[command.map].spawns[command.spawn].duplicate()
+			if not walkable(Vector2i(int(state.position[0]),int(state.position[1]))):
+				state = previous
+				return result(false,"blocked")
+		"set":
+			var group: String = command.get("group","")
+			if group not in ["stats","variables"]: return result(false,"invalid_debug_target")
+			if not numbers.apply(state,content,{"kind":"stat" if group == "stats" else "variable","id":command.get("id",""),"op":"set","value":command.get("value")}): return result(false,"invalid_debug_value")
+		"event":
+			if not content.events.has(command.get("event")): return result(false,"unknown_event")
+			var id: String = command.event
+			var response := start_event(id,context_for_event(id))
+			if not response.ok: return response
+			developer_used = true
+			response.developer = true
+			return response
+		_: return result(false,"invalid_debug_action")
+	developer_used = true
+	return result(true,"developer_changed",{"developer":true})

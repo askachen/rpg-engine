@@ -1,0 +1,804 @@
+{
+  "steps": [
+    {
+      "op": "interact",
+      "target": "money_pickup"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "home_exit"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "b_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "lamp"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "b_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "street_shop"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "a_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "counter"
+    },
+    {
+      "op": "buy",
+      "shop": "general",
+      "item": "coffee"
+    },
+    {
+      "op": "buy",
+      "shop": "general",
+      "item": "letter"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "a_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "snapshot",
+      "id": "mid"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "load"
+    },
+    {
+      "op": "snapshot",
+      "id": "restored"
+    },
+    {
+      "op": "interact",
+      "target": "a_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "shop_exit"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "b_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    }
+  ],
+  "expect": {
+    "completed": [
+      "b1",
+      "b2",
+      "a1",
+      "a2",
+      "a3",
+      "b3"
+    ]
+  }
+}

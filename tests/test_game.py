@@ -153,6 +153,7 @@ def test_legacy_slot_and_invalid_state_are_handled(godot,tmp_path):
     path=tmp_path/'story_garden_demo_slot1.json'
     data=json.loads(path.read_text(encoding='utf-8'))
     assert 'saved_at' in data and data['content_version']==CONTENT['version']
+    data['version']=1  # Explicit legacy format; v2 requires metadata.
     del data['saved_at'];del data['content_version']
     path.write_text(json.dumps(data),encoding='utf-8')
     result=run(godot,tmp_path,[dict(op='load_slot',slot=1),dict(op='slot_info',slot=1)])

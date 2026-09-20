@@ -187,7 +187,7 @@ func show_game() -> void:
 	var heading := label(t(core.state.map), 30)
 	heading.position = Vector2(162, 44)
 	add_child(heading)
-	var info := label("%s   /   %s     ·     %s %d" % [core.format_day(int(core.state.day),language), t(core.state.period), t("money"), core.state.money], 18, appearance.palette("success"))
+	var info := label(("[DEV] " if core.developer_used else "") + "%s   /   %s     ·     %s %d" % [core.format_day(int(core.state.day),language), t(core.state.period), t("money"), core.state.money], 18, appearance.palette("success"))
 	info.position = Vector2(162, 105)
 	add_child(info)
 	var menu_button := button(t("menu"), show_menu)
@@ -318,7 +318,7 @@ func show_menu() -> void:
 		box.add_child(button(numeric_view.title(self), func(): numeric_view.show_status(self)))
 	box.add_child(button(t("credits"), show_credits))
 	box.add_child(button(t("quit"), confirm_quit))
-	if OS.is_debug_build():
+	if OS.is_debug_build() and not OS.get_cmdline_user_args().has("--release"):
 		box.add_child(button(t("debug"), show_debug))
 	box.add_child(button(t("home_return"), func():
 		var confirm := modal(t("confirm_title"))
@@ -380,8 +380,8 @@ func show_slots(saving: bool) -> void:
 	grid.add_theme_constant_override("v_separation", 16)
 	box.add_child(grid)
 	for slot in range(1, Slots.COUNT + 1):
-		grid.add_child(slot_button(slot, saving))
-	box.add_child(slot_button(0, saving))
+		grid.add_child(slot_controls(slot, saving))
+	box.add_child(slot_controls(0, saving))
 	box.add_child(button(t("back"), close_modal))
 
 func slot_button(slot: int, saving: bool) -> Button:
@@ -389,7 +389,7 @@ func slot_button(slot: int, saving: bool) -> Button:
 	var summary := t("empty_slot")
 	if info.exists:
 		if not info.valid:
-			summary = t("invalid_slot")
+			summary = t("invalid_slot") + " · " + info.reason
 		else:
 			var state: Dictionary = info.data.state
 			var stamp := Time.get_datetime_string_from_unix_time(int(info.saved_at), true) + " UTC"
@@ -408,6 +408,7 @@ func slot_button(slot: int, saving: bool) -> Button:
 				message = t("loaded") + " · " + slot_title(slot)
 				show_game()
 			else: show_notice(t("load_failed")))
+	if info.valid and info.data.get("developer",false): entry.text += " [DEV]"
 	entry.name = "slot_%d" % slot
 	entry.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	entry.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -420,11 +421,26 @@ func write_slot(slot: int) -> void:
 	show_game()
 
 func show_debug() -> void:
+	if not OS.is_debug_build() or OS.get_cmdline_user_args().has("--release") or gallery_view.replay != null: return
 	var box := modal(t("debug"))
 	box.add_child(label(JSON.stringify(core.state, "  "), 14))
 	var diagnostics: Dictionary = {}
-	for who in core.content.characters: diagnostics[who] = core.event_candidates(who)
-	box.add_child(label(JSON.stringify({"event_candidates": diagnostics}, "  "), 14))
+	for target in core.map_objects():
+		if target.kind == "npc": diagnostics[target.id] = core.event_candidates(target.character,{"target":target.id})
+		elif target.has("event"): diagnostics[target.id] = core.checks(core.content.events[target.event].conditions,{"target":target.id})
+	box.add_child(label(JSON.stringify({"event_candidates": diagnostics,"developer_save":core.developer_used,"recent_steps":core.history.slice(maxi(0,core.history.size()-8)).map(func(entry): return {"step":entry.step,"event":entry.event,"node":entry.node,"command":entry.command,"result":entry.result,"diff":entry.diff})}, "  "), 14))
+	if core.debug_allowed():
+		var input := LineEdit.new()
+		input.name = "DebugCommand"
+		input.placeholder_text = '{"op":"debug","action":"teleport","map":"room","spawn":"entry"}'
+		input.custom_minimum_size.x = 900
+		box.add_child(input)
+		box.add_child(button("執行開發指令 / Run developer command",func():
+			var command = JSON.parse_string(input.text)
+			if command is Dictionary and command.get("op") == "debug":
+				close_modal()
+				execute(command)))
+	else: box.add_child(label("Read-only. Enable mutations with: python tools/dev.py play --dev",18))
 	box.add_child(button(t("back"), close_modal))
 
 func show_settings() -> void:
@@ -677,9 +693,35 @@ func _unhandled_key_input(event: InputEvent) -> void:
 					execute({"op": "interact", "target": target.id})
 					break
 		KEY_F3:
-			if OS.is_debug_build():
+			if OS.is_debug_build() and not OS.get_cmdline_user_args().has("--release"):
 				show_debug()
 
 func _draw() -> void:
 	if core.content.is_empty(): return
 	if screen == "title": appearance.draw_title(self)
+
+func slot_controls(slot: int, saving: bool) -> VBoxContainer:
+	var box := VBoxContainer.new()
+	box.add_child(slot_button(slot,saving))
+	var info: Dictionary = saves.details(slot)
+	var actions := HBoxContainer.new()
+	box.add_child(actions)
+	if info.recoverable:
+		var restore := button("復原備份" if language == "zh_TW" else "Restore backup",func(): confirm_slot_action(slot,"restore",saving))
+		restore.name = "RestoreSlot_%d" % slot
+		actions.add_child(restore)
+	if info.exists or info.backup_exists:
+		var remove := button("刪除" if language == "zh_TW" else "Delete",func(): confirm_slot_action(slot,"delete",saving))
+		remove.name = "DeleteSlot_%d" % slot
+		actions.add_child(remove)
+	return box
+
+func confirm_slot_action(slot: int, action: String, saving: bool) -> void:
+	var box := modal(("復原備份將取代此槽位；刪除會一併移除備份。" if language == "zh_TW" else "Restore replaces this slot; delete also removes its backup.") + " " + slot_title(slot))
+	var accept := button(t("yes"),func():
+		var ok: bool = saves.restore(slot) if action == "restore" else saves.delete_slot(slot)
+		if ok: show_slots(saving)
+		else: show_notice(("操作失敗 / Failed: ") + core.save_error))
+	accept.name = "ConfirmSlotAction"
+	box.add_child(accept)
+	box.add_child(button(t("cancel"),func(): show_slots(saving)))

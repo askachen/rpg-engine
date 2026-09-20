@@ -1,0 +1,789 @@
+{
+  "steps": [
+    {
+      "op": "interact",
+      "target": "money_pickup"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "home_exit"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "street_shop"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "a_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "later"
+    },
+    {
+      "op": "interact",
+      "target": "a_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "counter"
+    },
+    {
+      "op": "buy",
+      "shop": "general",
+      "item": "coffee"
+    },
+    {
+      "op": "buy",
+      "shop": "general",
+      "item": "letter"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "a_npc",
+      "expect_result": {
+        "ok": true,
+        "message": "smalltalk"
+      }
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "interact",
+      "target": "a_npc",
+      "expect_result": {
+        "ok": true,
+        "message": "smalltalk"
+      }
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "interact",
+      "target": "a_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "save"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "load"
+    },
+    {
+      "op": "interact",
+      "target": "a_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": -1
+    },
+    {
+      "op": "interact",
+      "target": "shop_exit"
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "interact",
+      "target": "b_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": 1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "lamp"
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "move",
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "op": "interact",
+      "target": "b_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    },
+    {
+      "op": "wait"
+    },
+    {
+      "op": "interact",
+      "target": "b_npc"
+    },
+    {
+      "op": "choose",
+      "choice": "accept"
+    }
+  ],
+  "expect": {
+    "completed": [
+      "a1",
+      "a2",
+      "a3",
+      "b1",
+      "b2",
+      "b3"
+    ]
+  }
+}

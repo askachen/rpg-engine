@@ -334,6 +334,17 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         for c in values:
             if c['kind']=='all': yield from mandatory(c['conditions'])
             elif c['kind']=='completed' and c.get('value',True): yield c['id']
+    migration_starts=set()
+    for i,migration in enumerate(data.get('save_migrations',[])):
+        where=f'save_migrations/{i}'
+        if migration['from_version'] in migration_starts or not migration['from_version'] < migration['to_version'] <= data['version']:
+            errors.append(f'{where}: ambiguous or non-forward migration')
+        migration_starts.add(migration['from_version'])
+        for group, renames in migration.get('renames',{}).items():
+            if len(set(renames.values())) != len(renames): errors.append(f'{where}: rename destination collision')
+            if any(old == new for old,new in renames.items()): errors.append(f'{where}: rename must change ID')
+            if migration['to_version'] == data['version']:
+                for target in renames.values(): ref(where,target,data.get('items' if group=='inventory' else group,{}))
     visiting, done = set(),set()
     def visit(eid):
         if eid in visiting:

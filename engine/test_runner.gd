@@ -20,6 +20,7 @@ func _initialize() -> void:
 	var save_path: String = args[1] + ".save"
 	var slots = Slots.new(core, args[1].get_base_dir())
 	for step in scenario.get("steps", []):
+		var history_size: int = core.history.size()
 		var response: Dictionary
 		match step.op:
 			"path": response = core.path_to(Vector2i(int(step.x), int(step.y)))
@@ -34,6 +35,9 @@ func _initialize() -> void:
 				response = {"ok": true}
 			"checks": response = {"ok": true, "checks": core.checks(core.content.events[step.event].conditions)}
 			_: response = core.act(step)
+		if core.history.size() > history_size:
+			core.history[-1].scenario_step = responses.size()
+			core.history[-1].source = args[0]
 		responses.append(response)
 	var output := FileAccess.open(args[1], FileAccess.WRITE)
 	output.store_string(JSON.stringify({"state": core.state, "responses": responses, "snapshots": snapshots, "history": core.history, "active_event": core.active_event}))

@@ -46,6 +46,8 @@ def test_cli_invalid_scenario_and_failed_expectation(tmp_path):
     report = cli('test', '--game', 'first_story', '--scenario', str(path))
     assert report['exit_code'] == 1
     assert any(item['code'] == 'assertion' for item in report['diagnostics'])
+    assert Path(report['artifacts']['replay']).is_file()
+    assert json.loads(Path(report['artifacts']['replay']).read_text())['steps']==[{'op':'wait'}]
 
 
 def test_cli_walkthrough_isolated():

@@ -4,9 +4,11 @@
 
 **目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈已確認；S3 已確認；S4-01～05 已確認；S4-06 Live2D 依使用者指示暫緩；S4-07～08 已確認；S4-09 已確認；新增 48 個 Cozy Home 地圖素材與展示包，待本批確認；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
 
+**S6 已實作並通過本機驗證**：存檔 v2／明確遷移、槽位備份復原／刪除、帶標記的開發指令、可重播防卡關情境、有界可達性與分層 CI。使用方式及限制見 [S6 可靠性契約](docs/reliability.md)。GitHub Actions 的遠端結果以各 commit 檢查為準；S7 Windows 發行與 S8 正式交付仍待完成。
+
 ## 其他 AI：先用這個流程評估
 
-**Homestay 需求進度**：S5-01～09 已實作，包含通用數值、日期／地點條件、開場／物件完整事件，以及本批的巢狀 AND／OR、行動窗口計數、非線性追蹤與 ! 標記、無限庫存／補貨、隔離事件回想、Extra Day。共用 `numeric_lab` 驗證 P0／P1 整合路線（S5-12A／B），可用 `python tools/dev.py play --game numeric_lab` 試玩。給內容開發 AI 的正式 API：[數值契約](docs/numeric-state.md)、[事件入口](docs/event-entry.md)、[P1 玩法契約與 JSON 範例](docs/p1-gameplay.md)。Recent 窗口由內容明確配置；真實 Homestay 內容仍須匯入驗收。S5-10／11 的跨句持續動畫與無選項自動結束尚未實作，Live2D 仍暫緩。S6 為存檔與測試、S7 Windows、S8 團隊交付，狀態見 [TASKS.md](TASKS.md)。
+**Homestay 需求進度**：S5-01～09 已實作，包含通用數值、日期／地點條件、開場／物件完整事件，以及巢狀 AND／OR、行動窗口計數、非線性追蹤與 ! 標記、無限庫存／補貨、隔離事件回想、Extra Day。共用 `numeric_lab` 驗證 P0／P1 整合路線（S5-12A／B），可用 `python tools/dev.py play --game numeric_lab` 試玩。給內容開發 AI 的正式 API：[數值契約](docs/numeric-state.md)、[事件入口](docs/event-entry.md)、[P1 玩法契約與 JSON 範例](docs/p1-gameplay.md)。Recent 窗口由內容明確配置；真實 Homestay 內容仍須匯入驗收。S5-10／11 的跨句持續動畫與無選項自動結束尚未實作，Live2D 仍暫緩。S6 為存檔與測試、S7 Windows、S8 團隊交付，狀態見 [TASKS.md](TASKS.md)。
 
 請從 repo 根目錄執行。不要先修改 `engine/`；先用新內容包验证可重用性。
 
@@ -31,7 +33,7 @@ python tools/dev.py new --game ai_review --json
 python tools/dev.py validate --game ai_review --json
 python tools/dev.py test --game ai_review --json
 python tools/dev.py build --game ai_review --json
-python tools/dev.py check --game ai_review --timeout 240 --json
+python tools/dev.py check --game ai_review --timeout 600 --json
 ```
 
 下一步：閱讀 `games/ai_review/README.md`，修改 `events/` 的對話並同步兩份 `locales/`；再新增一個事件、登記 Manifest.sources.events 與 routes，更新 `tests/walkthrough.json`，重跑 validate 與 test。預期不需修改共用引擎。遇到缺少的能力請提出缺口，勿以直接注入金錢、完成旗標或略過失敗步驟讓測試通過。
@@ -47,7 +49,10 @@ python tools/dev.py check --game ai_review --timeout 240 --json
 | `validate --game ID` | Schema、引用、地圖資料、素材完整性及翻譯檢查；不需要 Godot |
 | `test --game ID` | 真正 Godot 規則執行該遊戲的 tests/walkthrough.json |
 | `test --game ID --scenario PATH` | 執行指定測試路線；PATH 相對 repo 根目錄或絕對路徑 |
-| `check --game ID` | 指定內容驗證／載入，加上共用引擎與 demo pytest 回歸 |
+| `check --game ID [--suite fast/full]` | 指定內容驗證／載入，加上選定測試層；預設 full |
+| `scenarios --game ID` | 執行 tests/scenarios/*.json 的正負案例，失敗保留重播檔 |
+| `explore --game ID --max-states 1000 --max-depth 30` | 有界原生規則探索；找到單一路線或明確回報未定 |
+| `play --game ID --dev` | 額外開放有 [DEV] 標記的開發指令，release 禁用 |
 | `play --game ID` | 驗證、匯入、原生素材檢查後開啟遊戲 |
 | `build --game ID` | 產生只包含選定遊戲及共用引擎的 Godot 原始專案 ZIP |
 | `editor --game ID` | 開啟編輯器；內容製作不依賴此操作 |
@@ -57,7 +62,7 @@ python tools/dev.py check --game ai_review --timeout 240 --json
 
 每次執行使用獨立 `test-results/run-*/`，JSON 的 artifacts 指向日誌、原生素材報告、通關完整狀態／歷史及 check 的 JUnit。測試存檔與手動試玩的 `.tools/userdata/` 隔離。請從 artifacts 讀路徑，不要寫死舊版報告檔名。並行執行同一 checkout 的 Godot 匯入仍可能競爭 `.godot/`；CI 請使用獨立 checkout 或序列執行。
 
-`test` 驗證指定路線的每一步成功、最終 expect 欄位完全相等且沒有未結束事件。它**不證明任意選項排列都能通關**；check 也不取代自製遊戲的通關路線。Schema 拒絕未知測試操作與直接狀態注入。Godot 是唯一正式玩法規則，Python 不另寫一套規則。
+`test` 驗證指定路線的每一步符合 expect_result（省略為成功）、最終 expect 欄位完全相等且沒有未結束事件。它**不證明任意選項排列都能通關**；check 也不取代自製遊戲的通關路線。Schema 拒絕未知測試操作與直接狀態注入。Godot 是唯一正式玩法規則，Python 不另寫一套規則。
 
 `build` 輸出 `builds/<game-id>-<hash>-source.zip`，內含 project.godot、合併內容及素材雜湊清單。解壓後用 Godot 匯入並啟動 project.godot。**這不是 Windows .exe，也不是完整開發 SDK**；不含 Python 工具或 Godot。Windows 發行匯出與 Steam 驗收仍在 S7。來源相同時產物可重現，不覆寫不同內容的既有產物。
 
@@ -112,7 +117,7 @@ first_story 的滑鼠路線：拾取錢 → 跟 Haru 對話接受 → 到櫃台�
 
 ## 尚缺的交付能力
 
-Live2D（[準備檢查與缺件說明](docs/live2d.md)，尚不支援播放）、存檔 Schema 與備份、更多動作與轉場、Windows 匯出與多解析度矩陣、完整 SDK／授權清單及外部團隊試用仍未完成。素材提示詞與來源記錄位於各 assets/；本 repo 尚未提供正式對外授權文件。
+Live2D（[準備檢查與缺件說明](docs/live2d.md)，尚不支援播放）、更多動作與轉場、Windows 匯出與多解析度矩陣、完整 SDK／授權清單及外部團隊試用仍未完成。素材提示詞與來源記錄位於各 assets/；本 repo 尚未提供正式對外授權文件。
 
 素材檢查已包含 Python 圖片／WAV 檢查與 Godot 原生載入，但另有 Ogg 結構／完整解碼與原生影片流程測試；仍不等於喇叭音訊量測、所有字形或發行環境驗收。本機 Godot 可能輸出憑證存放區警告；請分辨環境警告與 SCRIPT ERROR，不要把失敗測試忽略。
 

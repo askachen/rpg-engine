@@ -1,6 +1,7 @@
 extends RefCounted
 ## Runtime counterpart of tools/content_loader.py. No gameplay implementation.
 var error := ""
+var origins: Dictionary = {}
 const COLLECTIONS = ["maps", "characters", "events", "items", "shops", "routes", "endings", "gallery", "locales", "avatars", "visuals", "stats", "variables"]
 
 func read_object(path: String) -> Dictionary:
@@ -18,6 +19,7 @@ func read_object(path: String) -> Dictionary:
 
 func load_game(path: String) -> Dictionary:
 	error = ""
+	origins.clear()
 	var data := read_object(path)
 	if error != "" or not data.has("sources"): return data
 	if data.get("format_version") != 1:
@@ -51,5 +53,6 @@ func load_game(path: String) -> Dictionary:
 					error = "%s/%s/%s: duplicate ID; first defined in %s" % [target, section, key, owners[key]]
 					return {}
 				data[section][key] = fragment[key]
+				origins[section+"/"+str(key)] = target
 				owners[key] = target
 	return data
