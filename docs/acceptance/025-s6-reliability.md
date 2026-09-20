@@ -1,6 +1,6 @@
 # 第二十五批：S6-01～06
 
-日期：2026-09-20。狀態：已實作，本機已驗證，待使用者確認。遠端 CI 結果以該 commit 的 GitHub Actions 檢查為準。
+日期：2026-09-20。狀態：已實作，本機及遠端 CI 已驗證，待使用者確認。
 
 ## 交付
 
@@ -45,3 +45,7 @@ Godot 4.7.2 的官方 GitHub release tag 已透過 GitHub API 確認可取得；
 - 存檔遷移支援明列版本链與有限 ID 改名，沒有任意腳本遷移；profile 尚無新增復原 UI；檔案備份不保證抵抗所有硬體／斷電故障。
 - release 封鎖已測試 API／editor 模擬，真正匯出的 Windows release 與解析度／效能矩陣仍屬 S7。
 - S5-10／11、Live2D 與 S8 正式交付仍依各自任務狀態處理。
+
+## 遠端 CI 驗收
+
+程式碼 commit `5798eed2f01db44f3eb6c571ee1a483f90ef6571` 的 [GitHub Actions 執行 35494489836](https://github.com/askachen/rpg-engine/actions/runs/35494489836) 為 success；static、rules、ui、media 四個乾淨 Windows job 全部成功。首次執行在 setup-python 的快取檔名檢查失敗，已明確指定 requirements-dev.txt 後重驗通過。後續本次純文件紀錄提交不改程式碼，不重跑同一套測試。
