@@ -1,0 +1,784 @@
+{
+  "room": {
+    "name": "room",
+    "width": 30,
+    "height": 30,
+    "cell_size": 48,
+    "floor_sheet": "interior",
+    "floor_index": 0,
+    "walls": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        11,
+        0
+      ],
+      [
+        12,
+        0
+      ],
+      [
+        13,
+        0
+      ],
+      [
+        14,
+        0
+      ],
+      [
+        15,
+        0
+      ],
+      [
+        16,
+        0
+      ],
+      [
+        17,
+        0
+      ],
+      [
+        18,
+        0
+      ],
+      [
+        19,
+        0
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        21,
+        0
+      ],
+      [
+        22,
+        0
+      ],
+      [
+        23,
+        0
+      ],
+      [
+        24,
+        0
+      ],
+      [
+        25,
+        0
+      ],
+      [
+        26,
+        0
+      ],
+      [
+        27,
+        0
+      ],
+      [
+        28,
+        0
+      ],
+      [
+        29,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        29,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        29,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        29,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        29,
+        4
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        29,
+        5
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        29,
+        6
+      ],
+      [
+        0,
+        7
+      ],
+      [
+        29,
+        7
+      ],
+      [
+        0,
+        8
+      ],
+      [
+        29,
+        8
+      ],
+      [
+        0,
+        9
+      ],
+      [
+        29,
+        9
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        29,
+        10
+      ],
+      [
+        0,
+        11
+      ],
+      [
+        29,
+        11
+      ],
+      [
+        0,
+        12
+      ],
+      [
+        29,
+        12
+      ],
+      [
+        0,
+        13
+      ],
+      [
+        29,
+        13
+      ],
+      [
+        0,
+        14
+      ],
+      [
+        29,
+        14
+      ],
+      [
+        0,
+        15
+      ],
+      [
+        29,
+        15
+      ],
+      [
+        0,
+        16
+      ],
+      [
+        29,
+        16
+      ],
+      [
+        0,
+        17
+      ],
+      [
+        29,
+        17
+      ],
+      [
+        0,
+        18
+      ],
+      [
+        29,
+        18
+      ],
+      [
+        0,
+        19
+      ],
+      [
+        29,
+        19
+      ],
+      [
+        0,
+        20
+      ],
+      [
+        29,
+        20
+      ],
+      [
+        0,
+        21
+      ],
+      [
+        29,
+        21
+      ],
+      [
+        0,
+        22
+      ],
+      [
+        29,
+        22
+      ],
+      [
+        0,
+        23
+      ],
+      [
+        29,
+        23
+      ],
+      [
+        0,
+        24
+      ],
+      [
+        29,
+        24
+      ],
+      [
+        0,
+        25
+      ],
+      [
+        29,
+        25
+      ],
+      [
+        0,
+        26
+      ],
+      [
+        29,
+        26
+      ],
+      [
+        0,
+        27
+      ],
+      [
+        29,
+        27
+      ],
+      [
+        0,
+        28
+      ],
+      [
+        29,
+        28
+      ],
+      [
+        0,
+        29
+      ],
+      [
+        1,
+        29
+      ],
+      [
+        2,
+        29
+      ],
+      [
+        3,
+        29
+      ],
+      [
+        4,
+        29
+      ],
+      [
+        5,
+        29
+      ],
+      [
+        6,
+        29
+      ],
+      [
+        7,
+        29
+      ],
+      [
+        8,
+        29
+      ],
+      [
+        9,
+        29
+      ],
+      [
+        10,
+        29
+      ],
+      [
+        11,
+        29
+      ],
+      [
+        12,
+        29
+      ],
+      [
+        13,
+        29
+      ],
+      [
+        14,
+        29
+      ],
+      [
+        15,
+        29
+      ],
+      [
+        16,
+        29
+      ],
+      [
+        17,
+        29
+      ],
+      [
+        18,
+        29
+      ],
+      [
+        19,
+        29
+      ],
+      [
+        20,
+        29
+      ],
+      [
+        21,
+        29
+      ],
+      [
+        22,
+        29
+      ],
+      [
+        23,
+        29
+      ],
+      [
+        24,
+        29
+      ],
+      [
+        25,
+        29
+      ],
+      [
+        26,
+        29
+      ],
+      [
+        27,
+        29
+      ],
+      [
+        28,
+        29
+      ],
+      [
+        29,
+        29
+      ]
+    ],
+    "spawns": {
+      "entry": [
+        2,
+        3
+      ]
+    },
+    "objects": [
+      {
+        "id": "coins",
+        "kind": "pickup",
+        "position": [
+          3,
+          3
+        ],
+        "label": "coins",
+        "effects": [
+          {
+            "kind": "money",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "id": "guide_npc",
+        "kind": "npc",
+        "position": [
+          5,
+          3
+        ],
+        "label": "guide",
+        "character": "guide"
+      },
+      {
+        "id": "kiosk_counter",
+        "kind": "shop",
+        "position": [
+          7,
+          3
+        ],
+        "label": "counter",
+        "shop": "kiosk"
+      },
+      {
+        "id": "room_to_architecture",
+        "kind": "exit",
+        "position": [
+          11,
+          3
+        ],
+        "label": "architecture",
+        "spawn": "entry",
+        "destination": "architecture"
+      },
+      {
+        "id": "room_to_utility",
+        "kind": "exit",
+        "position": [
+          17,
+          3
+        ],
+        "label": "utility",
+        "spawn": "entry",
+        "destination": "utility"
+      }
+    ],
+    "furniture": [
+      {
+        "id": "display_sofa",
+        "sheet": "cozy_sofa",
+        "sprite": 0,
+        "position": [
+          2,
+          7
+        ],
+        "size": [
+          4,
+          3
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_armchair",
+        "sheet": "cozy_armchair",
+        "sprite": 0,
+        "position": [
+          9,
+          7
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_coffee_table",
+        "sheet": "cozy_coffee_table",
+        "sprite": 0,
+        "position": [
+          16,
+          7
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_tv_cabinet",
+        "sheet": "cozy_tv_cabinet",
+        "sprite": 0,
+        "position": [
+          23,
+          7
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_bed_double",
+        "sheet": "cozy_bed_double",
+        "sprite": 0,
+        "position": [
+          2,
+          12
+        ],
+        "size": [
+          3,
+          4
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_bed_single",
+        "sheet": "cozy_bed_single",
+        "sprite": 0,
+        "position": [
+          9,
+          12
+        ],
+        "size": [
+          2,
+          4
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_nightstand",
+        "sheet": "cozy_nightstand",
+        "sprite": 0,
+        "position": [
+          16,
+          12
+        ],
+        "size": [
+          1,
+          1
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_wardrobe",
+        "sheet": "cozy_wardrobe",
+        "sprite": 0,
+        "position": [
+          23,
+          12
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_desk",
+        "sheet": "cozy_desk",
+        "sprite": 0,
+        "position": [
+          2,
+          17
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_dining_table",
+        "sheet": "cozy_dining_table",
+        "sprite": 0,
+        "position": [
+          9,
+          17
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_dining_chair",
+        "sheet": "cozy_dining_chair",
+        "sprite": 0,
+        "position": [
+          16,
+          17
+        ],
+        "size": [
+          1,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_bookcase",
+        "sheet": "cozy_bookcase",
+        "sprite": 0,
+        "position": [
+          23,
+          17
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_rug_green",
+        "sheet": "cozy_rug_green",
+        "sprite": 0,
+        "position": [
+          2,
+          22
+        ],
+        "size": [
+          4,
+          3
+        ],
+        "solid": false,
+        "layer": "floor"
+      },
+      {
+        "id": "display_rug_oval",
+        "sheet": "cozy_rug_oval",
+        "sprite": 0,
+        "position": [
+          9,
+          22
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": false,
+        "layer": "floor"
+      },
+      {
+        "id": "display_plant",
+        "sheet": "cozy_plant",
+        "sprite": 0,
+        "position": [
+          16,
+          22
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      },
+      {
+        "id": "display_dresser",
+        "sheet": "cozy_dresser",
+        "sprite": 0,
+        "position": [
+          23,
+          22
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": true,
+        "layer": "prop"
+      }
+    ],
+    "decorations": []
+  }
+}

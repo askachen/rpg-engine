@@ -1,0 +1,12 @@
+{
+  "friendship": {
+    "text": "end",
+    "conditions": [
+      {
+        "kind": "completed",
+        "id": "tea_time",
+        "value": true
+      }
+    ]
+  }
+}

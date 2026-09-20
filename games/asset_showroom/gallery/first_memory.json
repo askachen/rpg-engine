@@ -1,0 +1,14 @@
+{
+  "first_memory": {
+    "character": "guide",
+    "title": "memory",
+    "text": "tea_line",
+    "conditions": [
+      {
+        "kind": "completed",
+        "id": "tea_time",
+        "value": true
+      }
+    ]
+  }
+}

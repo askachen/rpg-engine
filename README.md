@@ -2,7 +2,7 @@
 
 給 AI Agentic Coding 使用的 **Godot 4.7.2 / GDScript 無戰鬥敘事 RPG 框架**。內容由 JSON 與素材檔案定義；建立地圖、對話、條件、角色路線與商店不需要操作 Godot 編輯器。
 
-**目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈已確認；S3 已確認；S4-01～05 已確認；S4-06 Live2D 依使用者指示暫緩；S4-07～08 已確認；S4-09 背包／商店與選單已實作，待本批確認；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
+**目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈已確認；S3 已確認；S4-01～05 已確認；S4-06 Live2D 依使用者指示暫緩；S4-07～08 已確認；S4-09 已確認；新增 48 個 Cozy Home 地圖素材與展示包，待本批確認；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
 
 ## 其他 AI：先用這個流程評估
 
@@ -60,6 +60,17 @@ python tools/dev.py check --game ai_review --timeout 240 --json
 `build` 輸出 `builds/<game-id>-<hash>-source.zip`，內含 project.godot、合併內容及素材雜湊清單。解壓後用 Godot 匯入並啟動 project.godot。**這不是 Windows .exe，也不是完整開發 SDK**；不含 Python 工具或 Godot。Windows 發行匯出與 Steam 驗收仍在 S6。來源相同時產物可重現，不覆寫不同內容的既有產物。
 
 ## 已有玩法與操作
+
+### 內建地圖素材：Cozy Home
+
+新增 **48 個**可直接配置的素材：4 種牆面、4 種門、4 種窗、4 種燈具，另有 16 個客廳／臥室家具及 16 個廚房／浴室／商店設備。原始透明 PNG、生成 prompt、固定 ID、建議尺寸、圖層與碰撞預設皆附在 repo。
+
+- [離線可搜尋圖鑑](asset_packs/cozy_home/index.html)（下載後用瀏覽器開啟）／[JSON 目錄](asset_packs/cozy_home/catalog.json)／[使用說明](asset_packs/cozy_home/README.md)。
+- 展示遊戲：`python tools/dev.py play --game asset_showroom`，可用滑鼠走動、切換三個展間。
+- 安裝到已建立的遊戲：`python tools/asset_pack.py install --game YOUR_GAME`。
+- 產生配置：`python tools/asset_pack.py place sofa --id lounge_sofa --at 5 6`；將輸出的 value 加入指定地圖 collection，再執行 validate。
+
+素材按建議格數配置，保持長寬比；安裝工具不修改既有地圖，重複安裝不會覆寫自訂素材。牆面是裝飾面板，尚非自動拼接牆系統；門與燈為靜態圖片，互動事件須另設。詳見 [本批驗收](docs/acceptance/021-cozy-home.md)。
 
 - 可行走地圖、碰撞、出口／鎖定出口、拾取、啟動物件、商店、金錢與背包。
 - NPC 依時段／AND 條件跨地圖換位、條件式出現、調查及指定物品互動；資料格式與霧港試玩步驟見 [物件契約](docs/world-objects.md)。

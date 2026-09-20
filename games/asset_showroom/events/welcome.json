@@ -1,0 +1,45 @@
+{
+  "welcome": {
+    "character": "guide",
+    "title": "welcome_line",
+    "text": "welcome_line",
+    "conditions": [
+      {
+        "kind": "stage",
+        "id": "guide",
+        "value": 0
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stage",
+        "id": "guide",
+        "value": 1
+      },
+      {
+        "kind": "affection",
+        "id": "guide",
+        "value": 10
+      }
+    ],
+    "time_cost": 1,
+    "sequence": [
+      {
+        "id": "welcome_line",
+        "speaker": "guide",
+        "text": "welcome_line"
+      }
+    ]
+  }
+}

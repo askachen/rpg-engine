@@ -1,0 +1,827 @@
+{
+  "id": "cozy_home",
+  "version": 1,
+  "files": [
+    "architecture-v1.png",
+    "furniture-v1.png",
+    "utility-v1.png"
+  ],
+  "entries": {
+    "wall_plaster": {
+      "name": "奶油灰泥牆",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.0215311004784689,
+        0.03269537480063796,
+        0.21212121212121213,
+        0.17783094098883573
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "wall_brick": {
+      "name": "紅磚牆",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.26953748006379585,
+        0.03269537480063796,
+        0.21291866028708134,
+        0.17783094098883573
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "wall_wood": {
+      "name": "木護牆",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.518341307814992,
+        0.03349282296650718,
+        0.21371610845295055,
+        0.17703349282296652
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "wall_tile": {
+      "name": "浴室磁磚牆",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.7719298245614035,
+        0.03269537480063796,
+        0.20733652312599682,
+        0.17783094098883573
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "door_wood": {
+      "name": "木門",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.04066985645933014,
+        0.259170653907496,
+        0.17065390749601275,
+        0.2503987240829346
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "door_open": {
+      "name": "開啟木門",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.28548644338118023,
+        0.259170653907496,
+        0.1762360446570973,
+        0.2503987240829346
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "door_white": {
+      "name": "白色門",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.5414673046251993,
+        0.259170653907496,
+        0.16666666666666666,
+        0.2503987240829346
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "door_shop": {
+      "name": "玻璃店門",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.7974481658692185,
+        0.259170653907496,
+        0.15550239234449761,
+        0.24960127591706538
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "window_square": {
+      "name": "木框窗",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.037480063795853266,
+        0.5542264752791068,
+        0.17783094098883573,
+        0.17783094098883573
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "window_curtain": {
+      "name": "窗簾雙窗",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.2527910685805423,
+        0.5502392344497608,
+        0.24561403508771928,
+        0.18341307814992025
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "window_arch": {
+      "name": "拱形窗",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.5645933014354066,
+        0.5406698564593302,
+        0.12041467304625199,
+        0.19856459330143542
+      ],
+      "size": [
+        1,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "window_frosted": {
+      "name": "浴室霧面窗",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.7910685805422647,
+        0.5733652312599681,
+        0.16905901116427433,
+        0.14354066985645933
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "lamp_sconce": {
+      "name": "壁燈",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.03827751196172249,
+        0.7894736842105263,
+        0.18580542264752792,
+        0.16108452950558214
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "lamp_pendant": {
+      "name": "吊燈",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.3014354066985646,
+        0.7527910685805422,
+        0.14752791068580542,
+        0.21052631578947367
+      ],
+      "size": [
+        1,
+        2
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "lamp_floor": {
+      "name": "落地燈",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.5797448165869219,
+        0.7511961722488039,
+        0.08771929824561403,
+        0.22567783094098884
+      ],
+      "size": [
+        1,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "lamp_table": {
+      "name": "桌燈",
+      "category": "architecture",
+      "file": "architecture-v1.png",
+      "region": [
+        0.8157894736842105,
+        0.7950558213716108,
+        0.12121212121212122,
+        0.17862838915470494
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "layer": "wall",
+      "solid": false
+    },
+    "sofa": {
+      "name": "三人沙發",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.022328548644338118,
+        0.0645933014354067,
+        0.24401913875598086,
+        0.1467304625199362
+      ],
+      "size": [
+        4,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "armchair": {
+      "name": "單人扶手椅",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.30861244019138756,
+        0.051036682615629984,
+        0.14832535885167464,
+        0.16427432216905902
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "coffee_table": {
+      "name": "茶几",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.518341307814992,
+        0.09090909090909091,
+        0.20972886762360446,
+        0.12280701754385964
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "tv_cabinet": {
+      "name": "電視櫃",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.7703349282296651,
+        0.0645933014354067,
+        0.20893141945773525,
+        0.1467304625199362
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "bed_double": {
+      "name": "雙人床",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.030303030303030304,
+        0.26156299840510366,
+        0.21371610845295055,
+        0.23684210526315788
+      ],
+      "size": [
+        3,
+        4
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "bed_single": {
+      "name": "單人床",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.32615629984051037,
+        0.27352472089314195,
+        0.12599681020733652,
+        0.21929824561403508
+      ],
+      "size": [
+        2,
+        4
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "nightstand": {
+      "name": "床頭櫃",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.5733652312599681,
+        0.3309409888357257,
+        0.10207336523125997,
+        0.12998405103668262
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "wardrobe": {
+      "name": "雙門衣櫃",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.7974481658692185,
+        0.2551834130781499,
+        0.15311004784688995,
+        0.22966507177033493
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "desk": {
+      "name": "書桌",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.023125996810207338,
+        0.5350877192982456,
+        0.22248803827751196,
+        0.18341307814992025
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "dining_table": {
+      "name": "餐桌",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.2878787878787879,
+        0.5614035087719298,
+        0.20095693779904306,
+        0.15151515151515152
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "dining_chair": {
+      "name": "餐椅",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.583732057416268,
+        0.55103668261563,
+        0.08213716108452951,
+        0.15869218500797447
+      ],
+      "size": [
+        1,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "bookcase": {
+      "name": "書櫃",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.79585326953748,
+        0.5047846889952153,
+        0.15550239234449761,
+        0.22328548644338117
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "rug_green": {
+      "name": "綠色方地毯",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.02631578947368421,
+        0.7910685805422647,
+        0.21929824561403508,
+        0.13556618819776714
+      ],
+      "size": [
+        4,
+        3
+      ],
+      "layer": "floor",
+      "solid": false
+    },
+    "rug_oval": {
+      "name": "橢圓地毯",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.2743221690590112,
+        0.7767145135566188,
+        0.2240829346092504,
+        0.15629984051036683
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "floor",
+      "solid": false
+    },
+    "plant": {
+      "name": "大型盆栽",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.5311004784688995,
+        0.7535885167464115,
+        0.19298245614035087,
+        0.189792663476874
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "dresser": {
+      "name": "抽屜櫃",
+      "category": "furniture",
+      "file": "furniture-v1.png",
+      "region": [
+        0.7822966507177034,
+        0.7647527910685805,
+        0.18261562998405104,
+        0.16666666666666666
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "fridge": {
+      "name": "冰箱",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.07416267942583732,
+        0.01036682615629984,
+        0.12280701754385964,
+        0.22328548644338117
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "stove": {
+      "name": "烤箱爐具",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.30462519936204147,
+        0.018341307814992026,
+        0.13875598086124402,
+        0.21212121212121213
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "kitchen_sink": {
+      "name": "廚房水槽",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.5255183413078149,
+        0.0215311004784689,
+        0.18580542264752792,
+        0.21052631578947367
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "kitchen_counter": {
+      "name": "廚房工作檯",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.7679425837320574,
+        0.011961722488038277,
+        0.20574162679425836,
+        0.22089314194577353
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "washer": {
+      "name": "洗衣機",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.05582137161084529,
+        0.26953748006379585,
+        0.15151515151515152,
+        0.21291866028708134
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "bathtub": {
+      "name": "浴缸",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.3062200956937799,
+        0.24800637958532695,
+        0.13476874003189793,
+        0.24322169059011164
+      ],
+      "size": [
+        2,
+        4
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "toilet": {
+      "name": "馬桶",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.5614035087719298,
+        0.2671451355661882,
+        0.12041467304625199,
+        0.22089314194577353
+      ],
+      "size": [
+        1,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "vanity": {
+      "name": "浴室洗手台",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.8022328548644339,
+        0.24720893141945774,
+        0.14035087719298245,
+        0.24481658692185007
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "shower": {
+      "name": "淋浴間",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.06379585326953748,
+        0.5023923444976076,
+        0.14513556618819776,
+        0.23604465709728867
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "hamper": {
+      "name": "洗衣籃",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.3054226475279107,
+        0.5303030303030303,
+        0.13875598086124402,
+        0.189792663476874
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "trash_bin": {
+      "name": "垃圾桶",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.5669856459330144,
+        0.5334928229665071,
+        0.10606060606060606,
+        0.18819776714513556
+      ],
+      "size": [
+        1,
+        1
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "pantry": {
+      "name": "食品櫥架",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.8046251993620415,
+        0.5007974481658692,
+        0.12998405103668262,
+        0.23843700159489634
+      ],
+      "size": [
+        2,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "shop_counter": {
+      "name": "商店櫃台",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.03189792663476874,
+        0.7767145135566188,
+        0.21052631578947367,
+        0.18899521531100477
+      ],
+      "size": [
+        3,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "display_case": {
+      "name": "蛋糕展示櫃",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.28548644338118023,
+        0.7535885167464115,
+        0.20494417862838915,
+        0.21610845295055822
+      ],
+      "size": [
+        3,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "cafe_table": {
+      "name": "咖啡圓桌",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.532695374800638,
+        0.748006379585327,
+        0.18421052631578946,
+        0.21212121212121213
+      ],
+      "size": [
+        2,
+        2
+      ],
+      "layer": "prop",
+      "solid": true
+    },
+    "coat_rack": {
+      "name": "衣帽架",
+      "category": "utility",
+      "file": "utility-v1.png",
+      "region": [
+        0.8253588516746412,
+        0.7376395534290271,
+        0.09409888357256778,
+        0.24003189792663476
+      ],
+      "size": [
+        1,
+        3
+      ],
+      "layer": "prop",
+      "solid": true
+    }
+  }
+}

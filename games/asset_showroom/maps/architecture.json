@@ -1,0 +1,750 @@
+{
+  "architecture": {
+    "name": "architecture",
+    "width": 30,
+    "height": 30,
+    "cell_size": 48,
+    "floor_sheet": "interior",
+    "floor_index": 0,
+    "walls": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        9,
+        0
+      ],
+      [
+        10,
+        0
+      ],
+      [
+        11,
+        0
+      ],
+      [
+        12,
+        0
+      ],
+      [
+        13,
+        0
+      ],
+      [
+        14,
+        0
+      ],
+      [
+        15,
+        0
+      ],
+      [
+        16,
+        0
+      ],
+      [
+        17,
+        0
+      ],
+      [
+        18,
+        0
+      ],
+      [
+        19,
+        0
+      ],
+      [
+        20,
+        0
+      ],
+      [
+        21,
+        0
+      ],
+      [
+        22,
+        0
+      ],
+      [
+        23,
+        0
+      ],
+      [
+        24,
+        0
+      ],
+      [
+        25,
+        0
+      ],
+      [
+        26,
+        0
+      ],
+      [
+        27,
+        0
+      ],
+      [
+        28,
+        0
+      ],
+      [
+        29,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        29,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        29,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        29,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        29,
+        4
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        29,
+        5
+      ],
+      [
+        0,
+        6
+      ],
+      [
+        29,
+        6
+      ],
+      [
+        0,
+        7
+      ],
+      [
+        29,
+        7
+      ],
+      [
+        0,
+        8
+      ],
+      [
+        29,
+        8
+      ],
+      [
+        0,
+        9
+      ],
+      [
+        29,
+        9
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        29,
+        10
+      ],
+      [
+        0,
+        11
+      ],
+      [
+        29,
+        11
+      ],
+      [
+        0,
+        12
+      ],
+      [
+        29,
+        12
+      ],
+      [
+        0,
+        13
+      ],
+      [
+        29,
+        13
+      ],
+      [
+        0,
+        14
+      ],
+      [
+        29,
+        14
+      ],
+      [
+        0,
+        15
+      ],
+      [
+        29,
+        15
+      ],
+      [
+        0,
+        16
+      ],
+      [
+        29,
+        16
+      ],
+      [
+        0,
+        17
+      ],
+      [
+        29,
+        17
+      ],
+      [
+        0,
+        18
+      ],
+      [
+        29,
+        18
+      ],
+      [
+        0,
+        19
+      ],
+      [
+        29,
+        19
+      ],
+      [
+        0,
+        20
+      ],
+      [
+        29,
+        20
+      ],
+      [
+        0,
+        21
+      ],
+      [
+        29,
+        21
+      ],
+      [
+        0,
+        22
+      ],
+      [
+        29,
+        22
+      ],
+      [
+        0,
+        23
+      ],
+      [
+        29,
+        23
+      ],
+      [
+        0,
+        24
+      ],
+      [
+        29,
+        24
+      ],
+      [
+        0,
+        25
+      ],
+      [
+        29,
+        25
+      ],
+      [
+        0,
+        26
+      ],
+      [
+        29,
+        26
+      ],
+      [
+        0,
+        27
+      ],
+      [
+        29,
+        27
+      ],
+      [
+        0,
+        28
+      ],
+      [
+        29,
+        28
+      ],
+      [
+        0,
+        29
+      ],
+      [
+        1,
+        29
+      ],
+      [
+        2,
+        29
+      ],
+      [
+        3,
+        29
+      ],
+      [
+        4,
+        29
+      ],
+      [
+        5,
+        29
+      ],
+      [
+        6,
+        29
+      ],
+      [
+        7,
+        29
+      ],
+      [
+        8,
+        29
+      ],
+      [
+        9,
+        29
+      ],
+      [
+        10,
+        29
+      ],
+      [
+        11,
+        29
+      ],
+      [
+        12,
+        29
+      ],
+      [
+        13,
+        29
+      ],
+      [
+        14,
+        29
+      ],
+      [
+        15,
+        29
+      ],
+      [
+        16,
+        29
+      ],
+      [
+        17,
+        29
+      ],
+      [
+        18,
+        29
+      ],
+      [
+        19,
+        29
+      ],
+      [
+        20,
+        29
+      ],
+      [
+        21,
+        29
+      ],
+      [
+        22,
+        29
+      ],
+      [
+        23,
+        29
+      ],
+      [
+        24,
+        29
+      ],
+      [
+        25,
+        29
+      ],
+      [
+        26,
+        29
+      ],
+      [
+        27,
+        29
+      ],
+      [
+        28,
+        29
+      ],
+      [
+        29,
+        29
+      ]
+    ],
+    "spawns": {
+      "entry": [
+        2,
+        3
+      ]
+    },
+    "objects": [
+      {
+        "id": "architecture_to_room",
+        "kind": "exit",
+        "position": [
+          11,
+          3
+        ],
+        "label": "room",
+        "spawn": "entry",
+        "destination": "room"
+      },
+      {
+        "id": "architecture_to_utility",
+        "kind": "exit",
+        "position": [
+          17,
+          3
+        ],
+        "label": "utility",
+        "spawn": "entry",
+        "destination": "utility"
+      }
+    ],
+    "furniture": [
+      {
+        "id": "display_lamp_floor",
+        "sheet": "cozy_lamp_floor",
+        "sprite": 0,
+        "position": [
+          16,
+          22
+        ],
+        "size": [
+          1,
+          3
+        ],
+        "solid": true,
+        "layer": "prop"
+      }
+    ],
+    "decorations": [
+      {
+        "id": "display_wall_plaster",
+        "sheet": "cozy_wall_plaster",
+        "sprite": 0,
+        "position": [
+          2,
+          7
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_wall_brick",
+        "sheet": "cozy_wall_brick",
+        "sprite": 0,
+        "position": [
+          9,
+          7
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_wall_wood",
+        "sheet": "cozy_wall_wood",
+        "sprite": 0,
+        "position": [
+          16,
+          7
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_wall_tile",
+        "sheet": "cozy_wall_tile",
+        "sprite": 0,
+        "position": [
+          23,
+          7
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_door_wood",
+        "sheet": "cozy_door_wood",
+        "sprite": 0,
+        "position": [
+          2,
+          12
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_door_open",
+        "sheet": "cozy_door_open",
+        "sprite": 0,
+        "position": [
+          9,
+          12
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_door_white",
+        "sheet": "cozy_door_white",
+        "sprite": 0,
+        "position": [
+          16,
+          12
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_door_shop",
+        "sheet": "cozy_door_shop",
+        "sprite": 0,
+        "position": [
+          23,
+          12
+        ],
+        "size": [
+          2,
+          3
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_window_square",
+        "sheet": "cozy_window_square",
+        "sprite": 0,
+        "position": [
+          2,
+          17
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_window_curtain",
+        "sheet": "cozy_window_curtain",
+        "sprite": 0,
+        "position": [
+          9,
+          17
+        ],
+        "size": [
+          3,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_window_arch",
+        "sheet": "cozy_window_arch",
+        "sprite": 0,
+        "position": [
+          16,
+          17
+        ],
+        "size": [
+          1,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_window_frosted",
+        "sheet": "cozy_window_frosted",
+        "sprite": 0,
+        "position": [
+          23,
+          17
+        ],
+        "size": [
+          2,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_lamp_sconce",
+        "sheet": "cozy_lamp_sconce",
+        "sprite": 0,
+        "position": [
+          2,
+          22
+        ],
+        "size": [
+          1,
+          1
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_lamp_pendant",
+        "sheet": "cozy_lamp_pendant",
+        "sprite": 0,
+        "position": [
+          9,
+          22
+        ],
+        "size": [
+          1,
+          2
+        ],
+        "solid": false,
+        "layer": "wall"
+      },
+      {
+        "id": "display_lamp_table",
+        "sheet": "cozy_lamp_table",
+        "sprite": 0,
+        "position": [
+          23,
+          22
+        ],
+        "size": [
+          1,
+          1
+        ],
+        "solid": false,
+        "layer": "wall"
+      }
+    ]
+  }
+}

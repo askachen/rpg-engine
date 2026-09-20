@@ -1,0 +1,8 @@
+{
+  "guide": {
+    "events": [
+      "welcome",
+      "tea_time"
+    ]
+  }
+}
