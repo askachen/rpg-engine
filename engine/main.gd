@@ -43,6 +43,8 @@ var world_surface: Control
 var transitioning := false
 var transition_layer: ColorRect
 var pointer_position := Vector2(-100, -100)
+var collapsed_routes: Dictionary = {}
+var quit_confirmation_open := false
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -71,6 +73,8 @@ func hovered_target() -> Dictionary:
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	get_tree().auto_accept_quit = false
+	get_window().close_requested.connect(confirm_quit)
 	if not core.load_content(Bootstrap.content_path()):
 		push_error(core.load_error)
 		return
@@ -138,7 +142,8 @@ func show_title() -> void:
 	box.add_child(button(t("load"), func(): show_slots(false)))
 	box.add_child(button(t("gallery"), show_gallery))
 	box.add_child(button(t("settings"), show_settings))
-	box.add_child(button(t("quit"), func(): get_tree().quit()))
+	box.add_child(button(t("credits"), show_credits))
+	box.add_child(button(t("quit"), confirm_quit))
 	var foot := label(t(appearance.title_text("chapter", "chapter")), 18, appearance.palette("muted"))
 	foot.position = Vector2(170, 1005)
 	add_child(foot)
@@ -197,6 +202,12 @@ func show_game() -> void:
 	for who in core.content.characters:
 		var character: Dictionary = core.state.characters[who]
 		var route: Dictionary = core.route_progress(who)
+		var toggle := button(t(who) + (" ＋" if collapsed_routes.get(who,false) else " −"),func():
+			collapsed_routes[who] = not collapsed_routes.get(who,false)
+			show_game())
+		toggle.name = "RouteToggle_"+who
+		side.add_child(toggle)
+		if collapsed_routes.get(who,false): continue
 		var panel := PanelContainer.new()
 		panel.add_theme_stylebox_override("panel", card_style())
 		side.add_child(panel)
@@ -233,11 +244,8 @@ func show_game() -> void:
 				var line := label(("✓ " if check.passed else "○ ") + detail, 17, appearance.palette("success") if check.passed else appearance.palette("warning"))
 				line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				body.add_child(line)
-	var inventory_text := t("inventory") + "  "
-	for item in core.state.inventory:
-		inventory_text += "%s ×%d  " % [t(item), core.state.inventory[item]]
-	var inv := label(inventory_text, 21)
-	inv.position = Vector2(60, 969)
+	var inv := button(t("inventory"),show_inventory)
+	inv.position = Vector2(60, 944)
 	add_child(inv)
 	status = label(message, 20, appearance.palette("warning"))
 	status.position = Vector2(60, 1004)
@@ -294,12 +302,51 @@ func show_menu() -> void:
 	box.add_child(button(t("wait"), func(): close_modal(); execute({"op": "wait"})))
 	box.add_child(button(t("settings"), show_settings))
 	box.add_child(button(t("gallery"), show_gallery))
+	box.add_child(button(t("inventory"), show_inventory))
+	box.add_child(button(t("credits"), show_credits))
+	box.add_child(button(t("quit"), confirm_quit))
 	if OS.is_debug_build():
 		box.add_child(button(t("debug"), show_debug))
 	box.add_child(button(t("home_return"), func():
 		var confirm := modal(t("confirm_title"))
 		confirm.add_child(button(t("yes"), show_title))
 		confirm.add_child(button(t("no"), show_menu))))
+
+func confirm_quit() -> void:
+	if quit_confirmation_open: return
+	quit_confirmation_open = true
+	var active_story = story if is_instance_valid(story) else null
+	var previous_pause := false
+	var video_player = null
+	var previous_video_pause := false
+	if active_story != null:
+		previous_pause = active_story.paused
+		active_story.paused = true
+		if is_instance_valid(active_story.video_stage):
+			video_player = active_story.video_stage.player
+			previous_video_pause = video_player.paused
+			video_player.paused = true
+	var box := modal(t("quit_confirm"))
+	box.add_child(button(t("yes"),func(): get_tree().quit()))
+	box.add_child(button(t("no"),func():
+		quit_confirmation_open = false
+		close_modal()
+		if is_instance_valid(active_story): active_story.paused = previous_pause
+		if is_instance_valid(video_player): video_player.paused = previous_video_pause))
+
+func show_credits() -> void:
+	var box := modal(t("credits"))
+	for key in core.content.get("credits",["credits_empty"]):
+		var entry := label(t(key),24)
+		entry.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		box.add_child(entry)
+	box.add_child(button(t("back"),close_modal))
+
+var inventory_view = preload("res://engine/inventory_view.gd").new()
+
+func show_inventory() -> void:
+	inventory_view.setup(self)
+	inventory_view.show_inventory()
 
 func save_profile() -> void:
 	profile.language = language
@@ -495,11 +542,8 @@ func execute_immediate(command: Dictionary) -> void:
 			add_child(story)
 		"smalltalk": show_notice(t("smalltalk"))
 		"shop":
-			var box := modal(t("counter"))
-			for item in core.content.shops[response.shop]:
-				var price = core.content.shops[response.shop][item].price
-				box.add_child(button("%s — %d" % [t(item), price], func(): execute({"op": "buy", "shop": response.shop, "item": item})))
-			box.add_child(button(t("back"), close_modal))
+			inventory_view.setup(self)
+			inventory_view.show_shop(response.shop)
 		"event_completed":
 			save_profile()
 			if not saves.save(0): message = t("save_failed"); status.text = message

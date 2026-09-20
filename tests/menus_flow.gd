@@ -1,0 +1,80 @@
+extends "res://engine/mouse_test.gd"
+
+func run() -> void:
+	Engine.time_scale = 30
+	app = load("res://engine/main.tscn").instantiate()
+	root.add_child(app)
+	await process_frame
+	if "--quit-confirm" in OS.get_cmdline_user_args():
+		await press("quit")
+		print("quit_confirmation_visible="+str(find_button(app.overlay,app.t("yes")) != null))
+		await press("yes")
+		return
+	await press("quit")
+	await press("no")
+	check(app.screen == "title" and not is_instance_valid(app.overlay),"Quit cancelled on title")
+	root.close_requested.emit()
+	check(find_button(app.overlay,app.t("yes")) != null,"Native close request opens confirmation")
+	await press("no")
+	await press("credits")
+	check(app.overlay != null,"Credits available from title")
+	await press("back")
+	await press("new")
+	var before: Dictionary = app.core.state.duplicate(true)
+	var toggle: Button = app.find_child("RouteToggle_mara",true,false)
+	await click(toggle.get_global_rect().get_center())
+	check(app.collapsed_routes.get("mara",false) and app.core.state == before,"Collapsing progress is presentation only")
+	await press("inventory")
+	check(app.overlay.find_children("InventoryUse_*","Button",true,false).is_empty(),"Empty inventory has no use action")
+	await press("back")
+	await target("locker_key_pickup")
+	await target("harbor_locker")
+	await press("back")
+	await press("inventory")
+	var use: Button = app.overlay.find_child("InventoryUse_harbor_locker",true,false)
+	check(use != null and not use.disabled,"Inventory offers nearby matching item target")
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://test-results/inventory.png")
+	await click(use.get_global_rect().get_center())
+	check(app.core.state.flags.get("harbor_note_found",false) and app.core.state.inventory.locker_key == 0,"Bag use follows consume-item rule and activates target")
+	await press("back")
+	await target("to_workshop")
+	await target("supply_counter")
+	var buy: Button = app.overlay.find_child("ShopBuy_repair_kit",true,false)
+	check(buy.disabled,"Insufficient money disables purchase")
+	var shop_id: String = app.core.content.shops.keys()[0]
+	before = app.core.state.duplicate(true)
+	var denied: Dictionary = app.core.act({"op":"buy","shop":shop_id,"item":"repair_kit"})
+	check(not denied.ok and denied.message == "insufficient_money" and app.core.state == before,"Core independently refuses insufficient money")
+	await press("back")
+	await target("workshop_return")
+	await target("grant")
+	await target("to_workshop")
+	await target("supply_counter")
+	buy = app.overlay.find_child("ShopBuy_repair_kit",true,false)
+	check(not buy.disabled,"Funds enable purchase")
+	if DisplayServer.get_name() != "headless":
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("res://test-results/shop.png")
+	var offer: Dictionary = app.core.shop_offer(shop_id,"repair_kit")
+	var money: int = app.core.state.money
+	await click(buy.get_global_rect().get_center())
+	check(app.core.state.money == money-offer.price and app.core.state.inventory.repair_kit == 1,"Purchase deducts price and adds exactly one")
+	await target("supply_counter")
+	check(app.core.shop_offer(shop_id,"repair_kit").stock == offer.stock-1,"Stock summary refreshes after purchase")
+	await press("back")
+	# Isolated sold-out fixture verifies stale/direct requests still cannot transact.
+	app.core.state.stock[shop_id+":repair_kit"] = 0
+	app.inventory_view.show_shop(shop_id)
+	check(app.overlay.find_child("ShopBuy_repair_kit",true,false).disabled,"Sold-out offer disabled")
+	before = app.core.state.duplicate(true)
+	denied = app.core.act({"op":"buy","shop":shop_id,"item":"repair_kit"})
+	check(denied.message == "out_of_stock" and app.core.state == before,"Sold-out request leaves state untouched")
+	await press("back")
+	await press("menu")
+	await press("quit")
+	await press("no")
+	check(app.core.state == before,"Cancelling in-game quit preserves state")
+	print(JSON.stringify({"menus_failures":failures}))
+	quit(0 if failures.is_empty() else 1)

@@ -1,5 +1,6 @@
 {
   "repair_kit": {
-    "name": "repair_kit"
+    "name": "repair_kit",
+    "description": "repair_kit_description"
   }
 }

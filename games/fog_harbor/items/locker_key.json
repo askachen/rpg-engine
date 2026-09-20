@@ -1,5 +1,6 @@
 {
   "locker_key": {
-    "name": "locker_key"
+    "name": "locker_key",
+    "description": "locker_key_description"
   }
 }

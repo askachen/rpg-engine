@@ -441,5 +441,10 @@
       "locales/en.json"
     ]
   },
-  "format_version": 1
+  "format_version": 1,
+  "credits": [
+    "credit_project",
+    "credit_engine",
+    "credit_art"
+  ]
 }

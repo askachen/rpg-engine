@@ -1,5 +1,6 @@
 {
   "manifest": {
-    "name": "manifest"
+    "name": "manifest",
+    "description": "manifest_description"
   }
 }

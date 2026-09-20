@@ -251,6 +251,10 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         text(where,ending['text'])
         if not ending.get('conditions'):errors.append(f'{where}: ending requires nonempty conditions')
         conditions(where,ending.get('conditions',[]))
+    for iid,item in data['items'].items():
+        text(f'items/{iid}/name',item['name'])
+        if 'description' in item: text(f'items/{iid}/description',item['description'])
+    for key in data.get('credits',[]): text('credits',key)
     for gid,card in data.get('gallery',{}).items():
         where=f'gallery/{gid}'
         ref(where,card['character'],data['characters'])

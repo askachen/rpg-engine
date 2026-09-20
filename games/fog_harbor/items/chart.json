@@ -1,5 +1,6 @@
 {
   "chart": {
-    "name": "chart"
+    "name": "chart",
+    "description": "chart_description"
   }
 }

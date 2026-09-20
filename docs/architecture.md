@@ -71,3 +71,5 @@ actor_motion 僅保存呈現朝向及步態時間，從 main 的正式移動結�
 `player_settings.gd` 正規化 profile 設定並套用音訊 bus／視窗；profile_store 負責讀寫，main 組裝設定 UI。dialogue_player 讀取文字／自動偏好並將音訊送到 Music／SFX／Voice。詳見 [設定契約](settings.md)。
 
 `gallery_view.gd` 僅顯示 profile 解鎖與媒體，不執行 core 命令。main 在沒有進行中事件、回到地圖時同步新增解鎖；詳見 [畫廊契約](gallery.md)。
+
+`inventory_view.gd` 呈現物品與商店。`core.shop_offer()` 唯讀查詢同時供 UI 與 buy 使用；背包使用物品仍走既有 interact 交易規則。製作名單是內容根層 credits 語系鍵陣列。見 [背包與選單契約](inventory-menus.md)。

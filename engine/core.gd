@@ -210,6 +210,19 @@ func path_to(destination: Vector2i, interaction: bool = false) -> Dictionary:
 				queue.append(next)
 	return {"ok": false, "path": []}
 
+func shop_offer(shop_id: String, item_id: String) -> Dictionary:
+	var offer: Dictionary = content.shops.get(shop_id, {}).get(item_id, {})
+	var stock := int(state.stock.get(shop_id+":"+item_id,0))
+	var reason := ""
+	var reachable := false
+	for target in map_objects():
+		if target.kind == "shop" and target.shop == shop_id and adjacent(target.position) and target_visible(target): reachable = true
+	if not reachable: reason = "shop_unreachable"
+	elif offer.is_empty(): reason = "unknown_offer"
+	elif stock <= 0: reason = "out_of_stock"
+	elif state.money < offer.price: reason = "insufficient_money"
+	return {"available":reason == "", "reason":reason, "price":offer.get("price",0), "stock":stock, "owned":state.inventory.get(item_id,0)}
+
 func act(command: Dictionary) -> Dictionary:
 	var before := state.duplicate(true)
 	var event_before := active_event
@@ -293,20 +306,9 @@ func _act(command: Dictionary) -> Dictionary:
 		"buy":
 			var shop_id := str(command.get("shop", ""))
 			var item_id := str(command.get("item", ""))
-			var reachable := false
-			for target in map_objects():
-				if target.kind == "shop" and target.shop == shop_id and adjacent(target.position) and target_visible(target):
-					reachable = true
-			if not reachable:
-				return result(false, "shop_unreachable")
-			var offer: Dictionary = content.shops.get(shop_id, {}).get(item_id, {})
-			if offer.is_empty():
-				return result(false, "unknown_offer")
+			var offer := shop_offer(shop_id,item_id)
+			if not offer.available: return result(false,offer.reason)
 			var stock_key := shop_id + ":" + item_id
-			if state.stock.get(stock_key, 0) <= 0:
-				return result(false, "out_of_stock")
-			if state.money < offer.price:
-				return result(false, "insufficient_money")
 			state.money -= offer.price
 			state.stock[stock_key] -= 1
 			state.inventory[item_id] = state.inventory.get(item_id, 0) + 1

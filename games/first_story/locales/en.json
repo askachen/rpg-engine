@@ -172,6 +172,16 @@
     "gallery_video": "Videos",
     "gallery_no_entries": "No entries in this category.",
     "gallery_replay": "Replay",
-    "gallery_failed": "Video unavailable. Return to the gallery."
+    "gallery_failed": "Video unavailable. Return to the gallery.",
+    "credits": "Credits",
+    "credits_empty": "Credits have not been provided.",
+    "credit_project": "Project: Story Garden RPG Engine",
+    "credit_engine": "Game engine: Godot",
+    "credit_art": "Demo artwork: AI-generated assets",
+    "quit_confirm": "Quit the game? Unsaved progress will be lost.",
+    "inventory_empty": "Your inventory is empty.",
+    "item_no_description": "No additional description.",
+    "item_story_use": "Used in story events or at the corresponding interactive object.",
+    "stock_remaining": "Remaining stock"
   }
 }

@@ -221,5 +221,10 @@
   },
   "save_migration": {
     "reposition_before_version": 4
-  }
+  },
+  "credits": [
+    "credit_project",
+    "credit_engine",
+    "credit_art"
+  ]
 }

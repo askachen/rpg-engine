@@ -225,6 +225,20 @@
     "gallery_no_entries": "No entries in this category.",
     "gallery_replay": "Replay",
     "gallery_test_video_note": "Projector test clip: a technical demonstration, not a story cinematic.",
-    "gallery_failed": "Video unavailable. Return to the gallery."
+    "gallery_failed": "Video unavailable. Return to the gallery.",
+    "credits": "Credits",
+    "credits_empty": "Credits have not been provided.",
+    "credit_project": "Project: Story Garden RPG Engine",
+    "credit_engine": "Game engine: Godot",
+    "credit_art": "Demo artwork: AI-generated assets",
+    "quit_confirm": "Quit the game? Unsaved progress will be lost.",
+    "inventory_empty": "Your inventory is empty.",
+    "item_no_description": "No additional description.",
+    "item_story_use": "Used in story events or at the corresponding interactive object.",
+    "stock_remaining": "Remaining stock",
+    "repair_kit_description": "Used to repair the signal station relay.",
+    "manifest_description": "Mail recipient records for Mara to check.",
+    "locker_key_description": "Opens the old quay locker and is consumed on use.",
+    "chart_description": "An old chart that helps Iris decode the signal."
   }
 }

@@ -1835,7 +1835,17 @@
       "gallery_video": "影片",
       "gallery_no_entries": "這個分類目前沒有項目。",
       "gallery_replay": "重新播放",
-      "gallery_failed": "影片無法播放，請返回畫廊。"
+      "gallery_failed": "影片無法播放，請返回畫廊。",
+      "credits": "製作名單",
+      "credits_empty": "尚未提供製作名單。",
+      "credit_project": "專案：Story Garden RPG Engine",
+      "credit_engine": "遊戲引擎：Godot",
+      "credit_art": "示範美術：AI 生成素材",
+      "quit_confirm": "確定離開遊戲？未儲存的進度將會失去。",
+      "inventory_empty": "背包目前沒有物品。",
+      "item_no_description": "沒有額外說明。",
+      "item_story_use": "在劇情或對應的互動物件中使用。",
+      "stock_remaining": "剩餘庫存"
     },
     "en": {
       "title": "Story Garden",
@@ -2013,8 +2023,23 @@
       "gallery_video": "Videos",
       "gallery_no_entries": "No entries in this category.",
       "gallery_replay": "Replay",
-      "gallery_failed": "Video unavailable. Return to the gallery."
+      "gallery_failed": "Video unavailable. Return to the gallery.",
+      "credits": "Credits",
+      "credits_empty": "Credits have not been provided.",
+      "credit_project": "Project: Story Garden RPG Engine",
+      "credit_engine": "Game engine: Godot",
+      "credit_art": "Demo artwork: AI-generated assets",
+      "quit_confirm": "Quit the game? Unsaved progress will be lost.",
+      "inventory_empty": "Your inventory is empty.",
+      "item_no_description": "No additional description.",
+      "item_story_use": "Used in story events or at the corresponding interactive object.",
+      "stock_remaining": "Remaining stock"
     }
   },
-  "description": "Configuration preview; not the second standalone sample game."
+  "description": "Configuration preview; not the second standalone sample game.",
+  "credits": [
+    "credit_project",
+    "credit_engine",
+    "credit_art"
+  ]
 }
