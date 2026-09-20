@@ -32,3 +32,12 @@ python tools/dev.py check --game numeric_lab --timeout 600 --json
 兩包以一般使用者 token 執行，安裝目錄內容前後雜湊一致；AVI 包含實際 UI／立繪／地圖／媒體。驗收機 GPU：NVIDIA GeForce RTX 5070、OpenGL 3.3 Compatibility。這不是效能基準，也未宣稱其他 DPI／低階硬體已驗證。
 
 S7-01／02 已驗證、待使用者確認；S6 由繼續 S7 確認。S5-10／11 與 Live2D 暫緩狀態不變。
+
+## 遠端乾淨環境
+
+程式 commit `912b610d3b379f8ba042a2aa940cdc8d40a496f4`：
+
+- [Engine verification](https://github.com/askachen/rpg-engine/actions/runs/35496882325)：static／rules／ui／media 全部成功，含後加的長文測試。
+- [Windows release reproduction](https://github.com/askachen/rpg-engine/actions/runs/35496905927)：成功。從乾淨 runner 下載並驗證 console／實際編輯器／模板，兩包各匯出兩次且 ZIP 一致；可下載 `windows-release` artifact。
+
+初次遠端下載被官方轉址服務以 403 拒絕；已加入官方鏡像及 Godot GitHub 發行檔備援，每個來源仍驗證相同 SHA256。以上成功結果來自修正後的重新執行，不沿用失敗結果。本段只記錄證據，文件更新 commit 使用 `[skip ci]` 避免重跑相同程式。
