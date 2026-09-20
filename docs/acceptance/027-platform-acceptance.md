@@ -45,7 +45,7 @@
 
 ## 整批回歸與遠端驗證
 
-本批一次完整 `python tools/dev.py check --game numeric_lab --timeout 600 --json` 通過，含 fresh import、資源載入、通關與全引擎 pytest。報告位於 `test-results/run-8e120a3147684cb28a12a73bcc51e8a9/`。遠端 CI 於推送後驗證。
+本批一次完整 `python tools/dev.py check --game numeric_lab --timeout 600 --json` 通過，含 fresh import、資源載入、通關與 **224 項 pytest 全數通過**（266.39 秒）。報告位於 `test-results/run-8e120a3147684cb28a12a73bcc51e8a9/`。程式版本 `1f4c8a8` 的遠端 [Windows release reproduction](https://github.com/askachen/rpg-engine/actions/runs/35500312120) 已通過：兩款 0.7.1 各建兩次，ZIP 位元組一致；產物由該次 Actions 提供下載。遠端 [Engine verification](https://github.com/askachen/rpg-engine/actions/runs/35500292938) 的 static／rules／ui／media 四層與防卡關情境均通過。
 
 ## 邊界
 
