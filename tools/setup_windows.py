@@ -3,6 +3,7 @@ import argparse
 import json
 import shutil
 import urllib.request
+from http.client import HTTPException
 import zipfile
 from pathlib import Path
 from release_game import ROOT, LOCK, sha256, verify_toolchain
@@ -18,11 +19,26 @@ def install(key, destination, member, binary_key, local=None):
     if not archive.is_file() or sha256(archive) != expected['sha256']:
         if local: raise ValueError(f'Archive SHA256 mismatch: {archive}')
         temporary = archive.with_suffix('.partial')
-        print('Downloading ' + expected['url'], flush=True)
-        with urllib.request.urlopen(expected['url'], timeout=60) as response, temporary.open('wb') as stream:
-            shutil.copyfileobj(response, stream)
-        if sha256(temporary) != expected['sha256']:
-            raise ValueError('Downloaded archive SHA256 mismatch')
+        # The official redirect service may reject datacenter/Python clients.
+        # Both alternatives serve the same SHA256-locked official archive.
+        filename = 'Godot_v' + lock['version'] + ('_win64.exe.zip' if key == 'editor_archive' else '_export_templates.tpz')
+        urls = [expected['url'],
+            'https://godot-releases.nbg1.your-objectstorage.com/' + lock['version'] + '/' + filename,
+            'https://github.com/godotengine/godot/releases/download/' + lock['version'] + '/' + filename]
+        failures = []
+        for url in urls:
+            print('Downloading ' + url, flush=True)
+            try:
+                request = urllib.request.Request(url, headers={'User-Agent':'StoryGarden-Windows-Build/1'})
+                with urllib.request.urlopen(request, timeout=60) as response, temporary.open('wb') as stream:
+                    shutil.copyfileobj(response, stream)
+                if sha256(temporary) != expected['sha256']:
+                    raise ValueError('Downloaded archive SHA256 mismatch')
+                break
+            except (OSError, ValueError, HTTPException) as error:
+                failures.append(str(error))
+        else:
+            raise RuntimeError('Official archive download failed: ' + '; '.join(failures))
         temporary.replace(archive)
     with zipfile.ZipFile(archive) as archive_file:
         data = archive_file.read(member)
