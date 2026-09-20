@@ -1,6 +1,6 @@
 extends RefCounted
 ## Shared persistent preferences; never writes gameplay state.
-const RESOLUTIONS = [Vector2i(1280,720), Vector2i(1600,900), Vector2i(1920,1080), Vector2i(2560,1440)]
+const RESOLUTIONS = [Vector2i(1280,720), Vector2i(1600,900), Vector2i(1920,1080), Vector2i(2560,1440), Vector2i(3840,2160), Vector2i(1920,1200), Vector2i(2560,1080)]
 const RANGES = {"volume": [0.0,1.0,0.8], "music_volume": [0.0,1.0,1.0], "sfx_volume": [0.0,1.0,1.0], "voice_volume": [0.0,1.0,1.0], "text_size": [22.0,36.0,28.0], "text_speed": [10.0,100.0,35.0], "auto_delay": [0.5,5.0,1.4]}
 
 static func normalize(data: Dictionary) -> Dictionary:

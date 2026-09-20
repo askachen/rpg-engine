@@ -125,8 +125,14 @@ func show_line() -> void:
 		if input is InputEventMouseButton and input.pressed and input.button_index == MOUSE_BUTTON_LEFT:
 			advance())
 	add_child(panel)
+	var scroll := ScrollContainer.new()
+	scroll.name = "DialogueScroll"
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.custom_minimum_size = Vector2(0, 213)
+	panel.add_child(scroll)
 	body = VBoxContainer.new()
-	panel.add_child(body)
+	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(body)
 	if cursor < lines.size():
 		var line: Dictionary = lines[cursor]
 		body.add_child(app.label(app.t(line.get("speaker", event.get("character", app.core.protagonist_id()))), 28))
@@ -140,6 +146,7 @@ func show_line() -> void:
 		body.add_child(app.label(app.t(event.title), 26))
 		for choice in event.choices:
 			var option: Button = app.button(app.t(choice.text), func(): select(choice.id))
+			option.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			option.disabled = not app.core.replay_mode and not app.core.satisfied(choice.get("conditions", []), app.core.event_context)
 			body.add_child(option)
 	controls = HBoxContainer.new()
@@ -151,7 +158,7 @@ func show_line() -> void:
 		controls.add_child(app.button(app.t("story_auto"), func(): auto = not auto; skip = false; update_controls()))
 		controls.add_child(app.button(app.t("story_skip"), func(): skip = not skip; auto = false; update_controls()))
 	controls.add_child(app.button(app.t("story_log"), show_log))
-	controls.add_child(app.button(app.t("story_hide"), func(): hidden_box = not hidden_box; body.get_parent().visible = not hidden_box))
+	controls.add_child(app.button(app.t("story_hide"), func(): hidden_box = not hidden_box; panel.visible = not hidden_box))
 	controls.add_child(app.button(app.t("story_cancel"), abort))
 	update_controls()
 

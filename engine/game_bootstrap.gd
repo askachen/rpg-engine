@@ -1,9 +1,10 @@
 extends RefCounted
 ## The project supplies the default; --game=path selects content for development.
 static func content_path() -> String:
-	for argument in OS.get_cmdline_user_args():
-		if argument.begins_with("--game="):
-			return argument.trim_prefix("--game=")
+	if OS.has_feature("editor"):
+		for argument in OS.get_cmdline_user_args():
+			if argument.begins_with("--game="):
+				return argument.trim_prefix("--game=")
 	return str(ProjectSettings.get_setting("story_engine/content_path", ""))
 
 static func valid_id(value: String) -> bool:

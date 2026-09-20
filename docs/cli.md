@@ -61,3 +61,8 @@ S2 的 build 先驗證內容、Godot 匯入與原生素材，再產生 Godot 原
 `check --suite static/rules/ui/media/fast/full` 選擇測試層，預設 full。`play --dev` 啟用有標記的開發修改；只允許 play。`explore` 接受 `--max-states`（1～100000）、`--max-depth`（1～1000）、`--search-seconds`（>0～300）、可選 `--goal` 結局 ID。探索超限回傳 exit 1／inconclusive，不是通關成功也不是死局證明；一條 witness 成功也不保證所有路線。詳見 [可靠性契約](reliability.md)。
 
 探索重播使用完整期末 state 斷言；若證據停在事件內，重播末尾會明確加 cancel_event，避免殘留演出。空路線使用 snapshot 查詢，沒有注入狀態。原始探索狀態／active_event 仍保留在 exploration.json，報告標示 replay_cancels_active_event。
+# Windows release 補充（S7-01／02）
+
+`python tools/dev.py release --game ID --version 0.7.0 --timeout 600 --json` 使用相同 protocol_version 1／退出碼。`--version` 是 release 必填參數，其他指令禁止使用。工具鏈安裝：`python tools/setup_windows.py`。
+
+成功回傳 `artifacts.windows_bundle`、`executable`、`release_manifest`，以及 `data.build_kind = windows-x86_64-release`、`version`、`signed = false`。依賴缺少或 SHA256 不符會明確失敗；不自動降級成來源包。既有 `build` 的來源 ZIP 契約不變。完整程序與產物驗收見 [Windows 發行契約](windows-release.md)。

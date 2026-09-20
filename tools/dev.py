@@ -30,7 +30,7 @@ def main(argv=None):
     try:
         parser = Parser(description=__doc__)
         parser.add_argument('command', nargs='?', default='check', choices=[
-            'check', 'play', 'editor', 'ui-smoke', 'list', 'validate', 'new', 'test', 'build', 'explore', 'scenarios'])
+            'check', 'play', 'editor', 'ui-smoke', 'list', 'validate', 'new', 'test', 'build', 'explore', 'scenarios', 'release'])
         parser.add_argument('--game', default='demo', help='games/ directory name or manifest JSON path')
         parser.add_argument('--json', action='store_true', help='Emit exactly one JSON result to stdout')
         parser.add_argument('--scenario', help='test only: scenario path relative to project root')
@@ -41,7 +41,9 @@ def main(argv=None):
         parser.add_argument('--max-depth', type=int, default=30)
         parser.add_argument('--search-seconds', type=float, default=10)
         parser.add_argument('--goal', default='', help='explore: ending ID; default any ending')
+        parser.add_argument('--version', help='release only: MAJOR.MINOR.PATCH[-suffix]')
         options = parser.parse_args(argv)
+        if (options.command == 'release') != bool(options.version): raise Failure(2,'usage','--version is required for release and only supported there')
         if options.dev and options.command != 'play': raise Failure(2,'usage','--dev is only supported by play')
         if options.suite != 'full' and options.command != 'check': raise Failure(2,'usage','--suite is only supported by check')
         if not 1 <= options.max_states <= 100000 or not 1 <= options.max_depth <= 1000 or not 0 < options.search_seconds <= 300:
@@ -135,12 +137,22 @@ def execute(options, report):
         if process.returncode or 'SCRIPT ERROR' in text:
             raise Failure(1, 'process_failed', f'{name} failed (exit {process.returncode}); see {log}')
 
+    if command == 'release':
+        from release_game import verify_toolchain
+        template = ROOT/'.tools/export-templates/windows_release_x86_64.exe'
+        verify_toolchain(godot, template)
     run(base+['--headless', '--editor', '--import', '--quit'], 'import')
     output = run_dir/'asset-probe.json'
     run(base+['--headless', '--script', 'res://engine/asset_probe.gd', '--', str(content), str(output)], 'asset_probe')
     report['artifacts']['asset_probe'] = str(output)
     probe = json.loads(output.read_text(encoding='utf-8'))
     if probe['errors']: raise Failure(1, 'asset_probe', str(probe['errors']))
+    if command == 'release':
+        from release_game import export_windows
+        bundle, exe, manifest = export_windows(data, options.version, godot, template, run_dir, run)
+        report['artifacts'].update(windows_bundle=str(bundle), executable=str(exe), release_manifest=str(exe.parent/'release-manifest.json'))
+        report['data'].update(build_kind=manifest['kind'], version=options.version, signed=False)
+        return
     if command == 'explore':
         if not data.get('endings') or (options.goal and options.goal not in data['endings']): raise Failure(2,'goal','Choose a declared ending')
         request, output = run_dir/'explore-request.json', run_dir/'exploration.json'

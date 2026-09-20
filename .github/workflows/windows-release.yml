@@ -1,0 +1,38 @@
+name: Windows release reproduction
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Locked official toolchain
+        run: python tools/setup_windows.py
+      - name: Build both packages twice and compare byte hashes
+        shell: pwsh
+        run: |
+          foreach ($game in @('numeric_lab', 'fog_harbor')) {
+            $first = python tools/dev.py release --game $game --version 0.7.0 --timeout 600 --json | ConvertFrom-Json
+            if (-not $first.ok) { throw ($first | ConvertTo-Json -Depth 10) }
+            $second = python tools/dev.py release --game $game --version 0.7.0 --timeout 600 --json | ConvertFrom-Json
+            if (-not $second.ok) { throw ($second | ConvertTo-Json -Depth 10) }
+            if ($first.artifacts.windows_bundle -ne $second.artifacts.windows_bundle) { throw "Nonreproducible $game release" }
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-release
+          path: |
+            builds/*-windows.zip
+            test-results/run-*/release*.log
+            test-results/run-*/windows/release-manifest.json
+          retention-days: 14

@@ -4,7 +4,9 @@
 
 **目前適合技術評估與原型開發，尚未達到正式對外交付／Steam 發行品質。** S2 工具鏈已確認；S3 已確認；S4-01～05 已確認；S4-06 Live2D 依使用者指示暫緩；S4-07～08 已確認；S4-09 已確認；新增 48 個 Cozy Home 地圖素材與展示包，待本批確認；完整狀態以 [TASKS.md](TASKS.md) 為準。規劃中的功能不代表已實作。
 
-**S6 已實作並通過本機與 GitHub Actions 四層驗證**：存檔 v2／明確遷移、槽位備份復原／刪除、帶標記的開發指令、可重播防卡關情境、有界可達性與分層 CI。使用方式及限制見 [S6 可靠性契約](docs/reliability.md)。GitHub Actions 的遠端結果以各 commit 檢查為準；S7 Windows 發行與 S8 正式交付仍待完成。
+**S6 已實作並通過本機與 GitHub Actions 四層驗證**：存檔 v2／明確遷移、槽位備份復原／刪除、帶標記的開發指令、可重播防卡關情境、有界可達性與分層 CI。使用方式及限制見 [S6 可靠性契約](docs/reliability.md)。GitHub Actions 的遠端結果以各 commit 檢查為準。
+
+**S7-01／02：已加入真正的 Windows EXE／PCK 發行包**。鎖定工具鏈、隔離建置、可重現 ZIP；numeric_lab／fog_harbor 已以正式執行檔驗證中文路徑、多槽存讀檔、重啟續玩及影片播放。建置方式見 [Windows 發行契約](docs/windows-release.md)。S7-03／04 完整解析度／DPI 矩陣與效能壓力測試、S8 正式交付仍待完成。
 
 ## 其他 AI：先用這個流程評估
 
@@ -53,6 +55,7 @@ python tools/dev.py check --game ai_review --timeout 600 --json
 | `scenarios --game ID` | 執行 tests/scenarios/*.json 的正負案例，失敗保留重播檔 |
 | `explore --game ID --max-states 1000 --max-depth 30` | 有界原生規則探索；找到單一路線或明確回報未定 |
 | `play --game ID --dev` | 額外開放有 [DEV] 標記的開發指令，release 禁用 |
+| `release --game ID --version 0.7.0` | 經驗證、隔離匯入並匯出 Windows x86_64 EXE／PCK ZIP；先執行 `python tools/setup_windows.py` |
 | `play --game ID` | 驗證、匯入、原生素材檢查後開啟遊戲 |
 | `build --game ID` | 產生只包含選定遊戲及共用引擎的 Godot 原始專案 ZIP |
 | `editor --game ID` | 開啟編輯器；內容製作不依賴此操作 |
