@@ -41,7 +41,7 @@ func show_shop(shop: String) -> void:
 	for item in app.core.content.shops[shop]:
 		var offer: Dictionary = app.core.shop_offer(shop,item)
 		describe(box,item,int(offer.owned))
-		box.add_child(app.label(app.t("stock_remaining")+": "+str(offer.stock),20))
+		box.add_child(app.label(app.t("stock_remaining")+": "+(("無限" if app.language == "zh_TW" else "Unlimited") if offer.unlimited else str(offer.stock)),20))
 		var buy: Button = app.button("%s — %d" % [app.t(app.core.content.items[item].name),offer.price],func(): app.execute({"op":"buy","shop":shop,"item":item}))
 		buy.name = "ShopBuy_"+item
 		buy.disabled = not offer.available

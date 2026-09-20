@@ -73,7 +73,11 @@
       }
     ],
     "time_cost": 1,
-    "repeatable": true
+    "repeatable": true,
+    "action_tags": [
+      "work",
+      "train"
+    ]
   },
   "explore": {
     "title": "explore_line",
@@ -146,6 +150,103 @@
       }
     ],
     "time_cost": 1,
-    "repeatable": true
+    "repeatable": true,
+    "action_tags": [
+      "train"
+    ]
+  },
+  "milestone": {
+    "title": "milestone_title",
+    "text": "milestone_text",
+    "conditions": [
+      {
+        "kind": "any",
+        "conditions": [
+          {
+            "kind": "all",
+            "conditions": [
+              {
+                "kind": "action_count",
+                "tags": [
+                  "work",
+                  "train"
+                ],
+                "op": "gte",
+                "value": 2,
+                "window": {
+                  "unit": "days",
+                  "size": 2,
+                  "include_current": true
+                }
+              },
+              {
+                "kind": "day",
+                "op": "gte",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "kind": "day",
+            "op": "gte",
+            "value": 4
+          }
+        ]
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept",
+        "next": "reward"
+      },
+      {
+        "id": "special",
+        "text": "special",
+        "conditions": [
+          {
+            "kind": "money",
+            "value": 9999
+          }
+        ],
+        "next": "reward"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "sequence": [
+      {
+        "id": "hello",
+        "text": "milestone_text",
+        "speaker": "guide"
+      }
+    ],
+    "nodes": {
+      "reward": {
+        "sequence": [
+          {
+            "id": "reward",
+            "text": "milestone_reward",
+            "speaker": "guide"
+          }
+        ],
+        "choices": [
+          {
+            "id": "finish",
+            "text": "accept"
+          }
+        ]
+      }
+    },
+    "effects": [
+      {
+        "kind": "money",
+        "value": 1
+      }
+    ],
+    "time_cost": 0
   }
 }

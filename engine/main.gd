@@ -150,6 +150,7 @@ func show_title() -> void:
 	queue_redraw()
 
 func start_new_game() -> void:
+	if gallery_view.replay != null: return
 	core.new_game()
 	motion.reset()
 	dialogue_log.clear()
@@ -186,7 +187,7 @@ func show_game() -> void:
 	var heading := label(t(core.state.map), 30)
 	heading.position = Vector2(162, 44)
 	add_child(heading)
-	var info := label("DAY %02d   /   %s     ·     %s %d" % [core.state.day, t(core.state.period), t("money"), core.state.money], 18, appearance.palette("success"))
+	var info := label("%s   /   %s     ·     %s %d" % [core.format_day(int(core.state.day),language), t(core.state.period), t("money"), core.state.money], 18, appearance.palette("success"))
 	info.position = Vector2(162, 105)
 	add_child(info)
 	var menu_button := button(t("menu"), show_menu)
@@ -204,6 +205,7 @@ func show_game() -> void:
 	var route_scroll := ScrollContainer.new()
 	route_scroll.position = Vector2(1440, 195)
 	route_scroll.size = Vector2(420, 745)
+	route_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(route_scroll)
 	side = VBoxContainer.new()
 	side.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -246,18 +248,8 @@ func show_game() -> void:
 			var event_id: String = route.next_event
 			var event: Dictionary = core.content.events[event_id]
 			body.add_child(label(t("next_event") + "  /  " + t(event.title), 19, appearance.palette("accent")))
-			for check in core.checks(event.conditions, core.context_for_event(event_id)):
-				var detail := "%s %s: %s / %s" % [t(check.condition.kind), t(str(check.condition.get("id", ""))), str(check.actual), t(str(check.expected))]
-				if check.condition.kind in ["flag", "completed"]:
-					detail = t(str(check.condition.id))
-				elif check.condition.kind == "stage": detail = t("stage_requirement") % [int(check.expected), int(check.actual)]
-				elif check.condition.kind == "period": detail = t("period") + " · " + t(str(check.expected))
-				elif check.condition.kind in ["stat", "variable"]: detail = numeric_view.condition_text(self, check)
-				elif check.condition.kind == "day": detail = "Day %s %s (%s)" % [{"eq":"=","ne":"≠","lt":"<","lte":"≤","gt":">","gte":"≥"}.get(check.condition.op), str(int(check.expected)), str(int(check.actual))]
-				elif check.condition.kind in ["map", "zone", "target"]: detail = "%s: %s" % [check.condition.kind, t(str(check.expected))]
-				var line := label(("✓ " if check.passed else "○ ") + detail, 17, appearance.palette("success") if check.passed else appearance.palette("warning"))
-				line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-				body.add_child(line)
+			progress_view.add_checks(self, body, core.checks(event.conditions, core.context_for_event(event_id)))
+	progress_view.add_tracking(self, side)
 	var inv := button(t("inventory"),show_inventory)
 	inv.position = Vector2(60, 944)
 	add_child(inv)
@@ -371,6 +363,7 @@ func show_inventory() -> void:
 	inventory_view.show_inventory()
 
 func save_profile() -> void:
+	if gallery_view.replay != null: return
 	profile.language = language
 	if not Profiles.write(profile_path, profile): push_warning("Profile write failed: " + profile_path)
 
@@ -378,6 +371,7 @@ func slot_title(slot: int) -> String:
 	return t("auto_slot") if slot == 0 else t("manual_slot") % slot
 
 func show_slots(saving: bool) -> void:
+	if gallery_view.replay != null: return
 	var box := modal(t("save") if saving else t("load"))
 	box.add_child(label(t("choose_save_slot") if saving else t("choose_load_slot"), 19))
 	var grid := GridContainer.new()
@@ -399,7 +393,7 @@ func slot_button(slot: int, saving: bool) -> Button:
 		else:
 			var state: Dictionary = info.data.state
 			var stamp := Time.get_datetime_string_from_unix_time(int(info.saved_at), true) + " UTC"
-			summary = "%s  ·  DAY %d / %s\n%s" % [t(state.map), state.day, t(state.period), stamp]
+			summary = "%s  ·  %s / %s\n%s" % [t(state.map), core.format_day(int(state.day),language), t(state.period), stamp]
 	var entry := button(slot_title(slot) + "\n" + summary, func():
 		if saving:
 			if info.exists:
@@ -485,6 +479,7 @@ func settings_slider(box: VBoxContainer, key: String) -> void:
 		save_profile())
 	box.add_child(slider)
 
+var progress_view = preload("res://engine/progress_view.gd").new()
 var gallery_view = preload("res://engine/gallery_view.gd").new()
 
 func show_gallery() -> void:
@@ -501,6 +496,7 @@ func sync_gallery_unlocks() -> void:
 	if changed: save_profile()
 
 func execute(command: Dictionary) -> void:
+	if gallery_view.replay != null: return
 	if transitioning: return
 	if command.get("op") == "interact":
 		for target in core.map_objects():
@@ -531,6 +527,7 @@ func change_map(command: Dictionary) -> void:
 	transitioning = false
 
 func execute_immediate(command: Dictionary) -> void:
+	if gallery_view.replay != null: return
 	if command.get("op") == "interact":
 		for target in core.map_objects():
 			if target.id == command.get("target") and core.adjacent(target.position):
@@ -596,6 +593,7 @@ func toggle_dash() -> void:
 		dash_button.text = t("dash_on") if dash_enabled else t("dash_off")
 
 func _unhandled_input(event: InputEvent) -> void:
+	if gallery_view.replay != null: return
 	if transitioning or screen != "game" or is_instance_valid(overlay) or core.active_event != "":
 		return
 	if event is InputEventMouseButton and event.pressed:
@@ -612,6 +610,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 
 func click_cell(cell: Vector2i) -> void:
+	if gallery_view.replay != null: return
 	if transitioning or screen != "game" or is_instance_valid(overlay) or core.active_event != "": return
 	cancel_walk()
 	for target in core.map_objects():
@@ -629,6 +628,7 @@ func click_cell(cell: Vector2i) -> void:
 	queue_redraw()
 
 func _process(delta: float) -> void:
+	if gallery_view.replay != null: return
 	avatar_time += delta
 	motion.tick(delta, transitioning or screen != "game" or is_instance_valid(overlay) or core.active_event != "")
 	if is_instance_valid(world_surface): world_surface.queue_redraw()
@@ -653,6 +653,7 @@ func _process(delta: float) -> void:
 		execute({"op": "interact", "target": target})
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if gallery_view.replay != null: return
 	if transitioning: return
 	if core.active_event != "": return
 	if not event is InputEventKey or not event.pressed or event.echo:

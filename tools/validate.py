@@ -38,10 +38,18 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         for locale, strings in data['locales'].items():
             if key not in strings:
                 errors.append(f'{where}: missing translation {locale}/{key}')
-    def conditions(where, values):
+    def conditions(where, values, depth=0):
+        if depth > 8:
+            errors.append(f"{where}: condition nesting exceeds 8"); return
         collections = {'item':'items', 'affection':'characters', 'stage':'characters', 'completed':'events'}
         for condition in values:
             kind = condition.get('kind')
+            if kind in ('all','any'):
+                conditions(where+'/'+kind, condition['conditions'], depth+1); continue
+            if kind == 'action_count':
+                tags={tag for event in data['events'].values() for tag in event.get('action_tags',[])}
+                for tag in condition['tags']: ref(where+'/action_count',tag,tags)
+                continue
             if kind == 'day': continue
             if kind in ('map', 'target', 'zone'):
                 if kind == 'map': ref(where, condition['id'], data['maps'])
@@ -65,6 +73,11 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
             kind=effect.get('kind')
             if kind in ('stat', 'variable'):
                 errors.extend(reference_errors(data, where, effect, effect=True))
+                continue
+            if kind == 'stock':
+                offer = data['shops'].get(effect['shop'],{}).get(effect['id'])
+                if offer is None or offer.get('unlimited'): errors.append(f'{where}: stock effect requires finite offer')
+                elif effect['value'] > offer.get('capacity',9007199254740991): errors.append(f'{where}: stock effect exceeds capacity')
                 continue
             if kind not in ('money','item','affection','stage','flag'):
                 errors.append(f'{where}: unknown effect {kind}')
@@ -294,6 +307,7 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         ref(where,card['character'],data['characters'])
         text(where,card['title']);text(where,card['text'])
         conditions(where,card.get('conditions',[]))
+        if 'event' in card: ref(where,card['event'],data['events'])
         if 'media' in card:
             for field in ('path','thumbnail'):
                 if card['media'][field] not in data['assets']: errors.append(f'{where}/media/{field}: undeclared asset')
@@ -301,6 +315,25 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         for item,offer in offers.items():
             ref(shop,item,data['items'])
             if not isinstance(offer['price'],int) or offer['price']<0: errors.append(f'{shop}/{item}: invalid price')
+            if offer.get('unlimited') and any(k in offer for k in ('capacity','restock','stock')): errors.append(f'{shop}/{item}: unlimited offer cannot declare finite stock policy')
+            if offer.get('restock') and 'capacity' not in offer: errors.append(f'{shop}/{item}: daily restock requires capacity')
+            if data['initial']['stock'].get(shop+':'+item,offer.get('stock',0)) > offer.get('capacity',9007199254740991): errors.append(f'{shop}/{item}: initial stock exceeds capacity')
+    for who, entries in data.get('tracking',{}).items():
+        ref('tracking',who,data['characters'])
+        seen=set()
+        for entry in entries:
+            ref('tracking/'+who,entry['event'],data['events'])
+            if entry['event'] in seen: errors.append(f'tracking/{who}: duplicate event')
+            seen.add(entry['event'])
+    for field in ('normal_text','extra_text'):
+        if 'date_display' in data:
+            key=data['date_display'][field];text('date_display',key)
+            for locale,strings in data['locales'].items():
+                if strings.get(key,'').count('{day}') != 1: errors.append(f'date_display/{locale}/{key}: requires one {{day}} placeholder')
+    def mandatory(values):
+        for c in values:
+            if c['kind']=='all': yield from mandatory(c['conditions'])
+            elif c['kind']=='completed' and c.get('value',True): yield c['id']
     visiting, done = set(),set()
     def visit(eid):
         if eid in visiting:
@@ -308,8 +341,7 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         if eid in done or eid not in data['events']:return
         visiting.add(eid)
         if eid in route_previous: visit(route_previous[eid])
-        for c in data['events'][eid]['conditions']:
-            if c['kind']=='completed' and c.get('value',True):visit(c['id'])
+        for dependency in mandatory(data['events'][eid]['conditions']): visit(dependency)
         visiting.remove(eid);done.add(eid)
     for eid in data['events']:visit(eid)
     if 'opening_event' in data:

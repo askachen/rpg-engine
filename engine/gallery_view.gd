@@ -2,6 +2,7 @@ extends RefCounted
 ## Read-only presentation of profile unlocks. No core commands or rewards.
 var app
 var filter_kind := "all"
+var replay
 
 func setup(owner_app) -> void:
 	app = owner_app
@@ -51,6 +52,10 @@ func show_card(id: String) -> void:
 	# Enforce lock even if called without using the disabled list button.
 	if id not in app.profile.unlocked or not app.core.content.get("gallery",{}).has(id): return
 	var card: Dictionary = app.core.content.gallery[id]
+	if card.has("event"):
+		replay = preload("res://engine/replay_presenter.gd").new()
+		replay.start(app, self, id)
+		return
 	var media: Dictionary = card.get("media",{})
 	if media.is_empty():
 		var box: VBoxContainer = app.modal(app.t(card.title))

@@ -2,6 +2,15 @@
   "kiosk": {
     "tea": {
       "price": 10
+    },
+    "snack": {
+      "price": 1,
+      "unlimited": true
+    },
+    "voucher": {
+      "price": 1,
+      "capacity": 2,
+      "restock": "daily"
     }
   }
 }

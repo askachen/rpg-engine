@@ -194,6 +194,14 @@
     "course_line": "課程消耗一杯茶，魅力 +1，花一時段。",
     "work_label": "工作桌",
     "explore_label": "探索",
-    "course_label": "課程"
+    "course_label": "課程",
+    "date_normal": "第 {day} 天",
+    "date_extra": "延住第 {day} 天",
+    "snack": "點心",
+    "voucher": "兌換券",
+    "milestone_title": "里程碑",
+    "milestone_text": "最近工作兩次，或在第四天回來。",
+    "milestone_reward": "你的里程碑獎勵已準備好。",
+    "special": "特殊回想分支"
   }
 }

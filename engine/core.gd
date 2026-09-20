@@ -10,6 +10,7 @@ var pending_effects: Array = []
 var event_context: Dictionary = {}
 var history: Array = []
 var load_error := ""
+var replay_mode := false
 const PERIODS = ["day", "evening", "late"]
 var numbers = preload("res://engine/numeric_state.gd").new()
 
@@ -33,8 +34,10 @@ func load_content(path: String) -> bool:
 	return true
 
 func new_game(play_opening: bool = true) -> void:
+	if replay_mode: return
 	state = content.get("initial", {}).duplicate(true)
 	numbers.normalize(state, content)
+	if records_enabled(): state["actions"] = []
 	clear_event()
 	history.clear()
 	if play_opening and content.has("opening_event"):
@@ -90,13 +93,23 @@ func result(ok: bool, message: String, extra: Dictionary = {}) -> Dictionary:
 	out.merge(extra)
 	return out
 
-func checks(conditions: Array, context: Dictionary = {}) -> Array:
+func checks(conditions: Array, context: Dictionary = {}, depth: int = 0) -> Array:
 	var output: Array = []
 	for condition in conditions:
+		if condition.get("kind") in ["all", "any"]:
+			var children: Array = checks(condition.conditions, context, depth + 1) if depth < 8 else []
+			var matches := 0
+			for child in children:
+				if child.passed: matches += 1
+			output.append({"condition":condition,"children":children,"actual":matches,"expected":children.size(),"passed":not children.is_empty() and (matches == children.size() if condition.kind == "all" else matches > 0)})
+			continue
 		var actual = null
 		var expected = condition.get("value", true)
 		var passed := false
 		match condition.get("kind", ""):
+			"action_count":
+				actual = action_count(condition)
+				passed = numbers.compare(actual, expected, condition.op, {"type":"integer","min":0})
 			"day":
 				actual = state.day
 				passed = numbers.compare(actual, expected, condition.get("op", ""), {"type":"integer","min":1})
@@ -175,9 +188,15 @@ func current_ending() -> String:
 	return ""
 
 func advance_time(amount: int) -> void:
+	var previous_day: int = int(state.day)
 	var total := PERIODS.find(state.period) + amount
 	state.day += int(total / 3)
 	state.period = PERIODS[total % 3]
+	if state.day > previous_day:
+		for shop in content.shops:
+			for item in content.shops[shop]:
+				var offer: Dictionary = content.shops[shop][item]
+				if offer.get("restock") == "daily": state.stock[shop+":"+item] = offer.capacity
 
 func adjacent(position: Array) -> bool:
 	return abs(int(position[0]) - int(state.position[0])) + abs(int(position[1]) - int(state.position[1])) <= 1
@@ -194,6 +213,7 @@ func context_for_event(id: String) -> Dictionary:
 	return {}
 
 func start_event(id: String, context: Dictionary, entry_effects: Array = []) -> Dictionary:
+	if replay_mode: return result(false, "replay_read_only")
 	if active_event != "": return result(false, "event_busy")
 	if not content.events.has(id): return result(false, "unknown_event")
 	if id == content.get("opening_event", "") and context.get("source") != "opening": return result(false, "unavailable")
@@ -289,16 +309,16 @@ func shop_offer(shop_id: String, item_id: String) -> Dictionary:
 		if target.kind == "shop" and target.shop == shop_id and adjacent(target.position) and target_visible(target): reachable = true
 	if not reachable: reason = "shop_unreachable"
 	elif offer.is_empty(): reason = "unknown_offer"
-	elif stock <= 0: reason = "out_of_stock"
+	elif not offer.get("unlimited", false) and stock <= 0: reason = "out_of_stock"
 	elif state.money < offer.price: reason = "insufficient_money"
-	return {"available":reason == "", "reason":reason, "price":offer.get("price",0), "stock":stock, "owned":state.inventory.get(item_id,0)}
+	return {"available":reason == "", "reason":reason, "price":offer.get("price",0), "stock":stock, "unlimited":offer.get("unlimited",false), "owned":state.inventory.get(item_id,0)}
 
 func act(command: Dictionary) -> Dictionary:
 	var before := state.duplicate(true)
 	var event_before := active_event
 	var response := _act(command)
 	# A schedule/flag change must never place a solid actor on the player.
-	if response.ok and command.get("op") != "move" and not walkable(Vector2i(int(state.position[0]), int(state.position[1]))):
+	if not replay_mode and response.ok and command.get("op") != "move" and not walkable(Vector2i(int(state.position[0]), int(state.position[1]))):
 		state = before.duplicate(true)
 		# Return to exploration if committing a choice would trap the player.
 		# The event remains uncompleted and can be started again after moving.
@@ -310,6 +330,7 @@ func act(command: Dictionary) -> Dictionary:
 
 func _act(command: Dictionary) -> Dictionary:
 	var op := str(command.get("op", ""))
+	if replay_mode and op not in ["choose", "cancel_event"]: return result(false, "replay_read_only")
 	if active_event != "" and op not in ["choose", "cancel_event"]:
 		return result(false, "event_busy")
 	match op:
@@ -383,7 +404,7 @@ func _act(command: Dictionary) -> Dictionary:
 			if not offer.available: return result(false,offer.reason)
 			var stock_key := shop_id + ":" + item_id
 			state.money -= offer.price
-			state.stock[stock_key] -= 1
+			if not offer.unlimited: state.stock[stock_key] -= 1
 			state.inventory[item_id] = state.inventory.get(item_id, 0) + 1
 			return result(true, "purchased")
 		"choose":
@@ -392,21 +413,28 @@ func _act(command: Dictionary) -> Dictionary:
 			var event: Dictionary = content.events[active_event]
 			for choice in event_view().choices:
 				if choice.id == command.get("choice", ""):
-					if not satisfied(choice.get("conditions", []), event_context):
+					if not replay_mode and not satisfied(choice.get("conditions", []), event_context):
 						return result(false, "choice_locked")
 					if choice.get("cancel", false):
 						clear_event()
 						return result(true, "cancelled")
-					if not event_context_valid() or not satisfied(event.conditions, event_context): return result(false, "effect_failed")
+					if not replay_mode and (not event_context_valid() or not satisfied(event.conditions, event_context)): return result(false, "effect_failed")
 					if choice.has("next"):
 						pending_effects.append_array(choice.get("effects", []).duplicate(true))
 						active_node = choice.next
 						return result(true, "event_branch", {"event": active_event, "node": active_node})
+					if replay_mode:
+						var replayed := active_event
+						clear_event()
+						return result(true, "event_completed", {"event":replayed})
 					if not apply_effects(pending_effects + choice.get("effects", []) + event.get("effects", [])):
 						return result(false, "effect_failed")
 					var finished := active_event
 					if event_context.get("source") == "object": state.objects[event_context.target] = true
 					if finished not in state.completed: state.completed.append(finished)
+					if event.has("action_tags"):
+						if not state.has("actions"): state.actions = []
+						state.actions.append({"event":finished,"tags":event.action_tags.duplicate(),"day":state.day,"period":state.period})
 					advance_time(int(event.get("time_cost", 0)))
 					clear_event()
 					return result(true, "event_completed", {"event": finished})
@@ -414,6 +442,7 @@ func _act(command: Dictionary) -> Dictionary:
 	return result(false, "unknown_operation")
 
 func apply_effects(effects: Array) -> bool:
+	if replay_mode: return false
 	var previous := state.duplicate(true)
 	for effect in effects:
 		match effect.kind:
@@ -421,6 +450,14 @@ func apply_effects(effects: Array) -> bool:
 				if not numbers.apply(state, content, effect):
 					state = previous
 					return false
+			"stock":
+				var offer: Dictionary = content.shops.get(effect.shop, {}).get(effect.id, {})
+				var key: String = effect.shop + ":" + effect.id
+				var value: float = effect.value + (state.stock.get(key, 0) if effect.op == "add" else 0)
+				if offer.is_empty() or offer.get("unlimited", false) or not numbers.valid_value(value, {"type":"integer","min":0,"max":offer.get("capacity",numbers.LIMIT)}):
+					state = previous
+					return false
+				state.stock[key] = int(value)
 			"money": state.money += effect.value
 			"item": state.inventory[effect.id] = state.inventory.get(effect.id, 0) + effect.value
 			"affection": state.characters[effect.id].affection += effect.value
@@ -439,10 +476,10 @@ func apply_effects(effects: Array) -> bool:
 	return true
 
 func save_game(path: String) -> bool:
-	if active_event != "":
+	if replay_mode or active_event != "":
 		return false
 	var checked := state.duplicate(true)
-	if not numbers.normalize(checked, content): return false
+	if not numbers.normalize(checked, content) or not valid_actions(checked) or not valid_stock(checked): return false
 	var file := FileAccess.open(path + ".tmp", FileAccess.WRITE)
 	if file == null:
 		return false
@@ -469,6 +506,7 @@ func read_save(path: String) -> Dictionary:
 			return {}
 	if not content.maps.has(candidate.map) or candidate.period not in PERIODS or candidate.day < 1 or candidate.money < 0:
 		return {}
+	if not numbers.valid_value(candidate.day, {"type":"integer","min":1}) or not valid_actions(candidate) or not valid_stock(candidate): return {}
 	if candidate.position.size() != 2:
 		return {}
 	for coordinate in candidate.position:
@@ -502,9 +540,87 @@ func read_save(path: String) -> Dictionary:
 	return data
 
 func load_game(path: String) -> bool:
-	if active_event != "": return false
+	if replay_mode or active_event != "": return false
 	var data := read_save(path)
 	if data.is_empty(): return false
 	state = data.state.duplicate(true)
 	clear_event()
+	return true
+
+func records_enabled() -> bool:
+	for event in content.events.values():
+		if event.has("action_tags"): return true
+	return false
+
+func action_count(condition: Dictionary) -> int:
+	var count := 0
+	var window: Dictionary = condition.get("window", {})
+	var now: int = int(state.day) if window.get("unit") == "days" else (int(state.day)-1)*3+PERIODS.find(state.period)
+	var end: int = now - (0 if window.get("include_current", true) else 1)
+	for record in state.get("actions", []):
+		var point: int = int(record.day) if window.get("unit") == "days" else (int(record.day)-1)*3+PERIODS.find(record.period)
+		if not window.is_empty() and (point > end or point <= end-int(window.size)): continue
+		for tag in condition.tags:
+			if tag in record.tags:
+				count += 1
+				break
+	return count
+
+func valid_actions(candidate: Dictionary) -> bool:
+	if not candidate.has("actions"):
+		if records_enabled(): candidate.actions = []
+		return true
+	if not candidate.actions is Array: return false
+	var previous := -1
+	for record in candidate.actions:
+		if not record is Dictionary or not record.has_all(["event","tags","day","period"]): return false
+		if not content.events.has(record.event) or not record.tags is Array or record.tags.is_empty(): return false
+		if not numbers.valid_value(record.day, {"type":"integer","min":1}) or record.period not in PERIODS: return false
+		var point: int = (int(record.day)-1)*3+PERIODS.find(record.period)
+		if point < previous or point > (int(candidate.day)-1)*3+PERIODS.find(candidate.period): return false
+		previous = point
+		var unique := {}
+		for tag in record.tags:
+			if not tag is String or tag not in content.events[record.event].get("action_tags", []) or unique.has(tag): return false
+			unique[tag] = true
+	return true
+
+func format_day(day: int, language: String = "zh_TW") -> String:
+	var config: Dictionary = content.get("date_display", {})
+	if config.is_empty(): return "DAY %02d" % day
+	var extra: bool = day > config.normal_days
+	return tr_key(config.extra_text if extra else config.normal_text, language).replace("{day}", str(day-int(config.normal_days) if extra else day))
+
+func event_available(id: String, context: Dictionary = {}) -> bool:
+	var event: Dictionary = content.events[id]
+	return (id not in state.completed or event.get("repeatable",false)) and route_allows(id) and satisfied(event.conditions,context)
+
+func target_event_available(target: Dictionary) -> bool:
+	if not target_visible(target): return false
+	if target.has("required_item") and state.inventory.get(target.required_item.id,0) < target.required_item.count: return false
+	var context := {"target":target.id}
+	if target.kind == "npc":
+		for candidate in event_candidates(target.character,context):
+			if candidate.selected: return true
+	elif target.kind == "inspect" and target.has("event"):
+		if state.objects.get(target.id,false) and not target.get("repeatable",false): return false
+		return event_available(target.event,context)
+	return false
+
+func replay_session(card_id: String, unlocked: Array):
+	var card: Dictionary = content.get("gallery",{}).get(card_id,{})
+	if card_id not in unlocked or not card.has("event") or not content.events.has(card.event): return null
+	var session = get_script().new()
+	session.content = content.duplicate(true)
+	session.state = state.duplicate(true)
+	session.replay_mode = true
+	session.active_event = card.event
+	return session
+
+func valid_stock(candidate: Dictionary) -> bool:
+	for shop in content.shops:
+		for item in content.shops[shop]:
+			var offer: Dictionary = content.shops[shop][item]
+			var count = candidate.stock.get(shop+":"+item,0)
+			if not numbers.valid_value(count,{"type":"integer","min":0,"max":offer.get("capacity",numbers.LIMIT)}): return false
 	return true

@@ -6,7 +6,7 @@
 
 ## 其他 AI：先用這個流程評估
 
-**Homestay 需求進度**：S5-01～04 的通用數值、日期比較、地點／互動上下文及開場／物件完整事件已實作，共用 `numeric_lab` 驗證 P0 整合路線（S5-12A）。可用 `python tools/dev.py play --game numeric_lab` 試玩；見 [數值契約](docs/numeric-state.md)及[事件入口契約](docs/event-entry.md)。真實 Homestay 內容仍須匯入驗收，P1／P2 **尚未實作**。[S5 計畫](docs/s5-content-capabilities.md)列出依賴；S6 為存檔與測試、S7 Windows、S8 團隊交付，詳細狀態見 [TASKS.md](TASKS.md)。
+**Homestay 需求進度**：S5-01～09 已實作，包含通用數值、日期／地點條件、開場／物件完整事件，以及本批的巢狀 AND／OR、行動窗口計數、非線性追蹤與 ! 標記、無限庫存／補貨、隔離事件回想、Extra Day。共用 `numeric_lab` 驗證 P0／P1 整合路線（S5-12A／B），可用 `python tools/dev.py play --game numeric_lab` 試玩。給內容開發 AI 的正式 API：[數值契約](docs/numeric-state.md)、[事件入口](docs/event-entry.md)、[P1 玩法契約與 JSON 範例](docs/p1-gameplay.md)。Recent 窗口由內容明確配置；真實 Homestay 內容仍須匯入驗收。S5-10／11 的跨句持續動畫與無選項自動結束尚未實作，Live2D 仍暫緩。S6 為存檔與測試、S7 Windows、S8 團隊交付，狀態見 [TASKS.md](TASKS.md)。
 
 請從 repo 根目錄執行。不要先修改 `engine/`；先用新內容包验证可重用性。
 

@@ -140,7 +140,7 @@ func show_line() -> void:
 		body.add_child(app.label(app.t(event.title), 26))
 		for choice in event.choices:
 			var option: Button = app.button(app.t(choice.text), func(): select(choice.id))
-			option.disabled = not app.core.satisfied(choice.get("conditions", []), app.core.event_context)
+			option.disabled = not app.core.replay_mode and not app.core.satisfied(choice.get("conditions", []), app.core.event_context)
 			body.add_child(option)
 	controls = HBoxContainer.new()
 	controls.position = Vector2(150, 975)
@@ -165,7 +165,9 @@ func show_video(line: Dictionary) -> void:
 	caption.position = Vector2(150, 895)
 	caption.size = Vector2(1620, 70)
 	caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	video_stage.failed.connect(func(): caption.text = app.t("video_failed"))
+	video_stage.failed.connect(func():
+		caption.text = app.t("video_failed")
+		if app.core.replay_mode: call_deferred("abort"))
 	add_child(video_stage)
 	add_child(caption)
 	controls = HBoxContainer.new()
@@ -238,7 +240,7 @@ func select(id: String) -> void:
 	if finished or cursor < lines.size() or chosen != "": return
 	for choice in event.choices:
 		if choice.id != id: continue
-		if not app.core.satisfied(choice.get("conditions", []), app.core.event_context): return
+		if not app.core.replay_mode and not app.core.satisfied(choice.get("conditions", []), app.core.event_context): return
 		chosen = id
 		app.dialogue_log.append({"speaker": app.core.protagonist_id(), "text": choice.text})
 		if choice.get("cancel", false):

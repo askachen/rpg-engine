@@ -298,6 +298,17 @@
           "count": 1,
           "consume": true
         }
+      },
+      {
+        "id": "milestone_board",
+        "kind": "inspect",
+        "position": [
+          12,
+          8
+        ],
+        "label": "milestone_title",
+        "text": "milestone_text",
+        "event": "milestone"
       }
     ],
     "furniture": [

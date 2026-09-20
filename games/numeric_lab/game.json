@@ -135,7 +135,8 @@
     "flags": {},
     "objects": {},
     "stock": {
-      "kiosk:tea": 1
+      "kiosk:tea": 1,
+      "kiosk:voucher": 1
     },
     "variables": {
       "internal_note": 9
@@ -180,5 +181,22 @@
       "numbers/variables.json"
     ]
   },
-  "opening_event": "opening"
+  "opening_event": "opening",
+  "date_display": {
+    "normal_days": 3,
+    "normal_text": "date_normal",
+    "extra_text": "date_extra"
+  },
+  "tracking": {
+    "guide": [
+      {
+        "event": "milestone",
+        "reveal": "always"
+      },
+      {
+        "event": "course",
+        "reveal": "available"
+      }
+    ]
+  }
 }

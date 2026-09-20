@@ -10,5 +10,17 @@
         "value": true
       }
     ]
+  },
+  "milestone_replay": {
+    "character": "guide",
+    "title": "milestone_title",
+    "text": "milestone_text",
+    "event": "milestone",
+    "conditions": [
+      {
+        "kind": "completed",
+        "id": "milestone"
+      }
+    ]
   }
 }

@@ -194,6 +194,14 @@
     "course_line": "Course consumes one tea, grants CHA +1 and costs one period.",
     "work_label": "Work desk",
     "explore_label": "Explore",
-    "course_label": "Course"
+    "course_label": "Course",
+    "date_normal": "Day {day}",
+    "date_extra": "Extra Day {day}",
+    "snack": "Snack",
+    "voucher": "Voucher",
+    "milestone_title": "Milestone",
+    "milestone_text": "Work twice recently, or return on day four.",
+    "milestone_reward": "Your milestone reward is ready.",
+    "special": "Special replay branch"
   }
 }

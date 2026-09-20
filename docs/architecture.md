@@ -9,6 +9,8 @@
 | core | 載入內容、規則、狀態、路線及單局存檔；依賴 bootstrap 與 content_loader，不依賴渲染與輸入 |
 | save_slots | 包裝 core 的槽位查詢／存讀檔；由建構式取得 core |
 | numeric_state | core 使用的數值定義、型別／範圍、比較與效果驗證；對存檔候選補缺欄位，不依賴 UI |
+| progress_view | 唯讀條件樹與非線性 tracking 顯示，不參與 route 判定 |
+| replay_presenter | 使用獨立 core／profile 的 dialogue 宿主，禁止寫入正式遊戲與持久檔案 |
 | numeric_view | 唯讀數值面板與條件文字；透過 main 的 modal／label／button 與翻譯顯示 |
 | profile_store | profile 讀寫、欄位清理及暫存檔替換；不讀單局規則 |
 | art_library | 圖像資源快取、圖集與等比例繪圖，不修改遊戲狀態 |

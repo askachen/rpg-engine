@@ -1,5 +1,11 @@
 {
   "tea": {
     "name": "tea"
+  },
+  "snack": {
+    "name": "snack"
+  },
+  "voucher": {
+    "name": "voucher"
   }
 }
