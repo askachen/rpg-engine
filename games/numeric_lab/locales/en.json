@@ -187,6 +187,13 @@
     "stat_FIT": "Fitness",
     "stat_CHA": "Charisma",
     "focus": "Focus",
-    "internal_note": "Internal value"
+    "internal_note": "Internal value",
+    "opening_line": "Welcome! Train, then try the work desk and exploration point.",
+    "work_line": "Work desk: available from Day 2, earns 3 coins and costs one period.",
+    "explore_line": "Nothing found. Exploration still costs one period.",
+    "course_line": "Course consumes one tea, grants CHA +1 and costs one period.",
+    "work_label": "Work desk",
+    "explore_label": "Explore",
+    "course_label": "Course"
   }
 }

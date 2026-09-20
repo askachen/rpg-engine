@@ -151,7 +151,8 @@
     ],
     "events": [
       "events/welcome.json",
-      "events/tea_time.json"
+      "events/tea_time.json",
+      "events/entries.json"
     ],
     "items": [
       "items/tea.json"
@@ -178,5 +179,6 @@
     "variables": [
       "numbers/variables.json"
     ]
-  }
+  },
+  "opening_event": "opening"
 }

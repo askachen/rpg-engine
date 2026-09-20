@@ -42,6 +42,15 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
         collections = {'item':'items', 'affection':'characters', 'stage':'characters', 'completed':'events'}
         for condition in values:
             kind = condition.get('kind')
+            if kind == 'day': continue
+            if kind in ('map', 'target', 'zone'):
+                if kind == 'map': ref(where, condition['id'], data['maps'])
+                elif kind == 'target':
+                    ref(where, condition['id'], {o['id'] for m in data['maps'].values() for o in m['objects']})
+                else:
+                    ref(where, condition['map'], data['maps'])
+                    ref(where, condition['id'], {z.get('id') for z in data['maps'].get(condition['map'], {}).get('zones', [])})
+                continue
             if kind in ('stat', 'variable'):
                 errors.extend(reference_errors(data, where, condition))
                 continue
@@ -112,6 +121,14 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
     ids = set()
     for map_id, area in data['maps'].items():
         text(map_id,area['name'])
+        zone_ids = set()
+        for zone in area.get('zones', []):
+            if 'id' not in zone: continue
+            if zone['id'] in zone_ids: errors.append(f'{map_id}/zones: duplicate zone {zone["id"]}')
+            zone_ids.add(zone['id'])
+            x,y,w,h = zone['rect']
+            if x < 0 or y < 0 or w <= 0 or h <= 0 or x+w > area['width'] or y+h > area['height']:
+                errors.append(f'{map_id}/zones/{zone["id"]}: zone outside map')
         for key,material in area.get('materials',{}).items():
             if not isinstance(material.get('repeat',3),int) or material.get('repeat',3)<1:errors.append(f'{map_id}/materials/{key}: invalid repeat')
 
@@ -150,6 +167,12 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
                 ref(oid,placement['map'],data['maps'])
             if obj['kind']=='inspect':
                 text(oid,obj['text'])
+                if 'event' in obj:
+                    ref(oid,obj['event'],data['events'])
+                    if obj['event'] == data.get('opening_event'): errors.append(f'{oid}: opening_event is reserved for new game')
+                    event = data['events'].get(obj['event'], {})
+                    if obj.get('effects'): errors.append(f'{oid}: event entry cannot mix immediate effects; put them on the event')
+                    if obj.get('repeatable',False) != event.get('repeatable',False): errors.append(f'{oid}: object/event repeatable must match')
                 if 'required_item' in obj: ref(oid,obj['required_item']['id'],data['items'])
             if obj['kind']=='exit':
                 ref(oid,obj['destination'],data['maps'])
@@ -209,7 +232,7 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
                         if layer['animation']['loop'] and layer['animation']['end']!='hold': errors.append(f'{where}: looping animation must use end=hold')
     for event_id,event in data['events'].items():
         sequence(event_id,event.get('sequence',[]))
-        ref(event_id,event['character'],data['characters'])
+        if 'character' in event: ref(event_id,event['character'],data['characters'])
         text(event_id,event['title']); text(event_id,event['text'])
         conditions(event_id,event['conditions']);effects(event_id,event.get('effects',[]))
         nodes = event.get('nodes',{})
@@ -253,7 +276,7 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
             if eid in routed:errors.append(f'{where}: duplicate routed event {eid}')
             routed.add(eid)
             if index and isinstance(ids[index-1],str): route_previous[eid]=ids[index-1]
-            if eid in data['events'] and data['events'][eid]['character']!=who:
+            if eid in data['events'] and data['events'][eid].get('character')!=who:
                 errors.append(f'{where}: event character mismatch {eid}')
             if data['events'].get(eid,{}).get('repeatable'):
                 errors.append(f'{where}: repeatable event must be an independent side event: {eid}')
@@ -289,6 +312,12 @@ def validate(data: dict, root: Path = ROOT) -> list[str]:
             if c['kind']=='completed' and c.get('value',True):visit(c['id'])
         visiting.remove(eid);done.add(eid)
     for eid in data['events']:visit(eid)
+    if 'opening_event' in data:
+        eid = data['opening_event']
+        ref('opening_event',eid,data['events'])
+        event = data['events'].get(eid,{})
+        if event.get('conditions') or event.get('repeatable') or eid in routed or eid in data['initial']['completed']:
+            errors.append('opening_event: must be unconditional, non-repeatable, unrouted and initially uncompleted')
     return errors
 
 def load_unique(path):

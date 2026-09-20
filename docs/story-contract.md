@@ -51,7 +51,7 @@ S4-03 延伸原有事件格式；舊事件不必改寫。正式規則由 StoryCo
 
 同角色事件依 priority 由大到小排列；同分依事件 ID 升冪。排除一次性已完成、尚未輪到的路線事件、條件不足後，取第一個。沒有可用事件才顯示 smalltalk。高優先級的重複事件可能持續遮住其他事件，作者需自行安排條件及優先序。
 
-`core.event_candidates(character)` 回傳完整排序及每項的 id、priority、eligible、selected、reason、checks；NPC interact 回應也包含 candidates。reason 為：
+`core.event_candidates(character, context={})` 回傳完整排序及每項的 id、priority、eligible、selected、reason、checks；NPC interact 回應也包含 candidates。有 target 条件時須提供實際互動上下文；日期／地點及非 NPC 入口見 [入口契約](event-entry.md)。reason 為：
 
 | reason | 意義 |
 | --- | --- |

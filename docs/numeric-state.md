@@ -64,4 +64,4 @@ python tools/dev.py test --game numeric_lab --json
 python -m pytest tests/test_numeric.py -q
 ```
 
-範例使用 NPC 訓練事件；日期比較是 S5-02、非 NPC 完整事件是 S5-04，尚未交付。
+範例已合併日期與地點限制、開場及非 NPC 完整事件；見 [S5-02～04 契約](event-entry.md)。

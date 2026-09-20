@@ -66,7 +66,7 @@ actor_motion 僅保存呈現朝向及步態時間，從 main 的正式移動結�
 
 動態地圖物件由 `core.map_objects()` 解析；不要直接以原始 maps.objects 當作當前位置。`item_required` 與 `world_blocked` 的失敗／還原規則見 [物件契約](world-objects.md)。
 
-`core.event_view()` 提供目前對話節點，`event_candidates(character)` 提供唯讀觸發診斷。`clear_event()` 清理 active_event、active_node 及 pending_effects；宿主不得只把 active_event 設空而遺留分支交易。詳細見 [劇情契約](story-contract.md)。
+`core.event_view()` 提供目前對話節點，`event_candidates(character, context={})` 提供唯讀觸發診斷。`clear_event()` 清理 active_event、active_node、pending_effects 與 event_context；宿主不得只把 active_event 設空而遺留分支交易。`new_game()` 會啟動已配置開場，load_content 僅初始化不播放；存讀檔不重啟開場。詳細見 [劇情契約](story-contract.md)與[入口契約](event-entry.md)。
 
 `story_video.gd` 管理單句影片、比例、暫停及完成訊號；`dialogue_player` 清理播放器並推進句游標，不在媒體回呼提交玩法效果。`tools/video_tools.py` 負責離線轉檔及損壞診斷；Godot 執行時無 FFmpeg 相依。見 [影片契約](video.md)。
 

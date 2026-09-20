@@ -31,7 +31,7 @@ func setup(owner_app, id: String) -> void:
 	event_id = id
 	event = app.core.event_view()
 	node_scope = app.core.active_node
-	lines = event.get("sequence", [{"id": id + "_legacy", "text": event.text, "speaker": event.character}]).duplicate(true)
+	lines = event.get("sequence", [{"id": id + "_legacy", "text": event.text, "speaker": event.get("character", app.core.protagonist_id())}]).duplicate(true)
 	read_ids = app.profile.get("read_lines", []).duplicate()
 
 func _ready() -> void:
@@ -107,7 +107,7 @@ func show_line() -> void:
 			bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 			add_child(bg)
 		if not line.has("visual"):
-			var who: String = line.get("speaker", event.character)
+			var who: String = line.get("speaker", event.get("character", app.core.protagonist_id()))
 			var portrait: TextureRect = app.portrait(who, Vector2(500, 660))
 			portrait.position = Vector2(710, 70)
 			portrait.size = Vector2(500, 660)
@@ -129,7 +129,7 @@ func show_line() -> void:
 	panel.add_child(body)
 	if cursor < lines.size():
 		var line: Dictionary = lines[cursor]
-		body.add_child(app.label(app.t(line.get("speaker", event.character)), 28))
+		body.add_child(app.label(app.t(line.get("speaker", event.get("character", app.core.protagonist_id()))), 28))
 		line_label = app.label(app.t(line.text), int(app.profile.text_size))
 		line_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		line_label.custom_minimum_size.y = 110
@@ -140,7 +140,7 @@ func show_line() -> void:
 		body.add_child(app.label(app.t(event.title), 26))
 		for choice in event.choices:
 			var option: Button = app.button(app.t(choice.text), func(): select(choice.id))
-			option.disabled = not app.core.satisfied(choice.get("conditions", []))
+			option.disabled = not app.core.satisfied(choice.get("conditions", []), app.core.event_context)
 			body.add_child(option)
 	controls = HBoxContainer.new()
 	controls.position = Vector2(150, 975)
@@ -228,7 +228,7 @@ func advance() -> void:
 	if line_label.visible_characters != -1:
 		reveal()
 		return
-	app.dialogue_log.append({"speaker": lines[cursor].get("speaker", event.character), "text": lines[cursor].text})
+	app.dialogue_log.append({"speaker": lines[cursor].get("speaker", event.get("character", app.core.protagonist_id())), "text": lines[cursor].text})
 	cursor += 1
 	if cursor >= lines.size() and chosen != "":
 		commit()
@@ -238,7 +238,7 @@ func select(id: String) -> void:
 	if finished or cursor < lines.size() or chosen != "": return
 	for choice in event.choices:
 		if choice.id != id: continue
-		if not app.core.satisfied(choice.get("conditions", [])): return
+		if not app.core.satisfied(choice.get("conditions", []), app.core.event_context): return
 		chosen = id
 		app.dialogue_log.append({"speaker": app.core.protagonist_id(), "text": choice.text})
 		if choice.get("cancel", false):

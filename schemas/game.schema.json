@@ -168,6 +168,10 @@
       "additionalProperties": {
         "$ref": "#/$defs/numericDefinition"
       }
+    },
+    "opening_event": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "required": [
@@ -416,6 +420,91 @@
             "id",
             "op",
             "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "day"
+            },
+            "op": {
+              "enum": [
+                "eq",
+                "ne",
+                "lt",
+                "lte",
+                "gt",
+                "gte"
+              ]
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "kind",
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "map"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "target"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "zone"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "map": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "map"
           ],
           "additionalProperties": false
         }
@@ -795,7 +884,6 @@
         }
       },
       "required": [
-        "character",
         "title",
         "text",
         "conditions",
@@ -1138,6 +1226,10 @@
                 "consume"
               ],
               "additionalProperties": false
+            },
+            "event": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -1247,6 +1339,10 @@
         "floor": {
           "type": "integer",
           "minimum": 0
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [

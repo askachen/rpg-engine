@@ -15,6 +15,7 @@ func _initialize() -> void:
 		quit(2)
 		return
 	var responses: Array = []
+	core.new_game()
 	var snapshots: Dictionary = {}
 	var save_path: String = args[1] + ".save"
 	var slots = Slots.new(core, args[1].get_base_dir())

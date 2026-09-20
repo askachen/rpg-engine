@@ -187,6 +187,13 @@
     "stat_FIT": "體能",
     "stat_CHA": "魅力",
     "focus": "專注",
-    "internal_note": "內部數值"
+    "internal_note": "內部數值",
+    "opening_line": "歡迎來到能力實驗室。先練習，再到工作桌和探索點試試。",
+    "work_line": "工作桌：第 2 天起可工作，賺 3 元並耗一時段。",
+    "explore_line": "探索沒有收穫，但仍花費一時段。",
+    "course_line": "課程消耗一杯茶，魅力 +1，花一時段。",
+    "work_label": "工作桌",
+    "explore_label": "探索",
+    "course_label": "課程"
   }
 }

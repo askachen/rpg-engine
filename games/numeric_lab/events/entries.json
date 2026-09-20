@@ -1,0 +1,151 @@
+{
+  "opening": {
+    "title": "opening_line",
+    "text": "opening_line",
+    "conditions": [],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "sequence": [
+      {
+        "id": "opening_line",
+        "speaker": "hero",
+        "text": "opening_line"
+      }
+    ],
+    "effects": [],
+    "time_cost": 0,
+    "repeatable": false
+  },
+  "work": {
+    "title": "work_line",
+    "text": "work_line",
+    "conditions": [
+      {
+        "kind": "day",
+        "op": "gte",
+        "value": 2
+      },
+      {
+        "kind": "map",
+        "id": "room"
+      },
+      {
+        "kind": "target",
+        "id": "work_desk"
+      },
+      {
+        "kind": "zone",
+        "map": "room",
+        "id": "lobby"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "sequence": [
+      {
+        "id": "work_line",
+        "speaker": "hero",
+        "text": "work_line"
+      }
+    ],
+    "effects": [
+      {
+        "kind": "money",
+        "value": 3
+      }
+    ],
+    "time_cost": 1,
+    "repeatable": true
+  },
+  "explore": {
+    "title": "explore_line",
+    "text": "explore_line",
+    "conditions": [],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "sequence": [
+      {
+        "id": "explore_line",
+        "speaker": "hero",
+        "text": "explore_line"
+      }
+    ],
+    "effects": [],
+    "time_cost": 1,
+    "repeatable": true
+  },
+  "course": {
+    "title": "course_line",
+    "text": "course_line",
+    "conditions": [
+      {
+        "kind": "map",
+        "id": "room"
+      },
+      {
+        "kind": "target",
+        "id": "course_station"
+      },
+      {
+        "kind": "zone",
+        "map": "room",
+        "id": "classroom"
+      }
+    ],
+    "choices": [
+      {
+        "id": "accept",
+        "text": "accept"
+      },
+      {
+        "id": "later",
+        "text": "later",
+        "cancel": true
+      }
+    ],
+    "sequence": [
+      {
+        "id": "course_line",
+        "speaker": "hero",
+        "text": "course_line"
+      }
+    ],
+    "effects": [
+      {
+        "kind": "stat",
+        "id": "CHA",
+        "op": "add",
+        "value": 1
+      }
+    ],
+    "time_cost": 1,
+    "repeatable": true
+  }
+}

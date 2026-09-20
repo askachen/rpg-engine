@@ -7,6 +7,7 @@ var state: Dictionary = {}
 var active_event := ""
 var active_node := ""
 var pending_effects: Array = []
+var event_context: Dictionary = {}
 var history: Array = []
 var load_error := ""
 const PERIODS = ["day", "evening", "late"]
@@ -28,19 +29,22 @@ func load_content(path: String) -> bool:
 		load_error = "initial: invalid numeric state"
 		return false
 	content = parsed
-	new_game()
+	new_game(false)
 	return true
 
-func new_game() -> void:
+func new_game(play_opening: bool = true) -> void:
 	state = content.get("initial", {}).duplicate(true)
 	numbers.normalize(state, content)
 	clear_event()
 	history.clear()
+	if play_opening and content.has("opening_event"):
+		start_event(content.opening_event, {"source":"opening"})
 
 func clear_event() -> void:
 	active_event = ""
 	active_node = ""
 	pending_effects.clear()
+	event_context.clear()
 
 func event_view() -> Dictionary:
 	if active_event == "": return {}
@@ -51,16 +55,17 @@ func event_view() -> Dictionary:
 		view.choices = node.choices.duplicate(true)
 	return view
 
-func event_candidates(who: String) -> Array:
+func event_candidates(who: String, context: Dictionary = {}) -> Array:
 	var candidates: Array = []
 	for id in content.events:
 		var event: Dictionary = content.events[id]
-		if event.character != who: continue
+		if id == content.get("opening_event", ""): continue
+		if event.get("character", "") != who: continue
 		var reason := "eligible"
 		if id in state.completed and not event.get("repeatable", false): reason = "completed"
 		elif not route_allows(id): reason = "route_order"
-		elif not satisfied(event.conditions): reason = "conditions"
-		candidates.append({"id": id, "priority": event.get("priority", 0), "eligible": reason == "eligible", "reason": reason, "checks": checks(event.conditions), "selected": false})
+		elif not satisfied(event.conditions, context): reason = "conditions"
+		candidates.append({"id": id, "priority": event.get("priority", 0), "eligible": reason == "eligible", "reason": reason, "checks": checks(event.conditions, context), "selected": false})
 	candidates.sort_custom(func(a, b): return a.priority > b.priority if a.priority != b.priority else a.id < b.id)
 	var selected := false
 	for candidate in candidates:
@@ -85,13 +90,31 @@ func result(ok: bool, message: String, extra: Dictionary = {}) -> Dictionary:
 	out.merge(extra)
 	return out
 
-func checks(conditions: Array) -> Array:
+func checks(conditions: Array, context: Dictionary = {}) -> Array:
 	var output: Array = []
 	for condition in conditions:
 		var actual = null
 		var expected = condition.get("value", true)
 		var passed := false
 		match condition.get("kind", ""):
+			"day":
+				actual = state.day
+				passed = numbers.compare(actual, expected, condition.get("op", ""), {"type":"integer","min":1})
+			"map":
+				actual = state.map
+				expected = condition.id
+				passed = actual == expected
+			"target":
+				actual = context.get("target")
+				expected = condition.id
+				passed = actual != null and actual == expected
+			"zone":
+				actual = []
+				expected = condition.id
+				if state.map == condition.map:
+					for zone in content.maps[state.map].get("zones", []):
+						if zone.has("id") and Rect2(zone.rect[0], zone.rect[1], zone.rect[2], zone.rect[3]).has_point(Vector2(state.position[0], state.position[1])): actual.append(zone.id)
+				passed = expected in actual
 			"stat", "variable":
 				var group := "stats" if condition.kind == "stat" else "variables"
 				var id: String = condition.get("id", "")
@@ -121,8 +144,8 @@ func checks(conditions: Array) -> Array:
 		output.append({"condition": condition, "actual": actual, "expected": expected, "passed": passed})
 	return output
 
-func satisfied(conditions: Array) -> bool:
-	for check in checks(conditions):
+func satisfied(conditions: Array, context: Dictionary = {}) -> bool:
+	for check in checks(conditions, context):
 		if not check.passed:
 			return false
 	return true
@@ -160,7 +183,41 @@ func adjacent(position: Array) -> bool:
 	return abs(int(position[0]) - int(state.position[0])) + abs(int(position[1]) - int(state.position[1])) <= 1
 
 func target_visible(target: Dictionary) -> bool:
-	return satisfied(target.get("conditions", []))
+	return satisfied(target.get("conditions", []), {"target":target.id})
+
+func context_for_event(id: String) -> Dictionary:
+	var event: Dictionary = content.events[id]
+	for target in map_objects():
+		if not adjacent(target.position) or not target_visible(target): continue
+		if target.get("event") == id or (target.kind == "npc" and target.character == event.get("character", "")):
+			return {"target":target.id}
+	return {}
+
+func start_event(id: String, context: Dictionary, entry_effects: Array = []) -> Dictionary:
+	if active_event != "": return result(false, "event_busy")
+	if not content.events.has(id): return result(false, "unknown_event")
+	if id == content.get("opening_event", "") and context.get("source") != "opening": return result(false, "unavailable")
+	var event: Dictionary = content.events[id]
+	if (id in state.completed and not event.get("repeatable", false)) or not route_allows(id) or not satisfied(event.conditions, context):
+		return result(false, "unavailable", {"checks":checks(event.conditions, context)})
+	clear_event()
+	active_event = id
+	event_context = context.duplicate(true)
+	if not event_context_valid():
+		clear_event()
+		return result(false, "unavailable")
+	pending_effects = entry_effects.duplicate(true)
+	return result(true, "event", {"event":id})
+
+func event_context_valid() -> bool:
+	if not event_context.has("target"): return true
+	for target in map_objects():
+		if target.id == event_context.target:
+			if not adjacent(target.position) or not target_visible(target): return false
+			if target.has("required_item"):
+				if state.inventory.get(target.required_item.id, 0) < target.required_item.count: return false
+			return true
+	return false
 
 func map_objects(map_id: String = "") -> Array:
 	## One resolved view for rendering, picking, navigation and gameplay. Content stays immutable.
@@ -291,6 +348,8 @@ func _act(command: Dictionary) -> Dictionary:
 							if command.get("item", "") != requirement.id or state.inventory.get(requirement.id, 0) < requirement.count:
 								return result(false, "item_required", {"target": target.id, "requirement": requirement})
 							if requirement.consume: effects.push_front({"kind": "item", "id": requirement.id, "value": -requirement.count})
+						if target.has("event"):
+							return start_event(target.event, {"source":"object","target":target.id}, effects)
 						if not apply_effects(effects): return result(false, "effect_failed")
 						state.objects[target.id] = true
 						return result(true, "inspected", {"text": target.text})
@@ -308,12 +367,13 @@ func _act(command: Dictionary) -> Dictionary:
 					"shop":
 						return result(true, "shop", {"shop": target.shop})
 					"npc":
-						var candidates := event_candidates(target.character)
+						var context := {"source":"npc", "target":target.id}
+						var candidates := event_candidates(target.character, context)
 						for candidate in candidates:
 							if candidate.selected:
-								clear_event()
-								active_event = candidate.id
-								return result(true, "event", {"event": active_event, "candidates": candidates})
+								var response := start_event(candidate.id, context)
+								response.candidates = candidates
+								return response
 						return result(true, "smalltalk", {"character": target.character, "candidates": candidates})
 			return result(false, "unknown_target")
 		"buy":
@@ -332,12 +392,12 @@ func _act(command: Dictionary) -> Dictionary:
 			var event: Dictionary = content.events[active_event]
 			for choice in event_view().choices:
 				if choice.id == command.get("choice", ""):
-					if not satisfied(choice.get("conditions", [])):
+					if not satisfied(choice.get("conditions", []), event_context):
 						return result(false, "choice_locked")
 					if choice.get("cancel", false):
 						clear_event()
 						return result(true, "cancelled")
-					if not satisfied(event.conditions): return result(false, "effect_failed")
+					if not event_context_valid() or not satisfied(event.conditions, event_context): return result(false, "effect_failed")
 					if choice.has("next"):
 						pending_effects.append_array(choice.get("effects", []).duplicate(true))
 						active_node = choice.next
@@ -345,6 +405,7 @@ func _act(command: Dictionary) -> Dictionary:
 					if not apply_effects(pending_effects + choice.get("effects", []) + event.get("effects", [])):
 						return result(false, "effect_failed")
 					var finished := active_event
+					if event_context.get("source") == "object": state.objects[event_context.target] = true
 					if finished not in state.completed: state.completed.append(finished)
 					advance_time(int(event.get("time_cost", 0)))
 					clear_event()

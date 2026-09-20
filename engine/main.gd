@@ -133,7 +133,7 @@ func show_title() -> void:
 	box.add_child(label(t(appearance.title_text("title", "title")), 82))
 	box.add_child(label(t(appearance.title_text("subtitle", "subtitle")), 19))
 	box.add_child(label(" ", 12))
-	box.add_child(button(t("new"), func(): core.new_game(); motion.reset(); dialogue_log.clear(); message = ""; show_game()))
+	box.add_child(button(t("new"), start_new_game))
 	var continue_button := button(t("continue"), func():
 		if saves.load_slot(saves.latest()): motion.reset(); show_game()
 		else: show_notice(t("load_failed")))
@@ -148,6 +148,17 @@ func show_title() -> void:
 	foot.position = Vector2(170, 1005)
 	add_child(foot)
 	queue_redraw()
+
+func start_new_game() -> void:
+	core.new_game()
+	motion.reset()
+	dialogue_log.clear()
+	message = ""
+	show_game()
+	if core.active_event != "":
+		story = Dialogue.new()
+		story.setup(self, core.active_event)
+		add_child(story)
 
 func show_game() -> void:
 	sync_gallery_unlocks()
@@ -235,13 +246,15 @@ func show_game() -> void:
 			var event_id: String = route.next_event
 			var event: Dictionary = core.content.events[event_id]
 			body.add_child(label(t("next_event") + "  /  " + t(event.title), 19, appearance.palette("accent")))
-			for check in core.checks(event.conditions):
+			for check in core.checks(event.conditions, core.context_for_event(event_id)):
 				var detail := "%s %s: %s / %s" % [t(check.condition.kind), t(str(check.condition.get("id", ""))), str(check.actual), t(str(check.expected))]
 				if check.condition.kind in ["flag", "completed"]:
 					detail = t(str(check.condition.id))
 				elif check.condition.kind == "stage": detail = t("stage_requirement") % [int(check.expected), int(check.actual)]
 				elif check.condition.kind == "period": detail = t("period") + " · " + t(str(check.expected))
 				elif check.condition.kind in ["stat", "variable"]: detail = numeric_view.condition_text(self, check)
+				elif check.condition.kind == "day": detail = "Day %s %s (%s)" % [{"eq":"=","ne":"≠","lt":"<","lte":"≤","gt":">","gte":"≥"}.get(check.condition.op), str(int(check.expected)), str(int(check.actual))]
+				elif check.condition.kind in ["map", "zone", "target"]: detail = "%s: %s" % [check.condition.kind, t(str(check.expected))]
 				var line := label(("✓ " if check.passed else "○ ") + detail, 17, appearance.palette("success") if check.passed else appearance.palette("warning"))
 				line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				body.add_child(line)
