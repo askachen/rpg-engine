@@ -31,6 +31,30 @@ class Window:
         self.api.GetClientRect(self.handle, ctypes.byref(rect))
         return rect
 
+    def dpi(self):
+        self.api.GetDpiForWindow.argtypes = [wintypes.HWND]
+        self.api.GetWindowDpiAwarenessContext.argtypes = [wintypes.HWND]
+        self.api.GetWindowDpiAwarenessContext.restype = ctypes.c_void_p
+        self.api.GetAwarenessFromDpiAwarenessContext.argtypes = [ctypes.c_void_p]
+        return {'dpi':self.api.GetDpiForWindow(self.handle),
+                'awareness':self.api.GetAwarenessFromDpiAwarenessContext(self.api.GetWindowDpiAwarenessContext(self.handle))}
+
+    def resize(self, width, height):
+        self.api.GetWindowLongPtrW.argtypes = [wintypes.HWND,ctypes.c_int]
+        self.api.GetWindowLongPtrW.restype = ctypes.c_ssize_t
+        self.api.AdjustWindowRectExForDpi.argtypes = [ctypes.POINTER(wintypes.RECT),wintypes.DWORD,wintypes.BOOL,wintypes.DWORD,wintypes.UINT]
+        self.api.SetWindowPos.argtypes = [wintypes.HWND,wintypes.HWND,ctypes.c_int,ctypes.c_int,ctypes.c_int,ctypes.c_int,wintypes.UINT]
+        box = wintypes.RECT(0,0,width,height)
+        style = self.api.GetWindowLongPtrW(self.handle,-16)
+        extended = self.api.GetWindowLongPtrW(self.handle,-20)
+        if not self.api.AdjustWindowRectExForDpi(ctypes.byref(box),style,False,extended,self.dpi()['dpi']):
+            raise ctypes.WinError()
+        if not self.api.SetWindowPos(self.handle,None,0,0,box.right-box.left,box.bottom-box.top,0x16):
+            raise ctypes.WinError()
+        time.sleep(.3)
+        actual = self.rect()
+        if (actual.right,actual.bottom) != (width,height): raise RuntimeError('Windows clamped the requested client size')
+
     def click(self, x, y, delay=.35):
         rect = self.rect()
         scale = min(rect.right / 1920, rect.bottom / 1080)

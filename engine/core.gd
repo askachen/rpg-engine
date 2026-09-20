@@ -10,6 +10,8 @@ var active_node := ""
 var pending_effects: Array = []
 var event_context: Dictionary = {}
 var history: Array = []
+var history_limit := 256 # Zero is reserved for offline runners that persist a full trace.
+var history_step := 0
 var load_error := ""
 var replay_mode := false
 var save_error := ""
@@ -46,6 +48,7 @@ func new_game(play_opening: bool = true) -> void:
 	if records_enabled(): state["actions"] = []
 	clear_event()
 	history.clear()
+	history_step = 0
 	if play_opening and content.has("opening_event"):
 		start_event(content.opening_event, {"source":"opening"})
 
@@ -332,7 +335,9 @@ func act(command: Dictionary) -> Dictionary:
 		if command.get("op") == "choose": clear_event()
 		else: active_event = event_before
 		response = result(false, "world_blocked")
-	history.append({"command": command.duplicate(true), "result": response.duplicate(true), "before": before, "after": state.duplicate(true), "diff":state_diff(before,state), "event":event_before,"node":node_before,"step":history.size()})
+	history.append({"command": command.duplicate(true), "result": response.duplicate(true), "before": before, "after": state.duplicate(true), "diff":state_diff(before,state), "event":event_before,"node":node_before,"step":history_step})
+	history_step += 1
+	if history_limit > 0 and history.size() > history_limit: history.pop_front()
 	return response
 
 func _act(command: Dictionary) -> Dictionary:

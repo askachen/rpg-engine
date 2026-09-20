@@ -44,6 +44,6 @@ python tools/verify_windows.py builds/<release-file>-windows.zip
 
 GitHub Actions 的 **Windows release reproduction** 為手動工作流程：乾淨 Windows runner 安裝鎖定工具，兩個包各建置兩次，比對 ZIP 路徑／內容，保存 ZIP 與建置日誌。遠端工作流程驗證建置；互動桌面的黑箱驗收由本機執行，兩者不互相取代。
 
-## 後續驗收
+## 平台驗收
 
-本批另修正長對話／長選項可捲動，並加入 4K、16:10、21:9 設定選項。只完成雙語最大字體長文的相關測試，**不是完成 S7-03**。完整解析度／DPI／語系矩陣與 S7-04 大內容、資源生命週期、效能基準仍待下一批。
+S7-03／04 已補完：96 組解析度／語系／字級／DPI 像素模型、兩款正式 EXE 原生操作及 FPS、大內容與資源生命週期。重跑方式、效能門檻與系統 DPI 支援邊界見 [平台驗收契約](platform-acceptance.md)，結果見 [第二十七批紀錄](acceptance/027-platform-acceptance.md)。

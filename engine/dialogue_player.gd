@@ -143,7 +143,9 @@ func show_line() -> void:
 		body.add_child(line_label)
 	else:
 		line_label = null
-		body.add_child(app.label(app.t(event.title), 26))
+		var heading: Label = app.label(app.t(event.title), 26)
+		heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		body.add_child(heading)
 		for choice in event.choices:
 			var option: Button = app.button(app.t(choice.text), func(): select(choice.id))
 			option.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

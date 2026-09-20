@@ -6,7 +6,7 @@
 
 **S6 已實作並通過本機與 GitHub Actions 四層驗證**：存檔 v2／明確遷移、槽位備份復原／刪除、帶標記的開發指令、可重播防卡關情境、有界可達性與分層 CI。使用方式及限制見 [S6 可靠性契約](docs/reliability.md)。GitHub Actions 的遠端結果以各 commit 檢查為準。
 
-**S7-01／02：已加入真正的 Windows EXE／PCK 發行包**。鎖定工具鏈、隔離建置、可重現 ZIP；numeric_lab／fog_harbor 已以正式執行檔驗證中文路徑、多槽存讀檔、重啟續玩及影片播放。建置方式見 [Windows 發行契約](docs/windows-release.md)。S7-03／04 完整解析度／DPI 矩陣與效能壓力測試、S8 正式交付仍待完成。
+**S7 Windows 發行品質已完成實作與本機驗收**：正式 EXE／PCK、96 組解析度／雙語／字級／DPI 像素模型、兩款正式產物的原生滑鼠測試，以及大型內容與資源生命週期測試。見 [Windows 發行契約](docs/windows-release.md)、[平台驗收契約](docs/platform-acceptance.md)及[本批紀錄](docs/acceptance/027-platform-acceptance.md)。實機 DPI 驗證為 200% 系統縮放，未宣稱跨螢幕 DPI 熱切換。S8 團隊正式交付仍待完成。
 
 ## 其他 AI：先用這個流程評估
 
@@ -67,7 +67,7 @@ python tools/dev.py check --game ai_review --timeout 600 --json
 
 `test` 驗證指定路線的每一步符合 expect_result（省略為成功）、最終 expect 欄位完全相等且沒有未結束事件。它**不證明任意選項排列都能通關**；check 也不取代自製遊戲的通關路線。Schema 拒絕未知測試操作與直接狀態注入。Godot 是唯一正式玩法規則，Python 不另寫一套規則。
 
-`build` 輸出 `builds/<game-id>-<hash>-source.zip`，內含 project.godot、合併內容及素材雜湊清單。解壓後用 Godot 匯入並啟動 project.godot。**這不是 Windows .exe，也不是完整開發 SDK**；不含 Python 工具或 Godot。Windows 發行匯出與 Steam 驗收仍在 S7。來源相同時產物可重現，不覆寫不同內容的既有產物。
+`build` 輸出 `builds/<game-id>-<hash>-source.zip`，內含 project.godot、合併內容及素材雜湊清單。解壓後用 Godot 匯入並啟動 project.godot。**這不是 Windows .exe，也不是完整開發 SDK**；不含 Python 工具或 Godot。Windows EXE 請使用 `release`（見上述發行契約）；Steam 商店／平台整合不在此來源包驗收範圍。來源相同時產物可重現，不覆寫不同內容的既有產物。
 
 ## 已有玩法與操作
 

@@ -21,9 +21,9 @@ jobs:
         shell: pwsh
         run: |
           foreach ($game in @('numeric_lab', 'fog_harbor')) {
-            $first = python tools/dev.py release --game $game --version 0.7.0 --timeout 600 --json | ConvertFrom-Json
+            $first = python tools/dev.py release --game $game --version 0.7.1 --timeout 600 --json | ConvertFrom-Json
             if (-not $first.ok) { throw ($first | ConvertTo-Json -Depth 10) }
-            $second = python tools/dev.py release --game $game --version 0.7.0 --timeout 600 --json | ConvertFrom-Json
+            $second = python tools/dev.py release --game $game --version 0.7.1 --timeout 600 --json | ConvertFrom-Json
             if (-not $second.ok) { throw ($second | ConvertTo-Json -Depth 10) }
             if ($first.artifacts.windows_bundle -ne $second.artifacts.windows_bundle) { throw "Nonreproducible $game release" }
           }

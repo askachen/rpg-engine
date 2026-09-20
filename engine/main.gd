@@ -45,6 +45,7 @@ var transition_layer: ColorRect
 var pointer_position := Vector2(-100, -100)
 var collapsed_routes: Dictionary = {}
 var quit_confirmation_open := false
+var event_markers: Dictionary = {}
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -162,6 +163,10 @@ func start_new_game() -> void:
 		add_child(story)
 
 func show_game() -> void:
+	event_markers.clear()
+	for target in core.map_objects():
+		if target.kind in ["npc", "inspect"]:
+			event_markers[target.id] = core.target_event_available(target)
 	sync_gallery_unlocks()
 	screen = "game"
 	clear_ui()

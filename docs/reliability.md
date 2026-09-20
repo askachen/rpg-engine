@@ -67,7 +67,7 @@ python tools/dev.py play --game numeric_lab --dev
 
 set 只支援有定義的 stats／variables，遵守數值上下限；teleport 只接受已定義 spawn 並檢查可走；event 是指定事件的正式啟動，仍遵守入口、條件與 route，沒有默默強制發獎。正常演出與回想期間不能重入。
 
-成功修改／指定啟動後，HUD 與存檔摘要標記 `[DEV]`，存檔 `developer: true` 持久保留；開新局才清除。這不是反作弊機制。release build 由 `OS.has_feature("debug")` 硬性封鎖修改，release 也不顯示診斷面板；測試另以 `--release` 在 editor binary 模擬封鎖。真正 Windows release 產物驗收仍在 S7。
+成功修改／指定啟動後，HUD 與存檔摘要標記 `[DEV]`，存檔 `developer: true` 持久保留；開新局才清除。這不是反作弊機制。release build 由 `OS.has_feature("debug")` 硬性封鎖修改，release 也不顯示診斷面板；測試另以 `--release` 在 editor binary 模擬封鎖。真正 Windows release 產物已在 S7 驗證，見 [發行契約](windows-release.md)。
 
 ## 防卡關情境與重播
 
@@ -113,3 +113,7 @@ python tools/dev.py check --game numeric_lab --suite full --timeout 600 --json
 `static`、`rules`、`ui`、`media` 為互斥層，`fast` 是 static＋rules，`full` 是全部。選層是明確縮小範圍，不假装完成全部驗收；報告 data.suite 指明範圍。工具依賴不存在或子程序失敗會報錯，沒有 silent skip。UI 層採原生 headless 滑鼠流程，GPU 畫面仍另行實跑。
 
 [GitHub Actions](../.github/workflows/engine.yml) 在乾淨 Windows checkout 以四個獨立 job 執行各層，鎖定 Python／Godot／Python 套件版本；保留 JUnit、Godot／pytest 日誌、情境結果與已產生的截圖。沒有共享並行匯入同一個 checkout。工作流程的遠端成功與否以該 commit 的 Actions 結果為準；本機完整回歸不能冒充遠端 CI 成功。
+
+### 即時診斷紀錄容量
+
+S7 起遊戲中的 `core.history` 保留最近 256 筆，步驟序號持續遞增；新遊戲重設。這不影響存檔中的事件完成、行動與持久計數。離線 `test_runner` 設 `history_limit=0`，仍輸出完整情境追蹤。

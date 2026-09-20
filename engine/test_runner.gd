@@ -11,6 +11,7 @@ func _initialize() -> void:
 		return
 	var scenario = JSON.parse_string(FileAccess.get_file_as_string(args[0]))
 	var core = Core.new()
+	core.history_limit = 0
 	if not core.load_content(scenario.get("content", preload("res://engine/game_bootstrap.gd").content_path())):
 		quit(2)
 		return

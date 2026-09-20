@@ -67,12 +67,12 @@ func draw(view: Control, surface: Control) -> void:
 			match target.kind:
 				"npc":
 					draw_actor(view, target.character, target.position, unit)
-					draw_chip(view, view.t(target.character) + ("  !" if view.core.target_event_available(target) else "  ···"), center + Vector2(0, -unit * 1.7))
+					draw_chip(view, view.t(target.character) + ("  !" if view.event_markers.get(target.id,false) else "  ···"), center + Vector2(0, -unit * 1.7))
 				"pickup": draw_icon(view, "pickup", Rect2(center - Vector2(unit * 0.38, unit * 0.38), Vector2.ONE * unit * 0.76))
 				"switch": draw_icon(view, "switch", Rect2(center - Vector2(unit * 0.4, unit * 1.5), Vector2(unit * 0.8, unit * 1.85)))
 				"exit":
 					draw_chip(view, "› " + view.t(target.label), center + Vector2(0, -18), Color("d7c391") if view.core.target_visible(target) else Color("9c8d7c"))
-				"inspect": draw_chip(view, view.t(target.label) + ("  !" if view.core.target_event_available(target) else "  ···"), center + Vector2(0, -18))
+				"inspect": draw_chip(view, view.t(target.label) + ("  !" if view.event_markers.get(target.id,false) else "  ···"), center + Vector2(0, -18))
 				"shop": draw_chip(view, view.t("counter") + "  ···", center + Vector2(0, 20))
 	for cell in view.walking:
 		canvas.draw_circle(view.ORIGIN + (Vector2(cell) + Vector2(0.5, 0.5)) * unit, 3, Color(1, 0.94, 0.7, 0.55))
