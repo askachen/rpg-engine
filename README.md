@@ -6,6 +6,8 @@
 
 ## 其他 AI：先用這個流程評估
 
+**Homestay 需求排程更新**：新增 [S5 內容能力計畫](docs/s5-content-capabilities.md)，先補 P0 通用數值、日期比較、地點／互動上下文與開場／物件完整事件，再補 P1 條件樹、計數、提示、庫存、回想及 Extra Day。這些是**待開發能力**，目前不可直接依此匯入正式內容。原 S5／S6／S7 順延為 S6（存檔與測試）／S7（Windows）／S8（團隊交付）；詳細任務及門檻見 [TASKS.md](TASKS.md)。
+
 請從 repo 根目錄執行。不要先修改 `engine/`；先用新內容包验证可重用性。
 
 環境：Windows、Python 3.10+、Godot 4.7.2 標準版（非 .NET 版即可）。將 Godot 解壓到 `.tools/godot/`，或設定 `GODOT_BIN` 為 Godot console 執行檔的完整路徑。此 repo 不附 Python、Godot 或匯出範本。
@@ -57,7 +59,7 @@ python tools/dev.py check --game ai_review --timeout 240 --json
 
 `test` 驗證指定路線的每一步成功、最終 expect 欄位完全相等且沒有未結束事件。它**不證明任意選項排列都能通關**；check 也不取代自製遊戲的通關路線。Schema 拒絕未知測試操作與直接狀態注入。Godot 是唯一正式玩法規則，Python 不另寫一套規則。
 
-`build` 輸出 `builds/<game-id>-<hash>-source.zip`，內含 project.godot、合併內容及素材雜湊清單。解壓後用 Godot 匯入並啟動 project.godot。**這不是 Windows .exe，也不是完整開發 SDK**；不含 Python 工具或 Godot。Windows 發行匯出與 Steam 驗收仍在 S6。來源相同時產物可重現，不覆寫不同內容的既有產物。
+`build` 輸出 `builds/<game-id>-<hash>-source.zip`，內含 project.godot、合併內容及素材雜湊清單。解壓後用 Godot 匯入並啟動 project.godot。**這不是 Windows .exe，也不是完整開發 SDK**；不含 Python 工具或 Godot。Windows 發行匯出與 Steam 驗收仍在 S7。來源相同時產物可重現，不覆寫不同內容的既有產物。
 
 ## 已有玩法與操作
 

@@ -40,4 +40,4 @@ Open `asset_packs/cozy_home/index.html` for an offline searchable visual catalog
 
 Provenance: generated for this project, 2026-09-20, using built-in imagegen;
 no third-party reference images supplied. This record is not independent rights
-clearance; project-wide redistribution/release review remains tracked in S7.
+clearance; project-wide redistribution/release review remains tracked in S8.

@@ -51,11 +51,11 @@ python tools/dev.py check --game demo
 
 `--game` 接受 games/ 下的資料夾名稱或 JSON 檔案路徑；省略時為 demo。play 在啟動前驗證與匯入資源。list／validate 不需要 Godot。未知內容路徑退出 2，內容驗證失敗退出 1，成功退出 0。
 
-check 的範圍是「選定內容靜態驗證＋Godot 載入＋共用引擎／demo 回歸」，不會替任意遊戲自動建立通關路線。new、test 的 --scenario、統一 --json 診斷與 Godot 原始專案 build 已加入；協定見 [CLI 說明](cli.md)。Windows exe 匯出驗收仍在 S6。editor 可以接收入口參數，但不會永久改寫 project.godot 預設；要確保測試選定遊戲請使用 play。
+check 的範圍是「選定內容靜態驗證＋Godot 載入＋共用引擎／demo 回歸」，不會替任意遊戲自動建立通關路線。new、test 的 --scenario、統一 --json 診斷與 Godot 原始專案 build 已加入；協定見 [CLI 說明](cli.md)。Windows exe 匯出驗收仍在 S7。editor 可以接收入口參數，但不會永久改寫 project.godot 預設；要確保測試選定遊戲請使用 play。
 
 ## 目前限制
 
 - Draft 2020-12 Schema 已加入，結構錯誤可定位到來源檔案及欄位；既有語意 validator 的引用／玩法錯誤主要輸出 ID，素材與語系診斷仍持續擴充。
 - Python 驗證會拒絕同檔重複 JSON 鍵。Godot 原生 JSON parser 不提供此診斷，所以正式內容應經 CLI 驗證後使用；跨檔重複 ID 由兩邊都檢查。
 - theme_preview 為配置預覽，共用 demo 美術及測試字型，非獨立可發行內容包。
-- Windows 匯出時所有來源 JSON 都要打包；該發行驗收在 S6，不能以本機 FileAccess 載入成功代替。
+- Windows 匯出時所有來源 JSON 都要打包；該發行驗收在 S7，不能以本機 FileAccess 載入成功代替。

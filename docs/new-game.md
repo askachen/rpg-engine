@@ -17,7 +17,7 @@ python tools/dev.py play --game my_story
 - assets 中有原始 PNG 及提示詞副本，不引用 games/demo 資產路徑；仍需要共用 engine。
 - tests/walkthrough.json 與啟動／編輯 README。
 
-產生器目前從隨引擎提供的 demo 取用共通翻譯、主題及原始美術，建立全新的短流程；不要刪掉這些範本來源再執行 new。建立完成後的新內容包不需 demo 資料即可載入。正式範本封裝與授權清單仍需在 S7 整理。
+產生器目前從隨引擎提供的 demo 取用共通翻譯、主題及原始美術，建立全新的短流程；不要刪掉這些範本來源再執行 new。建立完成後的新內容包不需 demo 資料即可載入。正式範本封裝與授權清單仍需在 S8 整理。
 
 ## 試玩
 
@@ -42,4 +42,4 @@ python tools/dev.py play --game my_story
 
 ## 相容性修正
 
-新增 save_migration.reposition_before_version 可配置的舊地圖遷移門檻。demo 配置為 4，保留既有遷移行為；新遊戲預設沒有此設定，因此版本 1 存檔不會被錯認為 demo 舊版並移回入口。這只是既有遷移規則的隔離，完整版本遷移仍在 S5。
+新增 save_migration.reposition_before_version 可配置的舊地圖遷移門檻。demo 配置為 4，保留既有遷移行為；新遊戲預設沒有此設定，因此版本 1 存檔不會被錯認為 demo 舊版並移回入口。這只是既有遷移規則的隔離，完整版本遷移仍在 S6。

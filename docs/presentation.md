@@ -41,7 +41,7 @@
 
 標題 layers 是由後到前的順序。rect 使用 1920×1080 設計座標 `[x,y,width,height]`，可使用角色、Logo 或背景圖片；圖層目前在文字 UI 下方。省略 layers 時不再出現任何 demo 人物。背景仍有通用雙圓裝飾，可用透明 title_outer／title_inner 隱藏。
 
-字型可配置 TTF／OTF 或 Godot Font `.tres`，需列入 assets。省略時使用 Godot 備援字型。測試中的 SystemFont 資源只驗證切換機制，不是可攜式字型交付；正式遊戲應附具備適當授權的字型，相關清單在 S7-03。字型必須涵蓋目標語言，跨系統字型一致性屬 S6 驗收。
+字型可配置 TTF／OTF 或 Godot Font `.tres`，需列入 assets。省略時使用 Godot 備援字型。測試中的 SystemFont 資源只驗證切換機制，不是可攜式字型交付；正式遊戲應附具備適當授權的字型，相關清單在 S8-03。字型必須涵蓋目標語言，跨系統字型一致性屬 S7 驗收。
 
 可配置 palette：background、text、panel、border、button、hover、accent、muted、success、warning、shade、title_outer、title_inner。使用 RGB 或 RGBA 十六進位字串；未指定的鍵使用框架預設值。角色名稱色仍由 characters 的 color 定義。這是 UI 主題，並不會重新上色所有地圖素材。
 

@@ -52,6 +52,6 @@ S2 的 build 先驗證內容、Godot 匯入與原生素材，再產生 Godot 原
 
 資源依賴必須全部列入 assets；不自動遞迴解析自訂 .tres 的外部資源。加入此類素材時應驗證解壓後可啟動。產物含 build-manifest.json 的 SHA-256 清單，ZIP 使用固定時間戳與排序，檔名包含內容雜湊；同內容重建回傳相同產物，不覆寫不同檔案。
 
-解壓後使用 Godot 4.7.2 匯入 project.godot 即可啟動。Python 編輯／驗證工具仍需完整 repo。S6 另處理 Windows executable、匯出範本與發行驗收。
+解壓後使用 Godot 4.7.2 匯入 project.godot 即可啟動。Python 編輯／驗證工具仍需完整 repo。S7 另處理 Windows executable、匯出範本與發行驗收。
 
 每次 test/check 使用獨立 run 目錄和 APPDATA，不讀手動試玩存檔。匯入快取仍屬 checkout 共用；請勿在同 checkout 並行跑匯入。builds/、test-results/、.tools/ 不提交到 Git。

@@ -1,6 +1,6 @@
 # Runtime 模組與擴充契約
 
-此為開發版 API，尚未承諾穩定 ABI 或任意版本相容。S1-04 建立責任邊界；S2 補正式內容契約，S7 補版本／升級政策。
+此為開發版 API，尚未承諾穩定 ABI 或任意版本相容。S1-04 建立責任邊界；S2 補正式內容契約，S8 補版本／升級政策。
 
 | 模組 | 責任／依賴 |
 | --- | --- |
@@ -48,7 +48,7 @@ dialogue 的宿主契約為 core、profile、dialogue_log、language、appearanc
 
 查詢接口：checks(conditions)、satisfied(conditions)、route_progress(character)、current_ending()、path_to(Vector2i, interaction)。path_to 只規劃路徑，實際移動仍逐步 act。不得用直接寫 state 代替正常遊玩；具名 fixture 可以在專門的隔離測試中使用。
 
-持久化：core.save_game(path)／load_game(path) 回傳 bool；read_save(path) 回傳有效資料或空字典且不改動當局。SaveSlots 的 save／load_slot／details／latest 管理 0 自動槽、1–6 手動槽。Profiles.read(path, language) 回傳整理後的 profile，write 回傳 bool；完整備份／版本復原仍屬 S5。
+持久化：core.save_game(path)／load_game(path) 回傳 bool；read_save(path) 回傳有效資料或空字典且不改動當局。SaveSlots 的 save／load_slot／details／latest 管理 0 自動槽、1–6 手動槽。Profiles.read(path, language) 回傳整理後的 profile，write 回傳 bool；完整備份／版本復原仍屬 S6。
 
 ## 擴充位置
 

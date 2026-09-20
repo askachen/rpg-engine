@@ -15,7 +15,7 @@
 3. 可供本機測試的匯出模型：`.model3.json`、`.moc3`、PNG 貼圖，以及至少一組 motion3 與 exp3。保留原資料夾結構；作者用的 cmo3／can3 不是執行時入口。
 4. Godot 4.7.2 Windows debug／release 匯出模板。
 
-依賴可放在忽略提交的 `.tools/live2d/`。模型與 SDK 不因技術驗證而自動成為 repo 可再散布素材；正式對外交付與授權整理仍依 S7 處理。
+依賴可放在忽略提交的 `.tools/live2d/`。模型與 SDK 不因技術驗證而自動成為 repo 可再散布素材；正式對外交付與授權整理仍依 S8 處理。
 
 本機已檢查：Godot 可用；Visual Studio 2022 已安裝，但 vswhere 未找到具 `Microsoft.VisualStudio.Component.VC.Tools.x86.x64` 的完整安裝；尚未取得可用 SDK、模型與 addon 路徑；預設 Godot export_templates 目錄未找到可用模板。未修改 Visual Studio 或代替使用者填寫下載資料。
 
